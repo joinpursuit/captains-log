@@ -2,6 +2,8 @@ const express = require("express")
 const logsController = require("./controllers/logsController")
 const app = express()
 
+
+
 app.use("/logs", logsController)
 
 app.get("/", (req, res)=>{
