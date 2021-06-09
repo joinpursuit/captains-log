@@ -6,7 +6,7 @@ const app = express();
 
 // ROUTES
 app.get("/", (req, res) => {
-	res.send("Hi ");
+	res.send("Hi from captain ");
 });
 
 // 404 PAGE
