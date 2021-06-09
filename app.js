@@ -16,8 +16,57 @@ app.get("/", (req, res) => {
 	res.json(logsArray);
 });
 
+// /logs?order=asc
+app.get("/logs/entry?", (req, res) => {
+	const { order } = req.query;
+	if (order === "asc") {
+		res.json(
+			logsArray
+				.map((entry) => {
+					return entry.post;
+				})
+				.sort()
+		);
+	}
+});
+
+// /logs?order=desc
+app.get("/logs/entry?", (req, res) => {
+	const { order } = req.query;
+	if (order === "asc") {
+		res.json(
+			logsArray
+				.map((entry) => {
+					return entry.post;
+				})
+				.sort()
+		);
+	}
+});
+
+// order the captains
+app.get("/logs/captain?", (req, res) => {
+	const { order } = req.query;
+	if (order === "asc") {
+		res.json(
+			logsArray
+				.map((captain) => {
+					return captain.captainName;
+				})
+				.sort()
+		);
+	} else {
+		res.json(
+			logsArray.map((captain) => {
+				return captain.captainName;
+			})
+		);
+	}
+});
+// localhost:3004/logs/captain?order=asc
+
 // 404 PAGE
-app.get("*", (req, res) => {
+http: app.get("*", (req, res) => {
 	res.status(404).send("Page not Found!");
 });
 
