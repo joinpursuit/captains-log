@@ -5,7 +5,7 @@ app.get("/", (req, res) => {
     res.send('welcome to the captain\'s log')
 })
 
-const index = require('./controllers/index');
+const index = require('./controllers/logsController.js');
 app.use('/logs', index)
 
 app.get("*", (req, res) => {
