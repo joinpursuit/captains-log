@@ -3,6 +3,12 @@ const logArray = require("../models/log.js");
 
 logs.get("/", (req, res) => {
   const { order, mistakes, lastCrisis } = req.query;
+
+  const lastCrisisArray = lastCrisis.split('');
+  const numberCheck = Number(lastCrisisArray.filter(lc => {
+    return !isNaN(lc) === true;
+  }).join(''));
+
   if(order === 'asc') {
     res.json(
       logArray.sort((a,b) => {
@@ -43,22 +49,22 @@ logs.get("/", (req, res) => {
         return log.mistakesWereMadeToday === false;
       })
     );
-  } else if(lastCrisis === 'gt10') {
+  } else if(lastCrisis.includes("gte")) {
     res.json(
       logArray.filter((log) => {
-        return log.daysSinceLastCrisis > 10;
+        return log.daysSinceLastCrisis >= numberCheck;
       })
     );
-  } else if(lastCrisis === 'gte20') {
+  } else if(lastCrisis.includes("gt")) {
     res.json(
       logArray.filter((log) => {
-        return log.daysSinceLastCrisis >= 20;
+        return log.daysSinceLastCrisis > numberCheck;
       })
     );
-  } else if(lastCrisis === 'lte5') {
+  } else if(lastCrisis.includes("lte")) {
     res.json(
       logArray.filter((log) => {
-        return log.daysSinceLastCrisis <= 5;
+        return log.daysSinceLastCrisis <= numberCheck;
       })
     );
   } else {
