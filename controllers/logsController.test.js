@@ -1,20 +1,19 @@
 const request = require("supertest");
-
-const logs = require("./logsController");
+const app = require('../app');
+// const logs = require("./logsController");
 let logsArray = require("../models/log.js");
 const app = require("../app.js");
 
 describe("logs", () => {
   let originalLogsArray = logsArray;
-
+  
   beforeEach(() => {
     logsArray = originalLogsArray;
   });
-
+  
   describe("/", () => {
     it("sends the logs array", async () => {
-      const response = await request(app).get("/logs/");
-
+      const response = await request(app).get("/logs");
       expect(JSON.parse(response.text)).toEqual(logsArray);
     });
   });

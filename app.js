@@ -1,11 +1,16 @@
-const express = require("express")
-const app = express()
-const logsController = require("./controllers/logsController")
+const express = require("express");
+const app = express();
 
-app.use("/logs", logsController)
+const logsController = require("./controllers/logsController.js");
 
-app.get("/", (req,res) => {
-    res.send("Welcome to the Captain's Log")
-})
+app.use("/logs", logsController);
 
-module.exports = app
+app.get("/", (req, res) => {
+  res.send("welcome to the captain's log");
+});
+
+app.get("*", (req, res) => {
+  res.status(404).send("Page not found");
+});
+
+module.exports = app;
