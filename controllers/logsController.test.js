@@ -1,6 +1,6 @@
 const request = require("supertest");
-
-const logs = require("./logsController");
+const app = require("../app.js");
+// const logs = require("./logsController");
 let logsArray = require("../models/log.js");
 
 describe("logs", () => {
@@ -12,7 +12,7 @@ describe("logs", () => {
 
   describe("/", () => {
     it("sends the logs array", async () => {
-      const response = await request(logs).get("/");
+      const response = await request(app).get("/logs");
 
       expect(JSON.parse(response.text)).toEqual(logsArray);
     });
@@ -21,13 +21,13 @@ describe("logs", () => {
   describe("/:arrayIndex", () => {
     describe("GET", () => {
       it("sends the corresponding log when a valid index is given", async () => {
-        const response = await request(logs).get("/1");
+        const response = await request(app).get("/logs/1");
 
         expect(JSON.parse(response.text)).toEqual(logsArray[1]);
       });
 
       it("sends a redirect when an invalid index is given", async () => {
-        const response = await request(logs).get("/9001");
+        const response = await request(app).get("/logs/9001");
 
         expect(response.redirect).toBe(true);
       });
@@ -38,8 +38,8 @@ describe("logs", () => {
         const newBook = logsArray[3];
 
         await new Promise(resolve => {
-          request(logs)
-            .put("/1")
+          request(app)
+            .put("/logs/1")
             .send(newBook)
             .set("Accept", "application/json")
             .expect("headers.location", "/logs/1")
@@ -56,7 +56,7 @@ describe("logs", () => {
         const newBook = logsArray[3];
 
         await new Promise(resolve => {
-          request(logs)
+          request(app)
             .post("/1")
             .send(newBook)
             .set("Accept", "application/json")
@@ -74,8 +74,8 @@ describe("logs", () => {
         const nextBook = logsArray[2];
         const originalLength = logsArray.length;
         await new Promise(resolve => {
-          request(logs)
-            .delete("/1")
+          request(app)
+            .delete("/logs/1")
             .set("Accept", "application/json")
             .expect("headers.location", "/logs")
             .expect("statusCode", 303)
