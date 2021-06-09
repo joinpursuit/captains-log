@@ -5,6 +5,10 @@ const captainLogs = require('../models/log.js')
 logs.get('/', (req, res) => {
   const query = req.query
 
+if(req.url === '/'){
+  res.json(captainLogs)
+}else {
+
   if (query.order === 'asc') {
     let sorted = captainLogs.sort((a, b) =>
       a.title > b.title ? 1 : b.title > a.title ? -1 : 0
@@ -44,6 +48,21 @@ logs.get('/', (req, res) => {
       res.status(404).send('Not Fund.!')
       break
   }
+}
 })
+
+logs.get("/:index", (req, res) =>{ 
+  const { index } = req.params
+  if (captainLogs[index]){ 
+    res.status(200).json(captainLogs[index])
+   }else{ 
+     res.redirect('/9001')
+    }
+})
+
+logs.post('/', (req, res) =>{ 
+  captainLogs.push(req.body)
+  res.status(200).json(captainLogs[captainLogs.length-1])
+ })
 
 module.exports = logs
