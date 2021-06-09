@@ -1,12 +1,8 @@
-// const express = require("express");
-// const logs = express.Router();
 const logs = require("express").Router();
 const logArray = require("../models/log.js");
 
 logs.get("/", (req, res) => {
   const { order, mistakes, lastCrisis } = req.query;
-  // console.log(lastCrisis)
-
   if(order === 'asc') {
     res.json(
       logArray.sort((a,b) => {
