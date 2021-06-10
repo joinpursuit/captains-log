@@ -14,7 +14,6 @@ module.exports = [
     mistakesWereMadeToday: false,
     daysSinceLastCrisis: 1230,
   },
-
   {
     captainName: "Hook",
     title: "Ticking",
