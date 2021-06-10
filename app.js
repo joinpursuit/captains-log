@@ -1,7 +1,12 @@
 const express = require("express");
-const logsController = require("./controllers/logsController.js");
 
 const app = express();
+const logsController = require("./controllers/logsController.js");
+
+app.use((req, res, next) => {
+  console.log(`[development] Middleware is running!`);
+  next();
+});
 
 app.use(express.json());
 
