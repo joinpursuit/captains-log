@@ -15,9 +15,9 @@ logs.get("/", (req, res) => {
     res.json(logsArray);
 });
 
-logs.post("/:arrayIndex", (req, res) => {
-    logsArray.push(req.body.arrayIndex);
-    console.log(req.body)
+logs.post("/", (req, res) => {
+    logsArray.push(req.body);
+    console.log
     res.json(logsArray[logsArray.length - 1])
 })
 
