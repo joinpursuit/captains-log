@@ -46,4 +46,28 @@ logs.get("/", (req, res) => {
   }
 });
 
+logs.get("/:id", (req, res)=>{
+  const log= logsArray[req.params.id]
+  if(log) {
+  res.json(log)
+} else {
+  res.redirect('/404')
+}
+})
+
+
+logs.post("/", (req, res)=>{
+  logsArray.push(req.body)
+  console.log(req.body)
+  const newBook = logsArray.length-1
+  
+  // res.redirect("/bookmarks/3")
+  // res.json(logsArray[logsArray.length-1])
+  res.json(logsArray[newBook])
+  // res.json(logsArray)
+  
+  // res.json(bookmarksArray)
+})
+
+
 module.exports = logs;
