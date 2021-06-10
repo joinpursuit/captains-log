@@ -1,26 +1,32 @@
 const express = require("express");
-const log = express.Router();
+const logs = express.Router();
 const logsArray = require("../models/log.js")
 
 
-
-
-
-
-
-
-
-log.get("/log", (req, res) => {
+logs.get("/", (req, res) => {
     res.json(logsArray)
 })
-log.get("/:index", (req,res) => {
+logs.get("/:index", (req,res) => {
     const { index } = req.params;
     if(logsArray[index]) {
-        res.status(200).json(logsArray[index - 1]);
+        res.status(200).json(logsArray[index]);
+    } else {
+        res.redirect("/404")
+    }
+})
+logs.post("/", (req, res) => {
+    logsArray.push(req.body);
+    res.json(logsArray[logsArray.length -1]);
+});
+
+logs.delete("/:index", (req, res) => {
+    const { index } = req.params
+    if (logsArray[index]) {
+        res.status(200).json(logsArray.splice(index, 1))
     } else {
         res.redirect("/404")
     }
 })
 
 
-module.exports = log
+module.exports = logs
