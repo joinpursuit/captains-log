@@ -22,13 +22,13 @@ describe("logs", () => {
   describe("/:arrayIndex", () => {
     describe("GET", () => {
       it("sends the corresponding log when a valid index is given", async () => {
-        const response = await request(app).get("/1");
+        const response = await request(app).get("/logs/1");
 
         expect(JSON.parse(response.text)).toEqual(logsArray[1]);
       });
 
       it("sends a redirect when an invalid index is given", async () => {
-        const response = await request(app).get("/9001");
+        const response = await request(app).get("/logs/9001");
 
         expect(response.redirect).toBe(true);
       });
@@ -40,7 +40,7 @@ describe("logs", () => {
 
         await new Promise(resolve => {
           request(logs)
-            .put("/1")
+            .put("/logs/1")
             .send(newBook)
             .set("Accept", "application/json")
             .expect("headers.location", "/logs/1")
@@ -58,7 +58,7 @@ describe("logs", () => {
 
         await new Promise(resolve => {
           request(logs)
-            .post("/1")
+            .post("/logs/1")
             .send(newBook)
             .set("Accept", "application/json")
             .expect("headers.location", "/logs")
@@ -76,7 +76,7 @@ describe("logs", () => {
         const originalLength = logsArray.length;
         await new Promise(resolve => {
           request(app)
-            .delete("/1")
+            .delete("/logs/1")
             .set("Accept", "application/json")
             .expect("headers.location", "/logs")
             .expect("statusCode", 303)

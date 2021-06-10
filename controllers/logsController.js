@@ -21,4 +21,20 @@ logs.get("/", (req ,res)=>{
     res.json(logArray)
 })
 
+logs.get("/:arrayIndex",(req,res)=>{
+    const arrayIndex =  req.params.arrayIndex;
+    if(logArray[arrayIndex]){
+        res.json(logArray[arrayIndex])
+    }else{
+        res.redirect("/404")
+    }
+})
+
+logs.post("/",(req,res)=>{
+    console.log(req.body)
+    logArray.push(req.body) 
+    res.json(logArray)
+    //res.redirect(`/logs/${logArray[logArray.length-1]}`)
+})
+
 module.exports = logs
