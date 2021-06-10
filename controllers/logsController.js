@@ -57,16 +57,14 @@ logs.get("/:id", (req, res)=>{
 
 
 logs.post("/", (req, res)=>{
-  logsArray.push(req.body)
-  console.log(req.body)
-  const newBook = logsArray.length-1
-  
-  // res.redirect("/bookmarks/3")
-  // res.json(logsArray[logsArray.length-1])
-  res.json(logsArray[newBook])
-  // res.json(logsArray)
-  
-  // res.json(bookmarksArray)
+  if(typeof(req.body.captainName)=== "string" && typeof(req.body.title) === "string" && typeof(req.body.post)==="string" && typeof(req.body.mistakesWereMadeToday)==="boolean" && typeof(req.body.daysSinceLastCrisis)==="number") {
+    logsArray.push(req.body)
+    const newBook = logsArray.length-1
+    res.json(logsArray[newBook])
+  } else {
+     res.send("Error! Invalid input")
+  }
+  // console.log(req.body)
 })
 
 
