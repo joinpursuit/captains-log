@@ -2,9 +2,7 @@ const express = require('express')
 const logs = express.Router()
 const logsArray = require("../Models/logs.js")
 
-logs.get("/", (req, res)=>{
-    res.json(logsArray)
-})
+
 logs.get("/:arrayIndex", (req,res)=>{
     const {arrayIndex} = req.params
     if(logsArray[arrayIndex]){
@@ -12,6 +10,9 @@ logs.get("/:arrayIndex", (req,res)=>{
     }else{
         res.redirect('/404')
     }
+})
+logs.get("/", (req, res)=>{
+    res.json(logsArray)
 })
 logs.post("/", (req, res) => {
     logsArray.push(req.body);
