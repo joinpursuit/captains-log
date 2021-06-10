@@ -1,9 +1,9 @@
-const logs = [
-    {
-      captainName: "Picard",
-      title: "Stars",
-      post: "Today I contemplated that there sure are a lot of stars in the sky",
-      mistakesWereMadeToday: true,
-      daysSinceLastCrisis: 100,
-    }
-    ]
+const express = require('express')
+const logs = express.Router()
+const logsArray = require("../models/log.js")
+
+logs.get("/", (req, res)=>{
+    res.json(logsArray)
+})
+
+module.exports = logs
