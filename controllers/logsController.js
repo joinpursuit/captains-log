@@ -7,15 +7,19 @@ logs.get("/:id", (req, res) => {
         console.log(logsArray[id])
         res.json(logsArray[id])
     } else {
-    res.status(404).send("Page Not Found!!!")
+    res.redirect("/*")
     }
 })
+
 
 logs.get("/", (req, res) => {
     res.json(logsArray);
 });
 
-
+logs.post("/", (req, res) => {
+    logsArray.push(req.body);
+    res.json(logsArray[logsArray.length - 1])
+})
 
 
 module.exports = logs

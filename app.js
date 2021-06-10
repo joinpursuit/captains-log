@@ -4,6 +4,10 @@ const logsController = require("./controllers/logsController");
 const app = express();
 
 app.use("/logs", logsController);
+app.use((req, res, next) => {
+    console.log("This code runs for every request");
+    next();
+});
 
 app.get("/", (req, res) => {
   res.send("Welcome to the captain's log");
