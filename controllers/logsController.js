@@ -4,10 +4,13 @@ const logsArray = require("../models/log");
 logs.get("/", (req, res) => {
   const { order, mistakes, lastCrisis } = req.query;
   if (order === "asc") {
-    res.send(logsArray.sort());
+    res.json(
+      logsArray.sort((a, b) => (a.captainName > b.captainName ? 1 : -1))
+    );
   } else if (order === "desc") {
-    logsArray.sort();
-    res.send(logsArray.reverse());
+    res.json(
+      logsArray.sort((a, b) => (a.captainName > b.captainName ? -1 : 1))
+    );
   } else if (mistakes === "true") {
     res.json(
       logsArray.filter((log) => {
