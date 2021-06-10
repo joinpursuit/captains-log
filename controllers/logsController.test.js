@@ -38,7 +38,7 @@ describe("logs", () => {
 
         await new Promise(resolve => {
           request(app)
-            .put("/1")
+            .put("/logs/1")
             .send(newBook)
             .set("Accept", "application/json")
             .expect("headers.location", "/logs/1")
@@ -56,7 +56,7 @@ describe("logs", () => {
 
         await new Promise(resolve => {
           request(app)
-            .post("/1")
+            .post("/logs/3")
             .send(newBook)
             .set("Accept", "application/json")
             .expect("headers.location", "/logs")
@@ -64,7 +64,7 @@ describe("logs", () => {
             .end(resolve);
         });
 
-        expect(logsArray[1]).toEqual(newBook);
+        expect(logsArray[3]).toEqual(newBook);
       });
     });
 
@@ -74,7 +74,7 @@ describe("logs", () => {
         const originalLength = logsArray.length;
         await new Promise(resolve => {
           request(app)
-            .delete("/1")
+            .delete("/logs/1")
             .set("Accept", "application/json")
             .expect("headers.location", "/logs")
             .expect("statusCode", 303)

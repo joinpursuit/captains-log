@@ -1,17 +1,34 @@
 const logs = require("express").Router();
-const logArray = require("../models/log.js");
+const logsArray = require("../models/log.js");
+
+logs.post("/", (req, res) => {
+  logsArray.push(req.body);
+  res.json(logsArray[logsArray.length - 1]);
+});
+
+logs.get("/:id", (req, res) => {
+  const {id} = req.params;
+  if (logsArray[id]) {
+    res.json(logsArray[id]);
+  } else {
+    res.redirect("/404");
+  }
+});
 
 logs.get("/", (req, res) => {
   const { order, mistakes, lastCrisis } = req.query;
 
-  const lastCrisisArray = lastCrisis.split('');
-  const numberCheck = Number(lastCrisisArray.filter(lc => {
-    return !isNaN(lc) === true;
-  }).join(''));
+  let numberCheck;
+  if(lastCrisis){
+    const lastCrisisArray = lastCrisis.split('');
+    numberCheck = Number(lastCrisisArray.filter(lc => {
+      return !isNaN(lc) === true;
+    }).join(''));
+  }
 
   if(order === 'asc') {
     res.json(
-      logArray.sort((a,b) => {
+      logsArray.sort((a,b) => {
         let nameA = a.captainName;
         let nameB = b.captainName;
         if(nameA < nameB){
@@ -25,7 +42,7 @@ logs.get("/", (req, res) => {
     )
   } else if(order === 'desc') {
     res.json(
-      logArray.sort((a,b) => {
+      logsArray.sort((a,b) => {
         let nameA = a.captainName;
         let nameB = b.captainName;
         if(nameA > nameB){
@@ -39,36 +56,42 @@ logs.get("/", (req, res) => {
     )
   } else if (mistakes === "true") {
     res.json(
-      logArray.filter((log) => {
+      logsArray.filter((log) => {
         return log.mistakesWereMadeToday === true;
       })
     );
   } else if (mistakes === "false") {
     res.json(
-      logArray.filter((log) => {
+      logsArray.filter((log) => {
         return log.mistakesWereMadeToday === false;
       })
     );
-  } else if(lastCrisis.includes("gte")) {
+  } else if(lastCrisis && lastCrisis.includes("gte")) {
     res.json(
-      logArray.filter((log) => {
+      logsArray.filter((log) => {
         return log.daysSinceLastCrisis >= numberCheck;
       })
     );
-  } else if(lastCrisis.includes("gt")) {
+  } else if(lastCrisis && lastCrisis.includes("gt")) {
     res.json(
-      logArray.filter((log) => {
+      logsArray.filter((log) => {
         return log.daysSinceLastCrisis > numberCheck;
       })
     );
-  } else if(lastCrisis.includes("lte")) {
+  } else if(lastCrisis && lastCrisis.includes("lte")) {
     res.json(
-      logArray.filter((log) => {
+      logsArray.filter((log) => {
         return log.daysSinceLastCrisis <= numberCheck;
       })
     );
+  } else if(lastCrisis && lastCrisis.includes("lt")) {
+    res.json(
+      logsArray.filter((log) => {
+        return log.daysSinceLastCrisis < numberCheck;
+      })
+    );
   } else {
-    res.json(logArray);
+    res.json(logsArray);
   }
 });
 
