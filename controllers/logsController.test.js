@@ -1,7 +1,7 @@
 const request = require("supertest");
 
 const logs = require("../app.js");
-let logsArray = require("controllers/logsController.test.js");
+let logsArray = require("../Models/logs");
 
 describe("logs", () => {
   let originalLogsArray = logsArray;
