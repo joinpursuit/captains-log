@@ -2,12 +2,25 @@ const logs = require("express").Router();
 const logsArray = require("../models/log.js");
 
 logs.post("/", (req, res) => {
-  logsArray.push(req.body);
-  res.json(logsArray[logsArray.length - 1]);
+  const checkTypes = (request) => {
+    if (
+      typeof request.captainName === "string" &&
+      typeof request.title === "string" &&
+      typeof request.post === "string" &&
+      typeof request.mistakesWereMadeToday === "boolean" &&
+      typeof request.daysSinceLastCrisis === "number"
+    ) {
+      logsArray.push(req.body);
+      res.json(logsArray[logsArray.length - 1]);
+    } else {
+      res.status(400).send("One of the parameters you have entered is invalid");
+    }
+  };
+  checkTypes(req.body);
 });
 
 logs.get("/:id", (req, res) => {
-  const {id} = req.params;
+  const { id } = req.params;
   if (logsArray[id]) {
     res.json(logsArray[id]);
   } else {
@@ -19,41 +32,45 @@ logs.get("/", (req, res) => {
   const { order, mistakes, lastCrisis } = req.query;
 
   let numberCheck;
-  if(lastCrisis){
-    const lastCrisisArray = lastCrisis.split('');
-    numberCheck = Number(lastCrisisArray.filter(lc => {
-      return !isNaN(lc) === true;
-    }).join(''));
+  if (lastCrisis) {
+    const lastCrisisArray = lastCrisis.split("");
+    numberCheck = Number(
+      lastCrisisArray
+        .filter((lc) => {
+          return !isNaN(lc) === true;
+        })
+        .join("")
+    );
   }
 
-  if(order === 'asc') {
+  if (order === "asc") {
     res.json(
-      logsArray.sort((a,b) => {
+      logsArray.sort((a, b) => {
         let nameA = a.captainName;
         let nameB = b.captainName;
-        if(nameA < nameB){
-          return -1
+        if (nameA < nameB) {
+          return -1;
         }
-        if(nameA > nameB){
-          return 1
+        if (nameA > nameB) {
+          return 1;
         }
         return 0;
       })
-    )
-  } else if(order === 'desc') {
+    );
+  } else if (order === "desc") {
     res.json(
-      logsArray.sort((a,b) => {
+      logsArray.sort((a, b) => {
         let nameA = a.captainName;
         let nameB = b.captainName;
-        if(nameA > nameB){
-          return -1
+        if (nameA > nameB) {
+          return -1;
         }
-        if(nameA < nameB){
-          return 1
+        if (nameA < nameB) {
+          return 1;
         }
         return 0;
       })
-    )
+    );
   } else if (mistakes === "true") {
     res.json(
       logsArray.filter((log) => {
@@ -66,25 +83,25 @@ logs.get("/", (req, res) => {
         return log.mistakesWereMadeToday === false;
       })
     );
-  } else if(lastCrisis && lastCrisis.includes("gte")) {
+  } else if (lastCrisis && lastCrisis.includes("gte")) {
     res.json(
       logsArray.filter((log) => {
         return log.daysSinceLastCrisis >= numberCheck;
       })
     );
-  } else if(lastCrisis && lastCrisis.includes("gt")) {
+  } else if (lastCrisis && lastCrisis.includes("gt")) {
     res.json(
       logsArray.filter((log) => {
         return log.daysSinceLastCrisis > numberCheck;
       })
     );
-  } else if(lastCrisis && lastCrisis.includes("lte")) {
+  } else if (lastCrisis && lastCrisis.includes("lte")) {
     res.json(
       logsArray.filter((log) => {
         return log.daysSinceLastCrisis <= numberCheck;
       })
     );
-  } else if(lastCrisis && lastCrisis.includes("lt")) {
+  } else if (lastCrisis && lastCrisis.includes("lt")) {
     res.json(
       logsArray.filter((log) => {
         return log.daysSinceLastCrisis < numberCheck;
