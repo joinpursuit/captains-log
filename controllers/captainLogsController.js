@@ -68,20 +68,11 @@ logs.post('/', (req, res) => {
 
 logs.delete('/:index', (req, res) => {
   const { index } = req.params
-  if (index > captainLogs.length-1){ 
-    res.send(400).send("Bad Request.!!")
-   }
-   let logsCopy = [...captainLogs]
-  let delElem = []
-  logsCopy.forEach((log, idx) => {
-    if (idx === parseInt(index)) {
-      console.log('yes')
-      captainLogs.splice(idx,1)
-      delElem.push(log)
-      return 
-    }
-  })
-  
+  if (index > captainLogs.length - 1) {
+    res.status(400).send('Bad Request.!!')
+  }
+  captainLogs.splice(index, 1)
+
   res.status(303).json(captainLogs)
 })
 
