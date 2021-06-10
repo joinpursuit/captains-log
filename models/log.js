@@ -1,4 +1,4 @@
-module.exports = [
+logsArray = [
     {
       captainName: "Picard",
       title: "Stars",
@@ -15,9 +15,11 @@ module.exports = [
     },
     {
       captainName: "Jonathan",
-      title: "Uranus King ",
+      title: "Uranus King",
       post: "Today I configured a circuits board",
       mistakesWereMadeToday: true,
       daysSinceLastCrisis: 100,
     }
     ]
+
+    module.exports = logsArray;
