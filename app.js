@@ -1,6 +1,7 @@
 const express = require("express")
 const app = express()
 const logController = require("./controllers/logController")
+app.use(express.json()) // This tells express to parse the json code, otherwise our CREATE route will append a null value
 
 
 // For any route that starts with /logs, we are going to 'use()' the logController

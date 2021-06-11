@@ -1,3 +1,5 @@
+// THIS IS THE MODEL
+
 module.exports = [
     {
       captainName: "Picard",
@@ -16,7 +18,7 @@ module.exports = [
     {
         captainName: "Jack Sparrow",
         title: "Trust me",
-        post: "I'm dishonest, and a dishonest man you can always trust to be dishonest. Hnoestly. It's the honest ones you want to watch out for, because you can never predict when they're going to do something incredibly stupid.",
+        post: "I'm dishonest, and a dishonest man you can always trust to be dishonest. Honestly. It's the honest ones you want to watch out for, because you can never predict when they're going to do something incredibly stupid.",
         mistakesWereMadeToday: true,
         daysSinceLastCrisis: 1,
     },
