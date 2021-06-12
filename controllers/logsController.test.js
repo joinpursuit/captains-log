@@ -1,6 +1,6 @@
 const request = require("supertest");
 const app = require("../app.js")
-const logs = require("./logsController");
+const logs = require("./logs");
 let logsArray = require("../models/log.js");
 
 describe("logs", () => {
