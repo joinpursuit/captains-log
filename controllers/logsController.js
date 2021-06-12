@@ -1,5 +1,4 @@
 const logs = require("express").Router();
-const e = require("express");
 const logsArray = require("../models/log.js");
 
 const checkTypes = (req, res) => {
@@ -29,7 +28,7 @@ logs.delete("/:id", (req, res) => {
   const { id } = req.params;
   if (logsArray[id]) {
     const deletedLog = logsArray.splice(id, 1);
-    res.status(200).json(deletedLog);
+    res.status(204).json(deletedLog);
   } else {
     res.redirect("/404");
   }
