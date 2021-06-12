@@ -5,7 +5,6 @@ const app = express();
 
 app.use(express.json());
 
-
 app.use((req, res, next) => {
   next();
 });
@@ -16,7 +15,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("*", (req, res) => {
-    res.status(404).send("Page not found!!")
-})
+  res.status(404).send("Page not found!!");
+});
 
 module.exports = app;

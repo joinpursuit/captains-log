@@ -25,16 +25,16 @@ logsController.post("/", (req, res) => {
 // Route to delete log entry
 logsController.delete("/:id", (req, res) => {
   const { id } = req.params;
-  const deletedLog = logsArray.splice(id, 1)
-  console.log(deletedLog, id)
-  res.status(200).json(deletedLog)
+  const deletedLog = logsArray.splice(id, 1);
+  console.log(deletedLog, id);
+  res.status(200).json(deletedLog);
 });
 
 // Put Route to update single entry on logsArray
-logsController.put("/:id" ,( req, res) => {
-    const { id } = req.params
-    logsArray[id] = req.body
-    res.status(200).json(logsArray[id])
- })
+logsController.put("/:id", (req, res) => {
+  const { id } = req.params;
+  logsArray[id] = req.body;
+  res.status(200).json(logsArray[id]);
+});
 
 module.exports = logsController;
