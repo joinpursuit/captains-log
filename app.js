@@ -1,6 +1,6 @@
 const express = require("express");
 const logsController = require("./controllers/logsController");
-const logsArray= require("./models/log");
+
 
 const app = express();
 
