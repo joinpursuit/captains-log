@@ -59,13 +59,25 @@ logs.get("/:id", (req, res)=>{
 logs.post("/", (req, res)=>{
   if(typeof(req.body.captainName)=== "string" && typeof(req.body.title) === "string" && typeof(req.body.post)==="string" && typeof(req.body.mistakesWereMadeToday)==="boolean" && typeof(req.body.daysSinceLastCrisis)==="number") {
     logsArray.push(req.body)
-    const newBook = logsArray.length-1
-    res.json(logsArray[newBook])
+    const newLog = logsArray.length-1
+    res.json(logsArray[newLog])
   } else {
      res.send("Error! Invalid input")
   }
   // console.log(req.body)
 })
 
+logs.put("/:id", (req, res) =>{
+  const {id} = req.params
+const {body} = req
+logsArray[id] = body
+res.json(logsArray[id])
+})
+
+logs.delete("/:id", (req, res) => {
+  const { id} = req.params
+  const deletedLog = logsArray.splice(id, 1) //returns array called deletedBookmark
+  res.json(deletedLog[0])
+})
 
 module.exports = logs;
