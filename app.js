@@ -6,7 +6,6 @@ const v2LogsController = require("./v2/controllers/logsController");
 
 app.use(express.json());
 app.use((req, res, next) => {
-  // console.log("A request was made");
   next();
 });
 
