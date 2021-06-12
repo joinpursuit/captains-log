@@ -5,8 +5,36 @@ const logs = require("express").Router();
 const logsArray = require("../models/log");
 
 // set the path to logs
+// logs.get("/", (req, res) => {
+// 	res.json(logsArray);
+// });
+
+// BONUS
 logs.get("/", (req, res) => {
-	res.json(logsArray);
+	const { order } = req.query;
+	if (order) {
+		// take in the query string for ascending or descending
+		if (order === "asc") {
+			res.json(
+				logsArray
+					.map((entry) => {
+						return entry;
+					})
+					.sort()
+			);
+		} else if (order === "desc") {
+			res.json(
+				logsArray
+					.map((entry) => {
+						return entry;
+					})
+					.sort()
+					.reverse()
+			);
+		}
+	} else {
+		res.json(logsArray);
+	}
 });
 
 // CREATE
@@ -44,27 +72,3 @@ logs.delete("/:arrayIdx", (req, res) => {
 
 // EXPORT
 module.exports = logs;
-
-// BONUS
-// logs.get("/", (req, res) => {
-// 	const { order } = req.query;
-// 	// take in the query string for ascending or descending
-// 	if (order === "asc") {
-// 		res.json(
-// 			logsArray
-// 				.map((entry) => {
-// 					return entry.post;
-// 				})
-// 				.sort()
-// 		);
-// 	} else if (order === "desc") {
-// 		res.json(
-// 			logsArray
-// 				.map((entry) => {
-// 					return entry.post;
-// 				})
-// 				.sort()
-// 				.reverse()
-// 		);
-// 	}
-// });
