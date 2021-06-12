@@ -25,6 +25,23 @@ logs.post("/", (req, res) => {
 	res.json(logsArray);
 });
 
+// PUT
+logs.put("/:arrayIdx", (req, res) => {
+	const { arrayIdx } = req.params;
+	const { body } = req;
+	logsArray[arrayIdx] = body;
+	res.json(logsArray[arrayIdx]);
+});
+
+// localhost:3004/logs/2
+
+// DELETE
+logs.delete("/:arrayIdx", (req, res) => {
+	const { arrayIdx } = req.params;
+	const deletedLog = logsArray.splice(arrayIdx, 1);
+	res.json(deletedLog[0]);
+});
+
 // EXPORT
 module.exports = logs;
 
