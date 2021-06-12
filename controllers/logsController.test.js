@@ -134,7 +134,6 @@ describe("logs", () => {
             .expect("statusCode", 303)
             .end(resolve);
         });
-
         expect(logsArray[newLastArrayPosition]).toEqual(newLog);
       });
     });
