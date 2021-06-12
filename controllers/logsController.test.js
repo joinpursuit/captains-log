@@ -35,19 +35,19 @@
 
 //     describe("PUT", () => {
 //       it("replaces the index in the logs array", async () => {
-//         const newBook = logsArray[3];
+//         const newBook = logsArray[0];
 
 //         await new Promise(resolve => {
 //           request(app)
-//             .put("/1")
+//             .put("/0")
 //             .send(newBook)
 //             .set("Accept", "application/json")
-//             .expect("headers.location", "/logs/1")
+//             .expect("headers.location", "/logs/0")
 //             .expect("statusCode", 303)
 //             .end(resolve);
 //         });
 
-//         expect(logsArray[1]).toEqual(newBook);
+//         expect(logsArray[0]).toEqual(newBook);
 //       });
 //     });
 
