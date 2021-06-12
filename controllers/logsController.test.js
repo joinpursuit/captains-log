@@ -157,7 +157,7 @@ describe("logs", () => {
 
 //     describe("PUT", () => {
 //       it("replaces the index in the logs array", async () => {
-//         const updatedLog = logsArray[0];
+//         const updatedLog = logsArray[1];
 
 //         await new Promise((resolve) => {
 //           request(logs)
