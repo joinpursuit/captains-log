@@ -57,7 +57,7 @@ describe("logs", () => {
 
         await new Promise(resolve => {
           request(app)
-            .post("/1")
+            .post("/logs")
             .send(newBook)
             .set("Accept", "application/json")
             .expect("headers.location", "/logs")
@@ -65,7 +65,7 @@ describe("logs", () => {
             .end(resolve);
         });
 
-        expect(logsArray[1]).toEqual(newBook);
+        expect(logsArray[4]).toEqual(newBook);
       });
     });
 

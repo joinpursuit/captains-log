@@ -25,4 +25,14 @@ module.exports = [
       mistakesWereMadeToday: false,
       daysSinceLastCrisis: 200,
     },
+
+    {
+    id: 3,
+    captainName: "Matthew",
+    title: "Cloud",
+    post: "Time is gold!",
+    mistakesWereMadeToday: false,
+    daysSinceLastCrisis: 200,
+  },
+
   ];
