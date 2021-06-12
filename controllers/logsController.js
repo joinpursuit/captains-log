@@ -36,4 +36,10 @@ logs.put("/:id", (req, res) => {
   }
 });
 
+logs.delete("/:id", (req, res) => {
+    const { id } = req.params;
+    const deletedLog = logsArray.splice(id, 1);
+    res.json(deletedLog[0])
+})
+
 module.exports = logs;
