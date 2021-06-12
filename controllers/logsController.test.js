@@ -37,7 +37,7 @@ describe("logs", () => {
 
     describe("PUT", () => {
       it("replaces the index in the logs array", async () => {
-        const newBook = logsArray[3];
+        const newBook = logsArray[1];
 
         await new Promise(resolve => {
           request(app)
