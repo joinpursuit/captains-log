@@ -21,8 +21,18 @@ logController.post("/", (req, res) => {
     log.push(req.body)
     res.json(log[log.length - 1])
 })
-
-
+// Delete
+logController.delete("/:arrayIndex", (req, res) => {
+    const deletedLog = log.splice(req.params.arrayIndex, 1)
+    res.status(200).json(deletedLog)
+    console.log(res.status, res.json)
+})
+// Update
+logController.put("/:arrayIndex", (req, res) => {
+    log[req.params.arrayIndex] = req.body
+    res.status(200).json(log[req.params.arrayIndex])
+    console.log(req.body)
+})
 
 
 module.exports = logController
