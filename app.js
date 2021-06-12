@@ -3,14 +3,20 @@ const logsController = require("./controllers/logsController");
 
 const app = express();
 
+app.use(express.json());
+
+
+app.use((req, res, next) => {
+  next();
+});
 app.use("/logs", logsController);
 
 app.get("/", (req, res) => {
-  res.send("Welcome to OB and Flower's Captain's Log");
+  res.send("Welcome to Flower and OB's Captain's log App!!");
 });
 
 app.get("*", (req, res) => {
-    res.status(404).send("Page Not Found!!!")
+    res.status(404).send("Page not found!!")
 })
 
 module.exports = app;
