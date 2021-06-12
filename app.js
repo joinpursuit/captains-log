@@ -5,7 +5,6 @@ const logsController = require("./controllers/logsController.js");
 
 app.use(express.json());
 app.use((req, res, next) => {
-  // console.log("A request was made");
   next();
 });
 

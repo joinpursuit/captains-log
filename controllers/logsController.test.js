@@ -2,7 +2,6 @@
 
 const request = require("supertest");
 const app = require('../app');
-// const logs = require("./logsController");
 let logsArray = require("../models/log.js");
 
 describe("logs", () => {
@@ -36,7 +35,7 @@ describe("logs", () => {
 
     describe("PUT", () => {
       it("replaces the index in the logs array", async () => {
-        const newBook = logsArray[3];
+        const newBook = logsArray[1];
 
         await new Promise(resolve => {
           request(app)
@@ -123,7 +122,7 @@ describe("logs", () => {
 //           title: "Stars",
 //           post: "Today I contemplated that there sure are a lot of stars in the sky",
 //           mistakesWereMadeToday: true,
-//           daysSinceLastCrisis: "10",
+//           daysSinceLastCrisis: 10,
 //         };
 
 //         await new Promise((resolve) => {
