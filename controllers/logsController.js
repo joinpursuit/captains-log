@@ -2,7 +2,6 @@ const logs = require("express").Router();
 const logsArray = require("../models/log.js");
 
 logs.get("/:arrayIndex", (req, res) => {
-  console.log(req.params);
   const { arrayIndex } = req.params;
   if (logsArray[arrayIndex]) {
     res.json(logsArray[arrayIndex]);
@@ -16,8 +15,21 @@ logs.get("/", (req, res) => {
 });
 
 logs.post("/", (req, res) => {
-  res.json(logsArray.push(req.body));
-  console.log(req.body)
-})
+  const { body } = req;
+  res.json(logsArray.push(body));
+});
+
+// logs.put("/:arrayIndex", (req, res) => {
+//   const { arrayIndex } = req.params;
+//   const { body } = req;
+//   logsArray[arrayIndex] = body
+//   res.json(logsArray)
+// });
+
+logs.delete("/:arrayIndex", (req, res) => {
+  const {arrayIndex} = req.params;
+  const deleted = logsArray.splice(arrayIndex,1);
+  res.json(deleted[0])
+});
 
 module.exports = logs;
