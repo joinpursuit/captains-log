@@ -1,10 +1,11 @@
 const express = require("express");
+const cors = require('cors');
 const app = express();
-
 const logsController = require("./controllers/logsController.js");
 const v2LogsController = require("./v2/controllers/logsController");
 
 app.use(express.json());
+app.use(cors());
 app.use((req, res, next) => {
   next();
 });
