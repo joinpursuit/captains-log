@@ -51,7 +51,7 @@ Let's get you started with the first one. To pass tests, be sure to keep this ob
 ```js
 [
 {
-  captainName: "Picard,"
+  captainName: "Picard",
   title: "Stars",
   post: "Today I contemplated that there sure are a lot of stars in the sky",
   mistakesWereMadeToday: true,

@@ -3,6 +3,7 @@
 const request = require("supertest");
 const app = require('../app');
 let logsArray = require("../models/log.js");
+const app = require("../app.js");
 
 describe("logs", () => {
   let originalLogsArray = logsArray;
