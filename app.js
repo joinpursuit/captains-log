@@ -1,7 +1,10 @@
 const express = require("express");
 const app = express();
 const logs = require("./controllers/logsController");
-app.use(express.json())
+const cors = require('cors');
+
+app.use(express.json());
+app.use(cors());
 
 app.use("/logs", logs);
 
