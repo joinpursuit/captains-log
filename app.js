@@ -1,5 +1,6 @@
 const express = require("express");
 const logs = require('./controllers/logsController')
+const cors = require('cors')
 
 // CONFIGURATION
 const app = express();
@@ -7,6 +8,7 @@ const app = express();
 //MIDDLEWARE
 app.use(express.json());
 
+app.use(cors())
 app.use((req, res, next)=>{
     console.log(`testing 101`)
     next()
