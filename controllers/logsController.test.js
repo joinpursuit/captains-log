@@ -39,10 +39,6 @@ describe("logs", () => {
             .expect("statusCode", 303)
             .end(resolve);
         });
-<<<<<<< HEAD
-
-=======
->>>>>>> b6802c5f805181d865b58696024484d0e0bcf507
         expect(logsArray[newLastArrayPosition]).toEqual(newLog);
       });
     });
