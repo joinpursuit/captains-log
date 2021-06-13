@@ -23,16 +23,14 @@ const validateBody = (req, res, next) => {
     post,
     mistakesWereMadeToday,
     daysSinceLastCrisis
-  }  = req.body
-  const validator = ['string','string','string','boolean','number']
- 
+  } = req.body
+  const validator = ['string', 'string', 'string', 'boolean', 'number']
 
-  if (typeof(captainName && title && post) === 'string'){ 
-      console.log('they are strings')
-   }
+  if (typeof (captainName && title && post) === 'string') {
+    console.log('they are strings')
+  }
 
-next()
-
+  next()
 }
 
 logs.use(validateUrl)
