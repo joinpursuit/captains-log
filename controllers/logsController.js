@@ -4,8 +4,6 @@ const logArray = require("../models/log")
 
 logs.get("/", (req, res) => {
     const { mistakes, order, lastCrisis } = req.query
-
-    console.log(req.query) // {order}
     if (order === "asc") {
         logArray.sort((a, b) => {
             if (a.captainName < b.captainName) { return -1; }
@@ -34,12 +32,8 @@ logs.get("/", (req, res) => {
         const newArr = logArray.filter(log => log.daysSinceLastCrisis <= 5)
         res.json(newArr)
     }
-    
     res.json(logArray)
 })
-///logs?mistakes=true it will only show the logs where the value 
-//of mistakesWereMadeToday is true
-
 
 logs.get("/:arrayIndex", (req, res) => {
     const arrayIndex = req.params.arrayIndex;
@@ -51,10 +45,12 @@ logs.get("/:arrayIndex", (req, res) => {
 })
 
 logs.post("/", (req, res) => {
-    console.log(req.body)
+    if(!typeof(req.body.captainName) == String ){
+        res.json(logArray)
+    }else{
     logArray.push(req.body)
     res.json(logArray[logArray.length - 1])
-    //res.redirect(`/logs/${logArray[logArray.length-1]}`)
+    }
 })
 logs.put("/:arrayIndex", (req, res) => {
     logArray[req.params.arrayIndex] = req.body;
