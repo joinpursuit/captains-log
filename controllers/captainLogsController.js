@@ -2,6 +2,42 @@ const express = require('express')
 const logs = express.Router()
 const captainLogs = require('../models/log.js')
 
+const validateUrl = (req, res, next) => {
+  const http = 'http://'
+  const https = 'https://'
+  let fullUrl = req.protocol + '://' + req.get('host') + req.url
+  console.log(`[development] Request URL: ${fullUrl}`)
+  if (fullUrl.substring(0, 7) === http || fullUrl.substring(0, 8) === https) {
+    return next()
+  } else {
+    res
+      .status(400)
+      .send(`Oops, you forgot to start your url with http:// or https://`)
+  }
+}
+
+const validateBody = (req, res, next) => {
+  const {
+    captainName,
+    title,
+    post,
+    mistakesWereMadeToday,
+    daysSinceLastCrisis
+  }  = req.body
+  const validator = ['string','string','string','boolean','number']
+ 
+
+  if (typeof(captainName && title && post) === 'string'){ 
+      console.log('they are strings')
+   }
+
+next()
+
+}
+
+logs.use(validateUrl)
+logs.use(validateBody)
+
 logs.get('/', (req, res) => {
   const query = req.query
 
