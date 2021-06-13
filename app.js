@@ -1,7 +1,9 @@
 const express = require("express");
 const app = express();
+const cors = require("cors");
 
 app.use(express.json()); // Parse incoming JSON // this adds "body" to req object
+app.use(cors())
 
 //MIDDLEWARE
 app.use((req, res, next)=>{
