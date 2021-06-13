@@ -6,12 +6,15 @@ logs.get("/", (req, res) => {
 });
 
 
-// const express = require("express");
-// const bookmarks = express.Router();
-// const bookmarksArray = require("../models/bookmark.js");
+logs.get("/:arrayIdx", (req, res) => {
+  const log = logsArray[req.params.arrayIdx]
+  if(log) {
+    res.json(log);
+  } else {
+    res.redirect('/404');
+  }gi 
 
-// bookmarks.get("/", (req, res) => {
-//     res.json(bookmarksArray);
-//   });
+})
+
 
 module.exports = logs;
