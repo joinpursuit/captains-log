@@ -1,24 +1,10 @@
 module.exports = [
     {
         captainName: "Picard",
-        title: "Stars",
-        post: "Today I contemplated that there sure are a lot of stars in the sky",
+        title: "Courage",
+        post: "Courage can be an emotion too.",
         mistakesWereMadeToday: true,
-        daysSinceLastCrisis: 4,
-    },
-    {
-        captainName: "Damien",
-        title: "Sun",
-        post: "Today I staired at the sun",
-        mistakesWereMadeToday: false,
-        daysSinceLastCrisis: 5,
-    },
-    {
-        captainName: "Shoaib",
-        title: "Sharks",
-        post: "Today I snagged a shark",
-        mistakesWereMadeToday: true,
-        daysSinceLastCrisis: 21,
+        daysSinceLastCrisis: 100,
     },
     {
         captainName: "Ahab",
@@ -61,5 +47,5 @@ module.exports = [
         post: "I know you don’t like taking orders from a woman, but you’re gonna like getting your ass kicked by one even less.",
         mistakesWereMadeToday: true,
         daysSinceLastCrisis: 0,
-    }
-]
+    },
+];
