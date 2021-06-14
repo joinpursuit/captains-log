@@ -1,5 +1,4 @@
 const logs = require("express").Router();
-// const bookmarks = require("../../bookmarks/controllers/bookmarksController.js");
 const logsArray = require("../models/log.js");
 
 logs.get("/:arrayIdx", (req, res) => {
@@ -17,9 +16,9 @@ logs.get("/", (req, res) => {
 
 logs.put("/:arrayIdx", (req, res) => {
   const { arrayIdx } = req.params;
-  console.log(arrayIdx)
+  console.log(arrayIdx);
   const { body } = req;
-  console.log(body)
+  console.log(body);
   logsArray[arrayIdx] = body;
   res.json(logsArray[arrayIdx]);
 });
@@ -32,17 +31,9 @@ logs.post("/", (req, res) => {
 });
 
 logs.delete("/:arrayIdx", (req, res) => {
-  // const { body } = req;
-  const deletedlog = logsArray.splice(req.params.indexArray, 1);
+  const { arrayIdx } = req.params;
+  const deletedlog = logsArray.splice(arrayIdx, 1);
   res.status(200).json(deletedlog);
-  // const newIdx = logsArray.length - 1;
-  // res.json(logsArray[newIdx]);
 });
-
-// DELETE
-// bookmarks.delete("/:indexArray", (req, res) => {
-//   const deletedBookmark = bookmarkArray.splice(req.params.indexArray, 1);
-//   res.status(200).json(deletedBookmark);
-// });
 
 module.exports = logs;
