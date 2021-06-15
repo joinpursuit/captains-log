@@ -16,8 +16,24 @@ logs.get('/:logIndex', (req, res) => {
 })
 
 logs.post('/', (req, res) => {
-    logArr.push(req.body)
-    res.json(logArr[logArr.length - 1])
+    const { body } = req;
+    logArr.push(body)
+    const newIndex = logArr.length - 1
+    res.json(logArr[newIndex])
 })
+
+logs.put('/:logIndex', (req, res) => {
+const { logIndex } = req.params;
+logArr[logIndex] = body
+res.json(logArr[logIndex])
+})
+
+logs.delete('/:logIndex', (req, res) => {
+    const { logIndex } = req.params; 
+    const delLog = logArr.splice(logIndex, 1)
+    res.json(delLog[0])
+})
+
+
 
 module.exports = logs
