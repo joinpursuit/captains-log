@@ -1,6 +1,6 @@
 // Dependencies 
 const express = require("express")
-
+const cors = require("cors")
 
 // Configuration
 const app = express();
@@ -12,7 +12,8 @@ app.use((req,res, next) =>{
     next()
  } )
 
-app.use(express.json())
+app.use(cors())
+ app.use(express.json())
 
 app.get("/", (req, res) => { 
     res.send("Welcome to the captain's log")
