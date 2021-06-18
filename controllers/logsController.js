@@ -1,19 +1,15 @@
-// set logs as the route
-const logs = require("express").Router();
+//DEPENDENCIES
+const express = require("express");
 
-//import logsArray
+//CONFIGURATION
+const logs = require("express").Router();
 const logsArray = require("../models/log");
 
-// set the path to logs
-// logs.get("/", (req, res) => {
-// 	res.json(logsArray);
-// });
-
-// BONUS
+// ROUTE
 logs.get("/", (req, res) => {
 	const { order } = req.query;
 	if (order) {
-		// take in the query string for ascending or descending
+		// BONUS -- take in the query string for ascending or descending
 		if (order === "asc") {
 			res.json(
 				logsArray
@@ -37,37 +33,51 @@ logs.get("/", (req, res) => {
 	}
 });
 
-// CREATE
-logs.get("/:id", (req, res) => {
-	const { id } = req.params;
-	if (logsArray[id]) {
-		res.json(logsArray[id]);
+// SHOW ROUTE AND REDIRECT
+logs.get("/:arrayIdx", (req, res) => {
+	const { arrayIdx } = req.params;
+	const log = logsArray[arrayIdx];
+	if (log) {
+		res.json(log);
 	} else {
-		res.redirect("/404");
+		res.redirect(`404`);
+		// res.redirect("/404");
 	}
 });
 
-// POST
+// POST  create ==> a request to /logs
 logs.post("/", (req, res) => {
+	const { body } = req;
 	logsArray.push(req.body);
-	res.json(logsArray);
+	const newIdx = logssArray.length - 1;
+	// res.json(logsArray); // send back entire array
+	res.json(bookmarksArray[newIdx]);
+	// res.redirect("/")
 });
 
-// PUT
+// PUT update ==> /logs/:index
 logs.put("/:arrayIdx", (req, res) => {
 	const { arrayIdx } = req.params;
 	const { body } = req;
-	logsArray[arrayIdx] = body;
-	res.json(logsArray[arrayIdx]);
+	if (logsArray[arrayIdx]) {
+		logsArray[arrayIdx] = body;
+		res.json(logsArray[arrayIdx]);
+	} else {
+		res.send("Entry not found");
+	}
 });
 
 // localhost:3004/logs/2
 
-// DELETE
+// DELETE destroy ==> /logs/:index
 logs.delete("/:arrayIdx", (req, res) => {
 	const { arrayIdx } = req.params;
-	const deletedLog = logsArray.splice(arrayIdx, 1);
-	res.json(deletedLog[0]);
+	if (logsArray[arrayIdx]) {
+		const deletedLog = logsArray.splice(arrayIdx, 1);
+		res.json(deletedLog[0]);
+	} else {
+		res.send("Entry not found");
+	}
 });
 
 // EXPORT

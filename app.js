@@ -2,6 +2,7 @@
 const express = require("express");
 // import logsArray
 const logsArray = require("./models/log");
+const cors = require("cors");
 
 // CONFIGURATION
 const app = express();
@@ -11,7 +12,7 @@ const logsController = require("./controllers/logsController");
 
 // MIDDLEWARE
 app.use(express.json());
-
+app.use(cors());
 app.use((req, res, next) => {
 	console.log(`testing 101`);
 	next();
