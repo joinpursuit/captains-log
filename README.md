@@ -129,3 +129,18 @@ Do not start Part 3 until your show and create routes pass all its tests. If you
 
 - If you've already written a validation function, try adding it to the update route. If you have not written it yet, give it a try!
 - Go back and try any of the previous Bonuses
+
+
+### 
+const logs = {
+    captainName: req.body.string,
+    title: req.body.string,
+    post: req.body.string,
+    mistakesWereMadeToday: req.body.boolean,
+    daysSinceLastCrisis: req.body.number
+  }
+  if (!logs.captainName || !logs.title || !logs.post || !logs.mistakesWereMadeToday || !logs.daysSinceLastCrisis) {
+    return res.status(400).json({ msg: `Sorry, not a valid log`})
+  }
+  logsArray.push(req.body)
+  res.json(logsArray[-1])

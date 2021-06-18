@@ -6,6 +6,4 @@ require('dotenv').config()
 const PORT = process.env.PORT
 
 //Listening
-app.listen(PORT, () => {
-	console.log(`live on http://localhost:${PORT}`)
-})
+app.listen(PORT, () => console.log(`Server Running on port: http://localhost:${PORT}`))
