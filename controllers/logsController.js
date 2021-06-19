@@ -37,12 +37,20 @@ logs.get("/:arrayIndex", (req, res) => {
 logs.delete("/:arrayIndex", (req, res) => {
   let arrayIndex = Number(req.params.arrayIndex);
   const deletedLog = logsArray.splice(arrayIndex, 1);
-  res.status(200).json(deletedLog);
+  if (arrayIndex < logsArray.length) {
+    res.status(200).json(deletedLog);
+  } else {
+    res.redirect("/404");
+  }
 });
 
 logs.put("/:arrayIndex", (req, res) => {
   logsArray[Number(req.params.arrayIndex)] = req.body;
-  res.status(200).json(logsArray[Number(req.params.arrayIndex)]);
+  if (arrayIndex < logsArray.length) {
+    res.status(200).json(logsArray[Number(req.params.arrayIndex)]);
+  } else {
+    res.redirect("/404");
+  }
 });
 
 module.exports = logs;
