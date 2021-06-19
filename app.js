@@ -1,11 +1,13 @@
 // Dependencies
 const express = require("express");
 const controlers = require("./controllers/logsController");
+const cors = require("cors")
 
 // Configuration
 const app = express()
 
 // Routes
+app.use(cors())
 app.use(express.json())
 
 app.get("/", (req, res)=>{
