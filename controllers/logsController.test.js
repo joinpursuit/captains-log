@@ -40,7 +40,7 @@ describe("logs", () => {
             .end(resolve);
         });
 
-        expect(logsArray[newLastArrayPosition]).toEqual(newLog);
+        expect(logsArray[newLastArrayPosition - 1]).toEqual(newLog);
       });
     });
   });
