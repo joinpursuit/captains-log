@@ -1,14 +1,16 @@
 const express = require("express");
+const cors = require("cors");
 
 const app = express();
 const logsController = require("./controllers/logsController.js");
+
+app.use(cors());
+app.use(express.json());
 
 app.use((req, res, next) => {
   console.log(`[development] Middleware is running!`);
   next();
 });
-
-app.use(express.json());
 
 app.get("/", (req, res) => {
   res.send("Welcome to the captain's log!");
