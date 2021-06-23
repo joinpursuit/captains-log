@@ -68,6 +68,26 @@ logs.post('/', validateBody, (req, res) => {
     res.json(logsArray[logsArray.length - 1]);
 });
 
+logs.delete('/:id', (req, res) => {
+    const { id } = req.params;
 
+    if(logsArray[id]) {
+        const deleted = logsArray.splice(id, 1);
+        res.status(200).json(deleted);
+    } else {
+        res.redirect('/404');
+    };
+});
+
+logs.put('/:id', validateBody, (req, res) => {
+    const { id } = req.params;
+
+    if(logsArray[id]) {
+        logsArray[id] = req.body;
+        res.status(200).json(logsArray[id]);
+    } else {
+        res.redirect('/404');
+    };
+}); 
 
 module.exports = logs;
