@@ -75,8 +75,4 @@ logs.patch("/:arrayIndex", (req, res) => {
   logsArray
 })
 
-
-
-
-
 module.exports = logs;
