@@ -110,6 +110,7 @@ describe("logs", () => {
       });
     });
 
+
     describe("POST", () => {
       it("adds new log to end of logs array", async () => {
         const newLastArrayPosition = logsArray.length;
@@ -130,6 +131,7 @@ describe("logs", () => {
             .expect("statusCode", 303)
             .end(resolve);
         });
+
 
         expect(logsArray[newLastArrayPosition]).toEqual(newLog);
       });
