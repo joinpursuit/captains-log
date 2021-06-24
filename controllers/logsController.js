@@ -57,10 +57,10 @@ logs.get('/', (req, res) => {
     res.status(200).json(logsArray);
 });
 
-logs.get('/:id', (req, res) => {
-    const id = req.params.id;
-    logsArray[id] ? 
-    res.status(200).json(logsArray[id]): res.redirect('/404');
+logs.get('/:index', (req, res) => {
+    const index = req.params.index;
+    logsArray[index] ? 
+    res.status(200).json(logsArray[index]): res.redirect('/404');
 });
 
 logs.post('/', validateBody, (req, res) => {
@@ -68,23 +68,23 @@ logs.post('/', validateBody, (req, res) => {
     res.json(logsArray[logsArray.length - 1]);
 });
 
-logs.delete('/:id', (req, res) => {
-    const { id } = req.params;
+logs.delete('/:index', (req, res) => {
+    const { index } = req.params;
 
-    if(logsArray[id]) {
-        const deleted = logsArray.splice(id, 1);
+    if(logsArray[index]) {
+        const deleted = logsArray.splice(index, 1);
         res.status(200).json(deleted);
     } else {
         res.redirect('/404');
     };
 });
 
-logs.put('/:id', validateBody, (req, res) => {
-    const { id } = req.params;
+logs.put('/:index', validateBody, (req, res) => {
+    const { index } = req.params;
 
-    if(logsArray[id]) {
-        logsArray[id] = req.body;
-        res.status(200).json(logsArray[id]);
+    if(logsArray[index]) {
+        logsArray[index] = req.body;
+        res.status(200).json(logsArray[index]);
     } else {
         res.redirect('/404');
     };

@@ -1,10 +1,12 @@
 //Dependencies
 const express = require('express');
+const cors = require("cors");
 
 //Configuration
 const app = express();
 const logsController = require('./controllers/logsController');
 
+app.use(cors());
 app.use(express.json());
 
 //Routes
