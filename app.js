@@ -2,6 +2,11 @@ const express = require("express");
 const app = express();
 const captainLogs = require("./models/log.js");
 
+// MiddleWare
+app.use(express.json());
+// it is needded inorder to add something ...
+app.use(express.urlencoded({ extended: false }));
+
 // sending the welcome to "/"
 app.get("/", (req, res) => {
 	res.send("welcome to the captain's log");
@@ -10,12 +15,17 @@ app.get("/", (req, res) => {
 app.get("/logs", (req, res) => {
 	res.send(captainLogs);
 });
-// sending the a perticular index
+// sending the a perticular index or redirect ...
 app.get("/logs/:index", (req, res) => {
 	const { index } = req.params;
 	captainLogs[index]
 		? res.send(captainLogs[req.params.index])
-		: res.send("/logs/9001");
+		: res.redirect(404);
+});
+// creatign a post request
+app.post("/logs", (req, res) => {
+	const data = captainLogs;
+	data.push(data);
 });
 
 //exporting App
