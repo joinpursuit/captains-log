@@ -15,8 +15,9 @@ logs.get("/", (request, response) => {
 
 logs.get("/:arrayIndex", (request, response) => {
   const { arrayIndex } = request.params;
-  console.log(arrayIndex);
-  console.log("GET request to /:arrayIndex")(captainLogArray[arrayIndex])
+  
+  console.log("GET request to /:arrayIndex")
+  (captainLogArray[arrayIndex])
     ? response.json(captainLogArray[Number(arrayIndex)])
     : response.redirect("http://localhost:3003");
 });
