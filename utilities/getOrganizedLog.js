@@ -1,10 +1,7 @@
-//we have a key/value pair
-
-//an object with functions which will organize our list and return result
-
 module.exports = (list, qKey, qVal) => {
   const organizer = {
-    order: (isAsc) => {
+    order: (asc) => {
+      const isAsc = asc === 'asc';
       if (isAsc) {
         return list.sort((a, b) => a.captainName.localeCompare(b.captainName));
       }
@@ -18,8 +15,11 @@ module.exports = (list, qKey, qVal) => {
       }
       return list.filter((log) => !log.mistakesWereMadeToday);
     },
-    lastCrisis: (inequalityStr) => {
-      //break up inequality and number EX: 'gte10' => [gte , 10]
+    lastCrisis: (str) => {
+      const splitString = str.split(/(\d+)/).slice(0, -1); //break up inequality key and number EX: 'gte10' => [gte , 10]
+      splitString[1] = Number(splitString[1]); //convert string num to num data type
+      const [inequalityStr, num] = splitString;
+
       const inequalityFuncs = {
         gte: (num) => list.filter((log) => log.daysSinceLastCrisis >= num),
         gt: (num) => list.filter((log) => log.daysSinceLastCrisis > num),
@@ -27,9 +27,9 @@ module.exports = (list, qKey, qVal) => {
         lt: (num) => list.filter((log) => log.daysSinceLastCrisis < num),
       };
 
-      //invoke inequality at key passing in number as argument to get calculation back
+      return inequalityFuncs[inequalityStr](num); //invoke inequality at key passing in number as argument to get filtered result back
     },
   };
-
-  //   if key is order or mistakes get boolean result then invoke function
+  //Expected - organizer['lastCrisis']('gt10')
+  return organizer[qKey](qVal);
 };
