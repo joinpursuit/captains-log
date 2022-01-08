@@ -30,6 +30,5 @@ module.exports = (list, qKey, qVal) => {
       return inequalityFuncs[inequalityStr](num); //invoke inequality at key passing in number as argument to get filtered result back
     },
   };
-  //Expected - organizer['lastCrisis']('gt10')
   return organizer[qKey](qVal);
 };
