@@ -5,7 +5,7 @@ const getOrganizedLog = require('../utilities/getOrganizedLog');
 const logs = express.Router();
 const logsArray = require('../models/log');
 
-logs.get('/logs*/', (req, res) => {
+logs.get('/', (req, res) => {
   if (JSON.stringify(req.query) === '{}') return res.json(logsArray);
   const [queryKey, queryVal] = Object.entries(req.query)[0];
   const validKeys = {
