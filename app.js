@@ -13,7 +13,12 @@ app.get('/logs', (request, response) => {
 
 app.get("/logs/:arrayIndex", ( request, response)=> {
     const {arrayIndex: index} = request.params
-    response.send(logsArray[index])
+    if(!logsArray[index]){
+        response.redirect("Redirect")
+    } else {
+        response.send(logsArray[index])
+    }
+    
 })
 
 // app.post("/logs", (request , response)=> {
