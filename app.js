@@ -1,6 +1,6 @@
 //Dependencies
 const express = require('express');
-const logsController = require(`${__dirname}/controllers/logsController`);
+const logRouter = require(`${__dirname}/routes/logRoutes`);
 
 //Configurations
 const app = express();
@@ -14,7 +14,7 @@ app.use((req, res, next) => {
 });
 
 // Routes
-app.use('/logs', logsController);
+app.use('/logs', logRouter);
 
 app.get('/', (req, res) => {
   res.send('Welcome to the Captains Log');

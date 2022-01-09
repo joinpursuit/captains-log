@@ -1,6 +1,6 @@
 //Dependencies
 const express = require('express');
-const logController = require('../utilities/routeHandlers');
+const logController = require('../controllers/logController');
 //Configuration
 const logs = express.Router();
 

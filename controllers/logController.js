@@ -1,4 +1,4 @@
-const getOrganizedLog = require(`${__dirname}/getOrganizedLog`);
+const getOrganizedLog = require(`${__dirname}/../utilities/getOrganizedLog`);
 const logsArray = require(`${__dirname}/../models/log`);
 
 exports.getAllLogs = (req, res) => {
