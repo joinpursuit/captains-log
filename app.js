@@ -2,7 +2,7 @@ const express = require("express");
 
 const app = express();
 
-app.use("/logs");
+//app.use("/logs");
 
 app.get("/", (req, res) => {
   console.log("GET request to /");
