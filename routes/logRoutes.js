@@ -4,7 +4,10 @@ const logController = require('../controllers/logController');
 //Configuration
 const logs = express.Router();
 
-logs.route('/').get(logController.getAllLogs).post(logController.createLog);
+logs
+  .route('/')
+  .get(logController.checkQuery, logController.getFilteredLogs)
+  .post(logController.createLog);
 
 logs
   .route('/:arrayIndex')
