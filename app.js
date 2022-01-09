@@ -1,29 +1,15 @@
 const express = require("express")
+const logsController = require("./controllers/logs")
 const logsArray = require("./models/log")
 
 const app = express()
 
+app.use('/logs', logsController)
+
 app.get('/', (request, response)=> {
+    console.log("Get /")
     response.send("Home")
 })
-
-app.get('/logs', (request, response) => {
-    response.send(logsArray)
-})
-
-app.get("/logs/:arrayIndex", ( request, response)=> {
-    const {arrayIndex: index} = request.params
-    if(!logsArray[index]){
-        response.redirect("Redirect")
-    } else {
-        response.send(logsArray[index])
-    }
-    
-})
-
-// app.post("/logs", (request , response)=> {
-//     response.send("Post request to logs")
-// })
 
 app.get('*', (request, response)=>{
     response.sendStatus(404)
