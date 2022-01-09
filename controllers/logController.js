@@ -1,8 +1,12 @@
 const getOrganizedLog = require(`${__dirname}/../utilities/getOrganizedLog`);
 const logsArray = require(`${__dirname}/../models/log`);
 
-exports.getAllLogs = (req, res) => {
+exports.checkQuery = (req, res, next) => {
   if (JSON.stringify(req.query) === '{}') return res.json(logsArray);
+  next();
+};
+
+exports.getFilteredLogs = (req, res) => {
   const [queryKey, queryVal] = Object.entries(req.query)[0];
   const validKeys = {
     order: true,
