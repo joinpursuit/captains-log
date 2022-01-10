@@ -1,6 +1,7 @@
 const express = require("express")
 const logsArray = require("../models/log")
 const bodyParser = require("body-parser")
+const {sortByCaptainName, filterMistakes, filterLastCrisis} = require("../helper/sort")
 
 const logs = express.Router()
 
@@ -9,7 +10,21 @@ logs.use(bodyParser.json());
 
 logs.get('/', (request, response) => {
     console.log("Get /logs")
-    response.json(logsArray)
+    const {order, mistakes, lastCrisis} = request.query
+    let arr = [...logsArray]
+    if(!!order){
+        arr = sortByCaptainName(arr, order)
+    }
+    if(mistakes !== undefined){
+        arr = filterMistakes(arr, mistakes)
+    }
+    if(lastCrisis){
+        arr = filterLastCrisis(arr, lastCrisis)
+    }
+
+    response.send(arr)
+   
+    
 })
 
 logs.get("/:arrayIndex", ( request, response)=> {
@@ -25,8 +40,27 @@ logs.get("/:arrayIndex", ( request, response)=> {
 
 logs.post("/", (request, response) => {
     console.log("Post /logs")
-    logsArray.push(request.body)
-    response.json(logsArray)
+    const dataType = {
+        captainName: "string",
+        title: "string",
+        post: "string",
+        mistakesWereMadeToday: true,
+        daysSinceLastCrisis: 1
+    }
+    let validType = true
+    for(const key in request.body){
+        console.log(typeof dataType[key])
+        if(typeof dataType[key] !== typeof request.body[key]){
+            validType = false
+        }
+    }
+    if(validType){
+        logsArray.push(request.body)
+        response.json(logsArray)
+    } else {
+        response.sendStatus(404)
+    }
+    
 })
 
 logs.delete("/:arrayIndex", (request, response)=> {
@@ -35,5 +69,6 @@ logs.delete("/:arrayIndex", (request, response)=> {
     logsArray.splice(index, 1)
     response.json(logsArray)
 })
+
 
 module.exports = logs
