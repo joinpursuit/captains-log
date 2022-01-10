@@ -12,7 +12,9 @@ app.get("/logs", (request, response) => {
 
 app.get("/logs/:arrayIndex", (request, response) => {
     const { arrayIndex } = request.params
-    response.send(logsArray[arrayIndex])
+    logsArray[arrayIndex]
+    ? response.send(logsArray[arrayIndex])
+    : response.redirect()
 })
 
 module.exports = app
