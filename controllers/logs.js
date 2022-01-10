@@ -49,7 +49,6 @@ logs.post("/", (request, response) => {
     }
     let validType = true
     for(const key in request.body){
-        console.log(typeof dataType[key])
         if(typeof dataType[key] !== typeof request.body[key]){
             validType = false
         }
