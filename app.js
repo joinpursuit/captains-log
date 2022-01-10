@@ -10,4 +10,9 @@ app.get("/logs", (request, response) => {
     response.send(logsArray)
 })
 
+app.get("/logs/:arrayIndex", (request, response) => {
+    const { arrayIndex } = request.params
+    response.send(logsArray[arrayIndex])
+})
+
 module.exports = app
