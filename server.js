@@ -4,5 +4,5 @@ require("dotenv").config()
 const PORT = process.env.PORT
 
 app.listen(PORT, (request, response) => {
-    response.send("🚀 Listening on port ${PORT} 👩🏽‍🚀")
+    response.send(`🚀 Listening on port ${PORT} 👩🏽‍🚀`)
 })
