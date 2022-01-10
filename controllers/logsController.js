@@ -4,8 +4,12 @@ const logs = require('express').Router();
 //import data module
 const logsData = require('../models/log');
 
-//import helper functions
-const { handleOrder, handleMistakes } = require('../helpers/logQuery');
+//query handlers
+const {
+  handleOrder,
+  handleMistakes,
+  handleCrisis,
+} = require('../helpers/logQuery');
 
 logs.get('/', (req, res) => {
   const { order, mistakes, lastCrisis } = req.query;
@@ -16,6 +20,8 @@ logs.get('/', (req, res) => {
       tempData = handleOrder(order, tempData);
     case mistakes !== undefined:
       tempData = handleMistakes(mistakes, tempData);
+    case lastCrisis !== undefined:
+      tempData = handleCrisis(lastCrisis, tempData);
   }
   res.json(tempData);
 });
