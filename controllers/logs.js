@@ -18,7 +18,6 @@ logs.get("/", (req, res) => {
         (a = a.captainName.toUpperCase()), (b = b.captainName.toUpperCase());
         return a === b ? 0 : a > b ? 1 : -1;
       });
-
       res.send(arr);
     // HOME ROUTE W/QUERY FOR ARRAY IN DESCENDING ORDER: /logs?order=desc
     } else if (order === "desc") {
@@ -67,5 +66,11 @@ logs.get("/:arrayIndex", (req, res) => {
     res.redirect("/*");
   }
 });
+// POST SEND DATA FROM CLIENT TO API SERVER TO UPDATE: logArray AND THE RESPONSE IS THE JSON FILE OF NEW ARRAY
+logs.post("/", (request, response) => {
+    console.log("/POST to /logs");
+    logArray.push(request.body);
+    response.json(logArray);
+  });
 
 module.exports = logs;
