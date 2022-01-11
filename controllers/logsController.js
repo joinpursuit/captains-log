@@ -51,4 +51,19 @@ logRoutes.get("/", (req, res)=>{
     res.json(logArr);
 })
 
+// *** PART 2 - Create & Show
+logRoutes.get("/:id", (req, res)=>{
+    const { id } = req.params;
+    if (logArr[id]){
+        res.json(logArr[id]);
+    } else {
+        res.status(404).json({message: "Log not found"});
+    }
+})
+
+logRoutes.post("/", (req, res)=>{
+    logArr.push(req.body);
+    res.json(logArr[logArr.length-1]);
+})
+
 module.exports = logRoutes;
