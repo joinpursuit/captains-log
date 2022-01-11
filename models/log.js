@@ -10,7 +10,7 @@ const captainsLog = [
       captainName: "Ahab",
       title: "Whale",
       post: "By heavens man, we are turned round and round in this world, like yonder windlass, and fate is the handspike.",
-      mistakesWereMadeToday: true,
+      mistakesWereMadeToday: false,
       daysSinceLastCrisis: 20,
     },
     {
@@ -32,13 +32,13 @@ const captainsLog = [
       title: "Ava",
       post: "Ava's the kind of girl that you take home to your parents, and I am the kind you take to an exorcism",
       mistakesWereMadeToday: true,
-      daysSinceLastCrisis: 0,
+      daysSinceLastCrisis: 11,
     },
     {
       captainName: "Ahab",
       title: "What is sleep?",
       post: "Sleep? That bed is a coffin, and those are winding sheets. I do not sleep, I die.",
-      mistakesWereMadeToday: true,
+      mistakesWereMadeToday: false,
       daysSinceLastCrisis: 5,
     },
     {
