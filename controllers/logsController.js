@@ -4,7 +4,7 @@ const { response } = require("../app");
 const app = require("../app");
 
 //Files
-const logsArray = require("../models/logs.js");
+const logsArray = require("../models/log");
 
 const logs = express.Router();
 

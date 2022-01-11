@@ -1,4 +1,4 @@
-const logs = [
+const log = [
   {
     captainName: "Picard",
     title: "Courage",
@@ -50,4 +50,4 @@ const logs = [
   },
 ];
 
-module.exports = logs;
+module.exports = log;
