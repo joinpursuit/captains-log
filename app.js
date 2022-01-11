@@ -3,7 +3,7 @@
 const express = require("express");
 
 //files
-const captainControllers = require('./routes/captainControllers')
+const captainControllers = require('./controllers/logsControllers')
 
 
 //creates the Express app

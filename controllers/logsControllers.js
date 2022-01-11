@@ -73,6 +73,8 @@ logs.get("/:arrayIndex", (request, response) => {
 });
 
 
+
+
 //Exports the bookmarks controller/router
 //So that 'app can delegate the '/bookmarks' route to it
 module.exports = logs;
