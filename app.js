@@ -5,12 +5,16 @@ const express = require("express");
 //files
 const captainControllers = require('./routes/captainControllers')
 
+
 //creates the Express app
 const app = express();
 
 
 
 app.use('/logs', captainControllers)
+
+
+
 
 //Home route
 app.get("/", (request, response) =>{
