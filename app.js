@@ -2,6 +2,7 @@ const express = require("express");
 const logController = require("./controllers/logs")
 const app = express();
 
+app.use(express.json())
 app.use("/logs", logController);
 // HOME ROUTE
 app.get("/", (req, res) => {
