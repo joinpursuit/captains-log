@@ -61,8 +61,8 @@ logRoutes.get("/:id", (req, res)=>{
     }
 })
 
-logRoutes.post("/", (req, res)=>{
 // *** START bonus section - Part 2
+const validateURL = (req, res, next) =>{
     // console.log("check req.body: ", typeof req.body.captainName);
     if ((typeof req.body.captainName !== "string") ||
         (typeof req.body.title !== "string") ||
@@ -71,12 +71,35 @@ logRoutes.post("/", (req, res)=>{
         (typeof req.body.daysSinceLastCrisis !== "number")
     ){
         res.json({error: "A wrong datatype was entered."});
-    } else {
+    }
+    next();
+};
+// *** END bonus section - Part 2
+
+// CREATE
+logRoutes.post("/", validateURL, (req, res)=>{
         // *** Part 2:
         logArr.push(req.body);
         res.json(logArr[logArr.length-1]);
     }
-    // *** END bonus section - Part 2
-})
+)
+
+// logRoutes.post("/", (req, res)=>{
+// // *** START bonus section - Part 2
+//     // console.log("check req.body: ", typeof req.body.captainName);
+//     if ((typeof req.body.captainName !== "string") ||
+//         (typeof req.body.title !== "string") ||
+//         (typeof req.body.post !== "string") ||
+//         (typeof req.body.mistakesWereMadeToday !== "boolean") ||
+//         (typeof req.body.daysSinceLastCrisis !== "number")
+//     ){
+//         res.json({error: "A wrong datatype was entered."});
+//     } else {
+//         // *** Part 2:
+//         logArr.push(req.body);
+//         res.json(logArr[logArr.length-1]);
+//     }
+//     // *** END bonus section - Part 2
+// })
 
 module.exports = logRoutes;
