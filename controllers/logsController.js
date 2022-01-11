@@ -64,17 +64,17 @@ logRoutes.get("/:id", (req, res)=>{
 logRoutes.post("/", (req, res)=>{
 // *** START bonus section - Part 2
     // console.log("check req.body: ", typeof req.body.captainName);
-    if ((typeof req.body.captainName === "string") &&
-        (typeof req.body.title === "string") &&
-        (typeof req.body.post === "string") &&
-        (typeof req.body.mistakesWereMadeToday === "boolean") &&
-        (typeof req.body.daysSinceLastCrisis === "number")
+    if ((typeof req.body.captainName !== "string") ||
+        (typeof req.body.title !== "string") ||
+        (typeof req.body.post !== "string") ||
+        (typeof req.body.mistakesWereMadeToday !== "boolean") ||
+        (typeof req.body.daysSinceLastCrisis !== "number")
     ){
+        res.json({error: "A wrong datatype was entered."});
+    } else {
         // *** Part 2:
         logArr.push(req.body);
         res.json(logArr[logArr.length-1]);
-    } else {
-        res.json({error: "A wrong datatype was entered."});
     }
     // *** END bonus section - Part 2
 })
