@@ -16,9 +16,11 @@ logRoutes.get("/:index", (req, res)=>{
   if(logsArr[index]){
     res.json(logsArr[index]);
   } else {
-    res.status(404).json({message: "Log not found"})
+    res.redirect("/*");
   }
 });
+
+
 
 // /logs
 logRoutes.post("/", (req, res)=>{
