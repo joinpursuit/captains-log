@@ -6,7 +6,7 @@ app.use(express.json())
 app.use("/logs", logsController)
 
 app.get("/", (request, response) => {
-    response.send("Welcome to the Captain's Log App")
+    response.send("Welcome to the Captain's Log App!")
 })
 
 app.get("*", (request, response) => {
