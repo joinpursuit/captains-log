@@ -1,7 +1,8 @@
 //Dependencies
 const express = require("express");
 const { check, validationResult } = require("express-validator/check");
-console.log(check);
+// console.log(check);
+
 //files
 const captainLogArray = require("../models/logs");
 
@@ -61,7 +62,7 @@ logs.get("/", (request, response) => {
     response.send(captainLogArray);
   }
 });
-
+ 
 logs.get("/:arrayIndex", (request, response) => {
   const { arrayIndex } = request.params;
   console.log("GET request to /:arrayIndex");
@@ -80,7 +81,7 @@ logs.get("/:arrayIndex", (request, response) => {
  * @post {String} [post] post
  * @mistakesWereMadeToday {boolean} [mistakesWereMadeToday] mistakesWereMadeToday
  * @daysSinceLastCrisis  {number} [daysSinceLastCrisis] daysSinceLastCrisis
- * @apiSuccess (200) {Object} object
+ * @apiSuccess (201) {Object} object
  */
 
 logs.post(

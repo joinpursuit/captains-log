@@ -11,6 +11,9 @@ app.use(express.json())
 
 app.use('/logs', captainControllers)
 
+
+
+
 //Home route
 app.get("/", (_, response) =>{
     console.log('GET request to /')
