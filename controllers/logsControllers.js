@@ -2,9 +2,16 @@
 const express = require("express");
 const logs = require("../models/log");
 const logsControllers = express.Router();
+const { validateURL } = require("./validation");
 
 // ROUTES
 
+//    ID
+logsControllers.get("/:id", (req, res) => {
+  const { id } = req.params;
+  res.json(logs[id] ? logs[id] : res.status(404).redirect());
+});
+//    QUERY
 logsControllers.get("/", (req, res) => {
   const { order, mistakes, lastCrisis } = req.query;
 
@@ -69,15 +76,12 @@ logsControllers.get("/", (req, res) => {
       break;
   }
 });
-//    PART ONE BONUS
-/*/logs?order=asc it will organize the logs alphabetically
-/logs?order=desc it will organize the logs in reverse alphabetical order
-*/
 
-// logsControllers.get("/:id",(req,res)=>{
-//   const {id} = req.params
-//   res.json(logs[id] ? logs[id] : )
-// })
+// CREATE
+logsControllers.post("/", validateURL, (req, res) => {
+  logs.push(req.body);
+  res.json(logs[logs.length - 1]);
+});
 
 // EXPORT
 module.exports = logsControllers;
