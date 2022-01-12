@@ -83,5 +83,25 @@ logsControllers.post("/", validateURL, (req, res) => {
   res.json(logs[logs.length - 1]);
 });
 
+// UPDATE
+logsControllers.put("/:arrayIndex", validateURL, async (req, res) => {
+  if (logs[req.params.arrayIndex]) {
+    logs[req.params.arrayIndex] = req.body;
+    res.status(200).json(logs[req.params.arrayIndex]);
+  } else {
+    res.status(404).json({ error: "Not found" });
+  }
+});
+
+// DELETE
+logsControllers.delete("/:indexArray", (req, res) => {
+  if (logs[req.params.indexArray]) {
+    const deletedLogs = logs.splice(req.params.indexArray, 1);
+    res.status(200).json(deletedLogs);
+  } else {
+    res.status(404).json({ error: "Not found" });
+  }
+});
+
 // EXPORT
 module.exports = logsControllers;
