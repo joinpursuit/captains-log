@@ -15,11 +15,11 @@ logs.post('/',(request,response)=> {
     response.status(201).json(logsArray)
 })
 
-
-logs.get('/:value', (request,response)=>{
-    console.log(request)
-    const {value} = request.params;
-    response.send(logsArray[value])
+//accessing the parameter - key in the request, the value is updated to be the array in the index
+logs.get('/:index', (request,response)=>{
+    const {index} = request.params;
+    logsArray[index] ? response.json(logsArray[index]) :
+    response.redirect('http://localhost:3003/logs/3',302)
 })
 
 
