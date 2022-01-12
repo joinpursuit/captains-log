@@ -79,43 +79,43 @@ logRoutes.post("/", (req, res)=>{
 
 
 // DELETE
-// logRoutes.delete("/:id", (req, res)=>{
-//     const { id } = req.params;
-//     if (logArr[id]){
-//         let removed = logArr.splice(id, 1);
-//         res.json(removed[0]);
-//     } else {
-//         // redirected to the 404 route you had written in the last part
-//         res.redirect('logs/:id');
-//     }
-// });
+logRoutes.delete("/:id", (req, res)=>{
+    const { id } = req.params;
+    if (logArr[id]){
+        let removed = logArr.splice(id, 1);
+        res.json(removed[0]);
+    } else {
+        // redirected to the 404 route you had written in the last part
+        res.redirect('logs/:id');
+    }
+});
 
 // UPDATE
-// logRoutes.put("/:id", (req, res)=>{
-//     const { id } = req.params;
+logRoutes.put("/:id", (req, res)=>{
+    const { id } = req.params;
 
-//     if (!logArr[id]){
-//         res.status(422).json({
-//             error: "Not found"
-//         });
-//         return;
-//     };
+    if (!logArr[id]){
+        res.status(422).json({
+            error: "Not found"
+        });
+        return;
+    };
 
-//     // if these data types are all correct, use. Else = error.
-//     let { captainName, title, post, mistakesWereMadeToday, daysSinceLastCrisis } = req.body;
-//     if (captainName !== undefined && 
-//         title !== undefined &&
-//         post !== undefined &&
-//         mistakesWereMadeToday !== undefined &&
-//         daysSinceLastCrisis !== undefined){
-//             logArr[id] = {
-//                 captainName, title, post, mistakesWereMadeToday, daysSinceLastCrisis
-//             };
-//             res.json(logArr[id]);
-//     } else {
-//         res.redirect('logs/:id');
-//     }
-// });
+    // if these data types are all correct, use. Else = error.
+    let { captainName, title, post, mistakesWereMadeToday, daysSinceLastCrisis } = req.body;
+    if (captainName !== undefined && 
+        title !== undefined &&
+        post !== undefined &&
+        mistakesWereMadeToday !== undefined &&
+        daysSinceLastCrisis !== undefined){
+            logArr[id] = {
+                captainName, title, post, mistakesWereMadeToday, daysSinceLastCrisis
+            };
+            res.json(logArr[id]);
+    } else {
+        res.redirect('logs/:id');
+    }
+});
 
 
 
