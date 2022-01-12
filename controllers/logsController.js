@@ -64,7 +64,7 @@ logRoutes.get("/:id", (req, res)=>{
 })
 
 // CREATE
-logRoutes.post("/", validateURL, (req, res)=>{
+logRoutes.post("/", (req, res)=>{
         // *** Part 2:
         logArr.push(req.body);
         res.json(logArr[logArr.length-1]);

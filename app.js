@@ -11,10 +11,10 @@ app.use(express.json());
 const logsController = require("./controllers/logsController.js");
 app.use("/logs", logsController);
 
-// // ** START: Part 2 bonus - New controllers
-// const logsControllerV2 = require("./v2/controllers/logsController.js");
-// app.use("/v2/logs", logsControllerV2);
-// // ** END: Part 2 bonus - New controllers
+// ** START: Part 2 bonus - New controllers
+const logsControllerV2 = require("./v2/controllers2/logsController2");
+app.use("/v2/logs", logsControllerV2);
+// ** END: Part 2 bonus - New controllers
 
 // Routes
 app.get("/", (req, res)=>{
