@@ -18,6 +18,11 @@ logs.get("/:id", (req, res) => {
 logs.post("/", (req, res) => {
     logArray.push(req.body);
     res.json(logArray[logArray.length-1]);
-})
+});
+
+logs.delete("/:id", (req, res) => {
+    const deletedLog = logArray.splice(req.params.id, 1);
+    res.status(200).json(deletedLog);
+});
 
 module.exports = logs;
