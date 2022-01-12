@@ -5,9 +5,7 @@ const logDB = require("../models/log")
 
 // Routing for log
 const logRouter = express.Router()
-
-
-
+logRouter.use(logger)
 
 logRouter.get("/", (req, res) => {
   
@@ -84,13 +82,29 @@ logRouter.get("/:index", (req, res) => {
 res.json(logDB[index])
 })
 
-logRouter.post("/", (req, res)=> {
 
-    const user = req.body
-    console.log(req.body)
-    logDB.push(user)   
-    res.status(201).json(logDB)
-})
+
+const {body, validationResult} = require('express-validator')
+
+// Add
+logRouter.post("/",
+body("daysSinceLastCrisis").isNumeric(), 
+body('captainName').isString(),
+body("title").isString(),
+body('post').isString(),
+body('mistakesWereMadeToday').isBoolean(),
+(req, res) =>{
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+        return res.status(400).json({errors: errors.array()})
+    }
+    console.log("Validation passed. Adding the new req.body to the existing array")
+    logDB.push(req.body)
+    res.status(200).json(logDB)
+}
+)
+
+
 
 logRouter.delete("/:index", (req, res) => {
  const {index} = req.params
@@ -98,6 +112,7 @@ logRouter.delete("/:index", (req, res) => {
  console.log(deleted)
  if (deleted) {
      console.log("it is working for deleting")
+    //  logDB.filter((each, i) => i !== index)
      logDB.splice(Number(index), 1)
      res.status(200).json(logDB)
  }else {
@@ -106,6 +121,74 @@ logRouter.delete("/:index", (req, res) => {
  }
     
 })
+
+logRouter.put("/:index", (req, res) => {
+       
+       
+    if (!logDB[req.params.index]) {
+        res.status(404).json({error: `${req.params.index} does not exist`})
+    }
+        logDB[req.params.index] = req.body
+    //    logDB.splice(req.params.index, 1, req.body)
+       res.status(200).json(logDB)
+   })
+
+
+
+logRouter.get("/v2/logs", (req, res) => {
+
+   console.log("Respond to vs/logs route")
+   const map = logDB.map((each) => {
+       return(
+           
+      `  <h1>Title: ${each.title}</h1>  
+       <p>Name: ${each.captainName}</p>
+         <p>Post: ${each.post}</p>
+         <p>Mistakes Made Today: ${each.mistakesWereMadeToday}</p>
+         <p>Days Since Last Crisis: ${each.daysSinceLastCrisis}</p>
+      `)
+   })
+   res.send(`
+    <form>
+    <ul>
+     ${map.join("")}
+    </ul>
+
+   </form>
+   `)
+   })
+
+
+   logRouter.get("/v2/logs/:index", (req, res) => {
+    const {index} = req.params
+   
+    if (index > logDB.length) {
+       res.redirect(`/`)
+       }
+   
+   res.send(
+    `<form action="/logs/v2/logs" method="GET">
+   <ul>
+   <h1>Title: ${logDB[index].title}</h1>  
+   <p>Name: ${logDB[index].captainName}</p>
+     <p>Post: ${logDB[index].post}</p>
+     <p>Mistakes Made Today: ${logDB[index].mistakesWereMadeToday}</p>
+     <p>Days Since Last Crisis: ${logDB[index].daysSinceLastCrisis}</p>
+   </ul>
+   <button>Go Back</button>
+
+  </form>`)
+   })
+   
+
+
+
+
+
+   function logger(req, res, next) {
+    console.log(req.originalUrl)
+    next()
+}
 
 
 module.exports = logRouter;
