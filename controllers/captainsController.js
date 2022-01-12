@@ -6,15 +6,19 @@ const captainsLogArray = require("../models/log.js");
 const captainsLog = express.Router();
 // Routes
 captainsLog.post("/", (request, response) => {
-  captainsLogArray
-    .push({
-      captainName: "Picard",
-      daysSinceLastCrisis: "10",
-      mistakesWereMadeToday: true,
-      post: "Today I contemplated that there sure are a lot of stars in the sky",
-      title: "Stars",
-    })
-    .json(captainsLogArray);
+  // captainsLogArray
+  //   .push({
+  //     captainName: "Picard",
+  //     daysSinceLastCrisis: "10",
+  //     mistakesWereMadeToday: true,
+  //     post: "Today I contemplated that there sure are a lot of stars in the sky",
+  //     title: "Stars",
+  //   })
+  //   .json(captainsLogArray);
+  if (Object.keys(request.body).length) {
+    captainsLogArray.push(request.body);
+    response.status(200).json(captainsLogArray);
+  } else response.status(404).json({ error: "site not found" });
 });
 captainsLog.get("/", (request, response) => {
   const { order, mistakes, lastCrisis } = request.query;
@@ -40,7 +44,9 @@ captainsLog.get("/", (request, response) => {
 
 captainsLog.delete("/:arrayIndex", (request, response) => {
   const { arrayIndex } = request.params;
-  response.send(captainsLogArray.splice(arrayIndex, 1));
+  captainsLogArray[arrayIndex]
+    ? response.status(200).json(captainsLogArray.splice(arrayIndex, 1)[0])
+    : response.status(404).json({ error: "site not found" });
 });
 
 captainsLog.get("/:arrayIndex", (request, response) => {
