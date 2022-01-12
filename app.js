@@ -9,11 +9,4 @@ app.get("/", (request, response) => {
     response.send("Welcome to the Captain's Log App")
 })
 
-app.get("/logs/:arrayIndex", (request, response) => {
-    const { arrayIndex } = request.params
-    logsArray[arrayIndex]
-    ? response.send(logsArray[arrayIndex])
-    : response.redirect()
-})
-
 module.exports = app
