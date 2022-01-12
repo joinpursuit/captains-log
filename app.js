@@ -1,14 +1,13 @@
-const { response } = require("express");
+const logsControllers = require("./controllers/logsControllers");
 const express = require("express");
 const app = express();
-const logs = require("./models/log");
+
+app.use(express.json());
+
+app.use("/logs", logsControllers);
 
 app.get("/", (request, response) => {
   response.send("Welcome to the Captains Log");
-});
-
-app.get("/logs", (request, response) => {
-  response.send(logs);
 });
 
 app.get("*", (request, response) => {
