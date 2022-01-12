@@ -2,16 +2,9 @@ const express = require("express");
 const logsRoute = express.Router();
 const logsArray = require("../models/log.js");
 let logsArrayCopy = logsArray.slice();
-// /logs?order=asc it will organize the logs alphabetically
-// /logs?order=desc it will organize the logs in reverse alphabetical order
-// /logs?mistakes=true it will only show the logs where the value of mistakesWereMadeToday is true
-// /logs?mistakes=false it will only show the logs where the value of mistakesWereMadeToday is false
-// /logs?lastCrisis=gt10 it will return all the logs where the daysSinceLastCrisisis greater tthan 10
-// /logs?lastCrisis=gte20it will return all the logs where the daysSinceLastCrisisis greater tthan or equal to 20
-// /logs?lastCrisis=lte5it will return all the logs where the daysSinceLastCrisisis less tthan or equal to 5
+
 logsRoute.get("/", (req, res)=> {
   const { order, mistakes, lastCrisis } = req.query;
-
   console.log("~~req.query~~", req.query);
 
   if( order || mistakes || lastCrisis ) {
@@ -44,15 +37,22 @@ logsRoute.get("/", (req, res)=> {
         break;
       default:
     }
-  
+// /logs?mistakes=true it will only show the logs where the value of mistakesWereMadeToday is true CHECK
+// /logs?mistakes=false it will only show the logs where the value of mistakesWereMadeToday is false CHECK
     switch( mistakes ){
       case "true":
+        let mistakes = logsArray.filter((log) => log.mistakesWereMadeToday === true ? log : null);
+        res.json(mistakes);
         break;
       case "false":
+        let noMistakes = logsArray.filter((log) => log.mistakesWereMadeToday === false ? log : null);
+        res.json(noMistakes);
         break;
       default:
     }
-  
+// /logs?lastCrisis=gt10 it will return all the logs where the daysSinceLastCrisisis greater tthan 10
+// /logs?lastCrisis=gte20it will return all the logs where the daysSinceLastCrisisis greater tthan or equal to 20
+// /logs?lastCrisis=lte5it will return all the logs where the daysSinceLastCrisisis less tthan or equal to 5  
     switch( lastCrisis ){
       case "gt10":
         break;
