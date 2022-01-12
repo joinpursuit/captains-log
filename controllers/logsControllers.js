@@ -111,7 +111,16 @@ logs.post(
   }
 );
 
-
+//delete object using the id
+logs.delete("/:id", (request, response) => {
+  const { id } = request.params;
+  if (captainLogArray[id]) {
+    captainLogArray.splice(id, 1);
+    response.status(200).json(deletedLog[0]);
+  } else {
+    response.redirect('/*');
+  }
+});
 
 // curl PUT  http://localhost:3003/logs 'content-type: application/x-www-form-urlencoded' 'id=id'
 
