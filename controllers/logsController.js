@@ -1,4 +1,5 @@
 const express = require("express");
+const res = require("express/lib/response");
 const logRoutes = express.Router();
 const logArr = require("../models/log.js");
 
@@ -75,5 +76,22 @@ logRoutes.post("/", (req, res)=>{
         res.json(logArr[logArr.length-1]);
     }
 )
+
+
+// DELETE
+logRoutes.delete("/:id", (req, res)=>{
+    const { id } = req.params;
+    if (logArr[id]){
+        let removed = logArr.splice(id, 1);
+        res.json(removed[0]);
+    } else {
+        // redirected to the 404 route you had written in the last part
+        res.redirect('logs/:id');
+    }
+});
+
+// UPDATE
+
+
 
 module.exports = logRoutes;
