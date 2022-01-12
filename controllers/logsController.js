@@ -8,6 +8,7 @@ logsRoute.get("/", (req, res)=> {
   console.log("~~req.query~~", req.query);
 
   if( order || mistakes || lastCrisis ) {
+
     switch( order ){
       case "asc":
         logsArrayCopy.sort((a, b)=> {
@@ -37,8 +38,7 @@ logsRoute.get("/", (req, res)=> {
         break;
       default:
     }
-// /logs?mistakes=true it will only show the logs where the value of mistakesWereMadeToday is true CHECK
-// /logs?mistakes=false it will only show the logs where the value of mistakesWereMadeToday is false CHECK
+
     switch( mistakes ){
       case "true":
         let mistakes = logsArray.filter((log) => log.mistakesWereMadeToday === true ? log : null);
@@ -50,22 +50,25 @@ logsRoute.get("/", (req, res)=> {
         break;
       default:
     }
-// /logs?lastCrisis=gt10 it will return all the logs where the daysSinceLastCrisisis greater tthan 10
-// /logs?lastCrisis=gte20it will return all the logs where the daysSinceLastCrisisis greater tthan or equal to 20
-// /logs?lastCrisis=lte5it will return all the logs where the daysSinceLastCrisisis less tthan or equal to 5  
+    
     switch( lastCrisis ){
       case "gt10":
+        let greaterThanTen = logsArray.map((log)=> log.daysSinceLastCrisis > 10 ? log : null);
+        res.json(greaterThanTen);
         break;
       case "gte20":
+        let greaterThanTwenty = logsArray.map((log)=> log.daysSinceLastCrisis >= 20 ? log : null);
+        res.json(greaterThanTwenty);
         break;
       case "lte5":
+        let lessThanFive = logsArray.map((log)=> log.daysSinceLastCrisis <= 5 ? log : null);
+        res.json(lessThanFive);
         break;
       default:
     }
   } else {
     res.json(logsArray);
   }
-
 });
 
 logsRoute.get("/:id", (req, res) => {
