@@ -9,10 +9,6 @@ app.get("/", (request, response) => {
     response.send("Welcome to the Captain's Log App")
 })
 
-app.get("/logs", (request, response) => {
-    response.send(logsArray)
-})
-
 app.get("/logs/:arrayIndex", (request, response) => {
     const { arrayIndex } = request.params
     logsArray[arrayIndex]
