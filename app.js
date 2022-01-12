@@ -1,6 +1,5 @@
 const express = require("express")
 const app = express()
-const logsArray = require("./models/log") 
 const logsController = require("./controllers/logsController")
 
 app.use(express.json())
