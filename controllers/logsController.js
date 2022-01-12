@@ -4,7 +4,7 @@ const logRoutes = express.Router();
 const logArr = require("../models/log.js");
 
 // START: for part 2 bonus section
-const { validateURL } = require("../models/validations.js");
+// const { validateURL } = require("../models/validations.js");
 // END: for part 2 bonus section
 
 logRoutes.get("/", (req, res)=>{
@@ -62,21 +62,36 @@ logRoutes.get("/:id", (req, res)=>{
     if (logArr[id]){
         res.json(logArr[id]);
     } else {
+        // redirected to the 404 route written in last part
         res.redirect('logs/:id');
     }
 })
 
-// CREATE (and using `validateURL`)
+// *** START bonus section - Part 2
+const validateURL = (req, res, next) =>{
+    // console.log("check req.body: ", typeof req.body.captainName);
+    if ((typeof req.body.captainName !== "string") ||
+        (typeof req.body.title !== "string") ||
+        (typeof req.body.post !== "string") ||
+        (typeof req.body.mistakesWereMadeToday !== "boolean") ||
+        (typeof req.body.daysSinceLastCrisis !== "number")
+    ){
+        res.status(404).json({error: "A wrong datatype was entered."});
+    }
+    return next();
+};
+// *** END bonus section - Part 2
 
+
+// CREATE (and using `validateURL`)
 /* Validating/giving error for Wrong answers seem to not be working - check `validations.js` file */
-// logRoutes.post("/", validateURL, (req, res)=>{
-logRoutes.post("/", (req, res)=>{
+logRoutes.post("/", validateURL, (req, res)=>{
+// logRoutes.post("/", (req, res)=>{
         // *** Part 2:
         logArr.push(req.body);
         res.json(logArr[logArr.length-1]);
     }
 )
-
 
 // DELETE
 logRoutes.delete("/:id", (req, res)=>{
@@ -85,7 +100,6 @@ logRoutes.delete("/:id", (req, res)=>{
         let removed = logArr.splice(id, 1);
         res.json(removed[0]);
     } else {
-        // redirected to the 404 route you had written in the last part
         res.redirect('logs/:id');
     }
 });
