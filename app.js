@@ -3,6 +3,8 @@ const express = require('express');
 
 const app = express();
 
+app.use(express.json());
+
 app.use('/logs', logController);
 
 app.get('/', (request, response) => {
