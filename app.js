@@ -3,6 +3,10 @@ const app = require('express')();
 //importing logs route
 const logs = require('./controllers/logsController');
 
+//middleware, json parser
+const express = require('express');
+
+app.use(express.json());
 //tell app to use logs to handle "/logs" path
 app.use('/logs', logs);
 

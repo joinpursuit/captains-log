@@ -32,5 +32,11 @@ logs.get('/:id', (req, res) => {
   logsData[id] ? res.json(logsData[id]) : res.redirect('/');
 });
 
+logs.post('/', (req, res) => {
+  console.log('POST request to "/"');
+  logsData.push(req.body);
+  res.status(303).json(logsData);
+});
+
 //export logs for us in app
 module.exports = logs;
