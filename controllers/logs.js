@@ -66,11 +66,27 @@ logs.get("/:arrayIndex", (req, res) => {
     res.redirect("/*");
   }
 });
-// POST SEND DATA FROM CLIENT TO API SERVER TO UPDATE: logArray AND THE RESPONSE IS THE JSON FILE OF NEW ARRAY
+// POST/CREATE NEW LOG AND PUSH INTO ARRAY, NEW ARRAY WILL BE IN JSON FORMAT
 logs.post("/", (request, response) => {
     console.log("/POST to /logs");
     logArray.push(request.body);
     response.json(logArray);
+    response.statusCode(201)
   });
+// DELETES ENTIRE OBJECT AT INDEX POSITION
+  logs.delete("/:index", (request, response) => {
+    const { index } = request.params;
+    if (logArray[index]) {
+      const deletedLog = logArray.splice(index, 1);
+      response.status(200).json(deletedLog);
+    } else {
+        response.status(404).json({error: "Log not found"})
+    }
+  });
+// UPDATES OBJECT AT INDEX POSITION BY REPLACING THAT ENTIRE OBJECT
+  logs.put("/:index", (request, response) => {
+      logs[request.params.index] = request.body
+      response.status(200).json(logArray[request.params.index])
+  })
 
 module.exports = logs;
