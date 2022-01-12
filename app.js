@@ -27,6 +27,11 @@ app.get('/logs/:index', (request, response) => {
     }
 });
 
+app.get("/logs?order=asc" , (request, response) => {
+    logsArray.sort();
+    response.send.status(201),json(logsArray);
+})
+
 app.post('/logs', (request, response) => {
     logsArray.push(request.body);
     response.status(201).json(logsArray);
