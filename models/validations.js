@@ -8,9 +8,8 @@ const validateURL = (req, res, next) =>{
         (typeof req.body.daysSinceLastCrisis !== "number")
     ){
         res.status(404).json({error: "A wrong datatype was entered."});
-    } else {
-        return next();
     }
+    return next();
 };
 // *** END bonus section - Part 2
 

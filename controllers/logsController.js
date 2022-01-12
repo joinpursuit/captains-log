@@ -2,7 +2,9 @@ const express = require("express");
 const logRoutes = express.Router();
 const logArr = require("../models/log.js");
 
+// START: for part 2 bonus section
 const { validateURL } = require("../models/validations.js");
+// END: for part 2 bonus section
 
 logRoutes.get("/", (req, res)=>{
     // *** START bonus section - Part 1
@@ -63,8 +65,11 @@ logRoutes.get("/:id", (req, res)=>{
     }
 })
 
-// CREATE
-logRoutes.post("/", (req, res)=>{
+// CREATE (and using `validateURL`)
+
+/* Validating/giving error for Wrong answers seem to not be working - check `validations.js` file */
+
+logRoutes.post("/", validateURL, (req, res)=>{
         // *** Part 2:
         logArr.push(req.body);
         res.json(logArr[logArr.length-1]);
