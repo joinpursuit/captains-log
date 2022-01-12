@@ -8,4 +8,5 @@ logs.get('/',(request, response) => {
     response.json(logsArray);
 });
 
+
 module.exports = logs;

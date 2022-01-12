@@ -10,4 +10,8 @@ app.get('/', (request, response) => {
     response.send("My Log ⚓📋");
 });
 
+app.get('*', (request, response) => {
+    response.status(404).json({ ERROR: 'Page not found'});
+});
+
 module.exports = app;
