@@ -4,7 +4,7 @@ const logs = express.Router(); //when i dig into this, i find the route im looki
 
 //this '/' is saying /logs in the browser
 logs.get('/', (_,response)=> { 
-    console.log('this is your log place')
+    // console.log('this is your log place')
     response.send(logsArray)
 })
 
@@ -16,12 +16,18 @@ logs.post('/',(request,response)=> {
 })
 
 //accessing the parameter - key in the request, the value is updated to be the array in the index
-logs.get('/:index', (request,response)=>{
-    const {index} = request.params;
-    logsArray[index] ? response.json(logsArray[index]) :
+logs.get('/:id', (request,response)=>{
+    const {id} = request.params;
+    logsArray[id] ? response.json(logsArray[id]) :
     response.redirect('http://localhost:3003/logs/3',302)
 })
 
+
+logs.delete('/:id', (request, response) => {
+    const {id} = request.params;
+    logsArray.splice(id,1)
+    response.json(logsArray)
+})
 
 
 // logs.get("/", (request, respond) => {
