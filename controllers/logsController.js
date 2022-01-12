@@ -22,7 +22,7 @@ logs.get('/:id', (request,response)=>{
     response.redirect('http://localhost:3003/logs/3',302)
 })
 
-
+//Delete Method
 logs.delete('/:id', (request, response) => {
     const {id} = request.params;
     logsArray.splice(id,1)
