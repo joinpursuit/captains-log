@@ -1,7 +1,7 @@
 //Dependencies
-const { request } = require("express");
 const express = require("express");
-
+const { check, validationResult } = require("express-validator/check");
+console.log(check);
 //files
 const captainLogArray = require("../models/logs");
 
@@ -61,7 +61,7 @@ logs.get("/", (request, response) => {
     response.send(captainLogArray);
   }
 });
- 
+
 logs.get("/:arrayIndex", (request, response) => {
   const { arrayIndex } = request.params;
   console.log("GET request to /:arrayIndex");
@@ -72,15 +72,47 @@ logs.get("/:arrayIndex", (request, response) => {
   }
 });
 
-//POST to /logs
-logs.post("/", (request, response) => {
-  console.log("GET request to /:post");
-  // captainLogArray = [...captainLogArray, request.body]
-  captainLogArray.push(request.body)
-  response.json(captainLogArray)  
+//POST to /logs with input field validation
+/**
+ * @api {post} /logs Create captain object
+ * @apiParam {String} [captainName] captainName
+ * @title {String} [title] title
+ * @post {String} [post] post
+ * @mistakesWereMadeToday {boolean} [mistakesWereMadeToday] mistakesWereMadeToday
+ * @daysSinceLastCrisis  {number} [daysSinceLastCrisis] daysSinceLastCrisis
+ * @apiSuccess (200) {Object} object
+ */
 
-});
+logs.post(
+  "/",
+  [
+    check("captainName", "captainName is required").not().isEmpty(),
+    check("title", "Title is required").notEmpty(),
+    check("post", "post is not valid").optional(),
+    check(
+      "mistakesWereMadeToday",
+      "mistakesWereMadeToday is required (true/false)"
+    ).isBoolean(),
+    check("daysSinceLastCrisis", "daysSinceLastCrisis ").isInt(),
+  ],
+  (request, response) => {
+    console.log("GET request to /:post");
+    console.log(request.body);
+   
+    const errors = validationResult(request);
 
+    if (!errors.isEmpty()) {
+      return response.status(422).json(errors.array());
+    } else {
+      captainLogArray.push(request.body);
+      response.status(201).json(captainLogArray);
+    }
+  }
+);
+
+
+
+// curl PUT  http://localhost:3003/logs 'content-type: application/x-www-form-urlencoded' 'id=id'
 
 //Exports the bookmarks controller/router
 //So that 'app can delegate the '/bookmarks' route to it

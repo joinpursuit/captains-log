@@ -1,7 +1,6 @@
 
 // DEPENDENCIES
 const express = require("express");
-
 //files
 const captainControllers = require('./controllers/logsControllers')
 
