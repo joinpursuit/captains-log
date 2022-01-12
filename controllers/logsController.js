@@ -5,7 +5,6 @@ let logsArrayCopy = logsArray.slice();
 
 logsRoute.get("/", (req, res)=> {
   const { order, mistakes, lastCrisis } = req.query;
-  console.log("~~req.query~~", req.query);
 
   if( order || mistakes || lastCrisis ) {
 
@@ -50,7 +49,7 @@ logsRoute.get("/", (req, res)=> {
         break;
       default:
     }
-    
+
     switch( lastCrisis ){
       case "gt10":
         let greaterThanTen = logsArray.map((log)=> log.daysSinceLastCrisis > 10 ? log : null);
@@ -76,12 +75,15 @@ logsRoute.get("/:id", (req, res) => {
   if( logsArray[id] ) {
     res.send(logsArray[id]);
   } else {
-    res.redirect("/")
+    res.redirect("/");
   }
 });
 
-//POST
-
+logsRoute.post("/", (req, res)=> {
+  logsArray.push(req.body);
+  res.json(logsArray[logsArray.length-1]);
+  console.log(req.body)
+});
 //DELETE
 
 
