@@ -68,8 +68,8 @@ logRoutes.get("/:id", (req, res)=>{
 // CREATE (and using `validateURL`)
 
 /* Validating/giving error for Wrong answers seem to not be working - check `validations.js` file */
-
-logRoutes.post("/", validateURL, (req, res)=>{
+// logRoutes.post("/", validateURL, (req, res)=>{
+logRoutes.post("/", (req, res)=>{
         // *** Part 2:
         logArr.push(req.body);
         res.json(logArr[logArr.length-1]);
