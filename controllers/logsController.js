@@ -82,9 +82,17 @@ logsRoute.get("/:id", (req, res) => {
 logsRoute.post("/", (req, res)=> {
   logsArray.push(req.body);
   res.json(logsArray[logsArray.length-1]);
-  console.log(req.body)
 });
-//DELETE
+
+logsRoute.delete("/:index", (req, res) => {
+  const { index } = req.params;
+  if( logsArray[index] ) {
+    let remove = logsArray.splice(logsArray[index], 1);
+    res.json(remove);
+  } else {
+    res.status(404).json({error: "Not found"});
+  }
+});
 
 
 module.exports = logsRoute;
