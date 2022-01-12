@@ -1,6 +1,6 @@
 //Dependencies
 const express = require("express");
-const { check, validationResult } = require("express-validator/check");
+const { check, validationResult } = require("express-validator");
 // console.log(check);
 
 //files
@@ -103,7 +103,7 @@ logs.post(
     const errors = validationResult(request);
 
     if (!errors.isEmpty()) {
-      return response.status(422).json(errors.array());
+      return response.status(422).json(`{${errors.array()} check that all fields have inputs and correct entries}`);
     } else {
       captainLogArray.push(request.body);
       response.status(201).json(captainLogArray);
@@ -118,9 +118,22 @@ logs.delete("/:id", (request, response) => {
     captainLogArray.splice(id, 1);
     response.status(200).json(deletedLog[0]);
   } else {
-    response.redirect('/*');
+    response.status({error: "Couldn't replace the log"})
   }
 });
+
+// updating
+logs.put("/:arrayIdx", (request, response) => {
+  const { arrayIdx } = request.params
+  if( captainLogArray[arrayIdx]){
+ captainLogArray[arrayIdx] = request.body;
+  response.status(200).json(captainLogArray[arrayIdx])
+  } else {
+    response.status({error: "Couldn't replace the log"}) 
+  }
+ 
+})
+
 
 // curl PUT  http://localhost:3003/logs 'content-type: application/x-www-form-urlencoded' 'id=id'
 

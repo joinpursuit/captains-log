@@ -3,6 +3,7 @@
 const express = require("express");
 //files
 const captainControllers = require('./controllers/logsControllers')
+// const version2Controllers = require('./v2/controllers/logsController')
 
 //creates the Express app
 const app = express();
@@ -10,12 +11,13 @@ const app = express();
 app.use(express.json())
 
 app.use('/logs', captainControllers)
+// app.use('/v2/logs', version2Controllers)
 
 
 
 
 //Home route
-app.get("/", (_, response) =>{
+app.get("/", (request, response) =>{
     console.log('GET request to /')
     response.send("Welcome to Captain's log");
 })
