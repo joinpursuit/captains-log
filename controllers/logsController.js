@@ -37,6 +37,25 @@ logs.post('/', (req, res) => {
   logsData.push(req.body);
   res.status(303).json(logsData);
 });
-
+logs.put('/:id', (req, res) => {
+  const { id } = req.params;
+  console.log('PUT request to "/"');
+  if (logsData[id]) {
+    logsData[id] = req.body;
+    res.status(200).json(logsData);
+  } else {
+    res.status(404).json({ error: 'Log not found' });
+  }
+});
+logs.delete('/:id', (req, res) => {
+  const { id } = req.params;
+  console.log('DELETE request it "/"');
+  if (logsData[id]) {
+    logsData.splice(id, 1);
+    res.status(200).json(logsData);
+  } else {
+    res.status(404).json({ error: 'Log not found' });
+  }
+});
 //export logs for us in app
 module.exports = logs;
