@@ -13,4 +13,9 @@ logs.get("/:arrayIndex", (request, response) => {
     : response.redirect()
 })
 
+logs.post("/", (request, response) => {
+    logsArray.push(request.body)
+    response.send(logsArray[logsArray.length-1])
+})
+
 module.exports = logs

@@ -3,6 +3,7 @@ const app = express()
 const logsArray = require("./models/log") 
 const logsController = require("./controllers/logsController")
 
+app.use(express.json())
 app.use("/logs", logsController)
 
 app.get("/", (request, response) => {
