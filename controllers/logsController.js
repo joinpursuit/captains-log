@@ -1,6 +1,21 @@
 const express = require("express");
+const app = require("../app");
 const logsArray = require("../models/log");
 const logs = express.Router(); //when i dig into this, i find the route im looking for in the parameter
+
+
+
+
+// //query functionality
+// logs.get('/',(request,response) => {
+//     const {order} = request.query;
+//     const {mistakes} = request.query;
+//     const {lastCrisis} = request.query;
+//     // order === 'desc' ? console.log('show desc') : console.log('not desc')
+//     mistakes === 'true' ? logs.filter(eachLog => {eachLog.mistakesWereMadeToday === 'true'}) : logs.filter(eachLog.mistakesWereMadeToday === 'false')
+//     console.log(logs)
+//     response.send(logs)
+// })
 
 //this '/' is saying /logs in the browser
 logs.get('/', (_,response)=> { 
@@ -15,6 +30,7 @@ logs.post('/',(request,response)=> {
     response.status(201).json(logsArray)
 })
 
+
 //accessing the parameter - key in the request, the value is updated to be the array in the index
 logs.get('/:id', (request,response)=>{
     const {id} = request.params;
@@ -28,6 +44,8 @@ logs.delete('/:id', (request, response) => {
     logsArray.splice(id,1)
     response.json(logsArray)
 })
+
+
 
 
 // logs.get("/", (request, respond) => {

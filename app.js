@@ -1,9 +1,13 @@
 const express = require("express");
 const app = express();
+const cors = require('cors')
 const logsControllers = require('./controllers/logsController')
+
 
 app.use(express.json()) 
 app.use('/logs', logsControllers)
+app.use((cors()))
+
 
 
 app.get('/', (request,response)=> {
