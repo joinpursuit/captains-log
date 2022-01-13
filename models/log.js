@@ -48,6 +48,13 @@ const log = [
     mistakesWereMadeToday: true,
     daysSinceLastCrisis: 0,
   },
+  {
+    captainName: "Perfect test",
+    title: "No Mistakes",
+    post: "I know you don’t like taking orders from a woman, but you’re gonna like getting your ass kicked by one even less.",
+    mistakesWereMadeToday: false,
+    daysSinceLastCrisis: 0,
+  },
 ];
 
 module.exports = log;
