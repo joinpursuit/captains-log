@@ -1,4 +1,5 @@
 const express = require("express");
+const req = require("express/lib/request");
 const log = express.Router();
 const logArray = require("../models/log.js");
 
@@ -20,6 +21,17 @@ log.post("/", (request, response) => {
   logArray.push(request.body)
   response.json(logArray[logArray.length - 1])
 })
+
+//PUT
+log.put("/:id", (request, response) => {
+  const { id } = request.params
+  if (logArray[id]) {
+    logArray[id] = request.body;
+    response.status(200).json(logArray[id])
+  } else {
+    response.status(404).json({error: "Not found"})
+  }
+ })
 
 // DELETE
 log.delete("/:id", (request, response) => {
