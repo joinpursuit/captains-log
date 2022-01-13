@@ -60,7 +60,13 @@ app.put("/logs/:arrayIndex", (req,res)=>{
 });
 
 app.delete("/logs/:arrayIndex", (req,res)=>{
-    const{}
+    const{arrayIndex} = req.params;
+    if(logsArr[arrayIndex]){
+        let removed = logsArr.splice(arrayIndex,1)
+        res.json(removed)
+    } else {
+        res.redirect("*")
+    }
 })
 
 app.listen(PORT, ()=>{
