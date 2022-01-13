@@ -62,8 +62,8 @@ describe("logs", () => {
 
     describe("PUT", () => {
       it("replaces the index in the logs array", async () => {
-        const updatedLog = logsArray[0];
-
+        const updatedLog = {...logsArray[0]};
+        updatedLog.captainName = "laiba"
         await new Promise((resolve) => {
           request(logs)
             .put("/logs/0")
@@ -73,8 +73,8 @@ describe("logs", () => {
             .expect("statusCode", 303)
             .end(resolve);
         });
-
-        expect(logsArray[0]).toEqual(updatedLog);
+        console.log(logsArray[0].captainName, updatedLog.captainName);
+        expect(logsArray[0].captainName).toEqual(updatedLog.captainName);
       });
     });
 
