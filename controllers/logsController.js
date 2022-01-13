@@ -1,5 +1,4 @@
 const express = require("express");
-const res = require("express/lib/response");
 const logRoutes = express.Router();
 const logArr = require("../models/log.js");
 
@@ -63,7 +62,7 @@ logRoutes.get("/:id", (req, res)=>{
         res.json(logArr[id]);
     } else {
         // redirected to the 404 route written in last part
-        res.redirect('logs/:id');
+        res.redirect('/logs/:id');
     }
 })
 
