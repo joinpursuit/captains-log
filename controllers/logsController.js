@@ -9,9 +9,8 @@ const logsArray = require("../models/log");
 const logs = express.Router();
 //display all logs in array, GET
 logs.get("/", (req, res) => {
-  console.log("Request for logs", req.query);
+  console.log("Request for logs");
   const { order, mistakes, lastCrisis } = req.query;
-  //   console.log(lastCrisis, "outside if");
   if (Object.keys(req.query).length > 0) {
     let filteredArray = logsArray.slice(0);
     //filter by last crisis
@@ -20,7 +19,6 @@ logs.get("/", (req, res) => {
       let value = lastCrisis.match(/(\d+)/)[0];
       //regex filter for letters, wasn't getting desired output with match
       let letters = lastCrisis.replace(/[^a-z]/gi, "");
-      //   console.log(letters, value);
       switch (letters) {
         case "lte":
           filteredArray = filteredArray.filter((item) => {
@@ -49,7 +47,6 @@ logs.get("/", (req, res) => {
     //filter by last mistake
     switch (mistakes) {
       case "true":
-        // console.log("true switch");
         filteredArray = filteredArray.filter((item) => {
           return item.mistakesWereMadeToday === true;
         });

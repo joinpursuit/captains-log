@@ -1,7 +1,7 @@
 // Dependencies
 const express = require("express");
 const logsController = require("./controllers/logsController");
-
+const cors = require("cors");
 // Configuration
 const app = express();
 
