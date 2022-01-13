@@ -11,7 +11,7 @@ const logs = express.Router();
 logs.get("/", (req, res) => {
   console.log("Request for logs", req.query);
   const { order, mistakes, lastCrisis } = req.query;
-  console.log(lastCrisis, "outside if");
+  //   console.log(lastCrisis, "outside if");
   if (Object.keys(req.query).length > 0) {
     let filteredArray = logsArray.slice(0);
     //filter by last crisis
@@ -20,7 +20,7 @@ logs.get("/", (req, res) => {
       let value = lastCrisis.match(/(\d+)/)[0];
       //regex filter for letters, wasn't getting desired output with match
       let letters = lastCrisis.replace(/[^a-z]/gi, "");
-      console.log(letters, value);
+      //   console.log(letters, value);
       switch (letters) {
         case "lte":
           filteredArray = filteredArray.filter((item) => {
@@ -49,7 +49,7 @@ logs.get("/", (req, res) => {
     //filter by last mistake
     switch (mistakes) {
       case "true":
-        console.log("true switch");
+        // console.log("true switch");
         filteredArray = filteredArray.filter((item) => {
           return item.mistakesWereMadeToday === true;
         });
@@ -90,7 +90,7 @@ logs.get("/", (req, res) => {
 //view specific log, GET
 logs.get("/:id", (request, response) => {
   const { id } = request.params;
-  console.log(`Pulling log ${id}`);
+  //   console.log(`Pulling log ${id}`);
   logsArray[id]
     ? response.json(logsArray[id])
     : // : response.status(404).json({ error: "Index not found" });
@@ -100,8 +100,35 @@ logs.get("/:id", (request, response) => {
 // Create new log, POST
 logs.post("/", (request, response) => {
   console.log("Creating new log");
-  logsArray.push(request.body);
-  response.status(201).json(logsArray);
+  function logValidater(obj) {
+    if (typeof obj.captainName !== "string") {
+      return false;
+    }
+    if (typeof obj.title != "string") {
+      console.log("title");
+      return false;
+    }
+    if (typeof obj.post != "string") {
+      console.log("post");
+      return false;
+    }
+    if (typeof obj.mistakesWereMadeToday != "boolean") {
+      console.log("mistakes");
+      return false;
+    }
+    if (typeof obj.daysSinceLastCrisis != "number") {
+      console.log("days");
+      return false;
+    }
+    console.log("valid entry");
+    return true;
+  }
+  if (logValidater(request.body)) {
+    logsArray.push(request.body);
+    response.status(201).json(logsArray);
+  } else {
+    response.status(400).json({ error: "Invalid data type entered" });
+  }
 });
 
 //Delete
