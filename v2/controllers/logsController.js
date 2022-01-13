@@ -12,7 +12,8 @@ v2.get("/:index", (request, response) => {
   const { index } = request.params;
   console.log("GET request /v2/logs" + index);
 
-  if(index > captainLogArray.length-1) response.status(404).send({error: 'Array Index Out Of Bounds'})
+  if(index > captainLogArray.length - 1) {response.status(404).send({error: 'Array Index Out Of Bounds'})} else {
+
 
   if (captainLogArray[Number(index)].captainName) {
     let html = "",
@@ -39,7 +40,7 @@ v2.get("/:index", (request, response) => {
     });
     response.send(html + anchor + button);
   } 
-  
+}
 });
 
 module.exports = v2;
