@@ -34,6 +34,16 @@ logs.put('/:arrayIndex', (request, response) => {
     response.status(200).json(logsArray[arrayIndex]);
 });
 
+// CREATE
+// Adds new log to the end of logs' array:
+logs.post('/', (request, response) => {
+    const newLog = request.body;
+    logsArray.push(newLog)
+    console.log(newLog)
+    response.json(logsArray);
+    response.send(request.body);
+  });
 
+  
 
 module.exports = logs;
