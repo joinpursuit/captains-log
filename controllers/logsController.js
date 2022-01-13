@@ -18,4 +18,10 @@ logs.post("/", (request, response) => {
     response.send(logsArray[logsArray.length-1])
 })
 
+logs.put("/:arrayIndex", (request, response) => {
+    const { arrayIndex } = request.params
+    logsArray[arrayIndex] = request.body
+    response.json(logsArray[arrayIndex])
+})
+
 module.exports = logs
