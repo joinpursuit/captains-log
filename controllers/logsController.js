@@ -24,4 +24,11 @@ logs.put("/:arrayIndex", (request, response) => {
     response.json(logsArray[arrayIndex])
 })
 
+logs.delete("/:arrayIndex", (request, response) => {
+    const { arrayIndex } = request.params
+    response.json(
+        logsArray.splice(arrayIndex, 1)
+    )
+})
+
 module.exports = logs
