@@ -33,4 +33,9 @@ logs.delete("/:id", (req, res) => {
   res.status(200).json(logsArray);
 });
 
+logs.put("/:id", (req, res) => {
+  logsArray[req.params.id] = req.body;
+  res.json(logsArray);
+});
+
 module.exports = logs;
