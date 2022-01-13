@@ -44,6 +44,19 @@ logs.post('/', (request, response) => {
     response.send(request.body);
   });
 
-  
+   // DELETE
+  // Deletes at the index in the logs array:
+  logs.delete('/:index', (request, response) => {
+    const { index } = request.params;
+    // console.log(bookmarksArray)
+    if(logsArray[index]) {
+      // logsArray.filter( (log, i) => index !== i )
+      const deletedLog = logsArray.splice(index, 1)[0]
+      response.status(200).json(deletedLog);
+    } else {
+      response.status(404).json({ error: 'Page Not Found' })
+    }
+  })
+
 
 module.exports = logs;
