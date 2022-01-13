@@ -9,7 +9,7 @@ const validateURL = (req, res, next) =>{
     ){
         res.status(404).json({error: "A wrong datatype was entered."});
     }
-    return next();
+    next();
 };
 // *** END bonus section - Part 2
 

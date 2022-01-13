@@ -3,7 +3,7 @@ const logRoutes = express.Router();
 const logArr = require("../models/log.js");
 
 // START: for part 2 bonus section
-// const { validateURL } = require("../models/validations.js");
+const { validateURL } = require("../models/validations.js");
 // END: for part 2 bonus section
 
 logRoutes.get("/", (req, res)=>{
@@ -65,23 +65,6 @@ logRoutes.get("/:id", (req, res)=>{
         res.redirect('/logs/:id');
     }
 })
-
-// *** START bonus section - Part 2
-const validateURL = (req, res, next) =>{
-    // console.log("check req.body: ", typeof req.body.captainName);
-    if ((typeof req.body.captainName !== "string") ||
-        (typeof req.body.title !== "string") ||
-        (typeof req.body.post !== "string") ||
-        (typeof req.body.mistakesWereMadeToday !== "boolean") ||
-        (typeof req.body.daysSinceLastCrisis !== "number")
-    ){
-        res.status(404).json({error: "A wrong datatype was entered."});
-    } else {
-        next();
-    }
-};
-// *** END bonus section - Part 2
-
 
 // CREATE (and using `validateURL`)
 /* Validating/giving error for Wrong answers seem to not be working - check `validations.js` file */
