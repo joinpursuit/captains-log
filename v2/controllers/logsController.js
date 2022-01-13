@@ -12,7 +12,7 @@ v2.get("/:index", (request, response) => {
   const { index } = request.params;
   console.log("GET request /v2/logs" + index);
 
-  if(index > captainLogArray.length-1) response.status(404).send({error: 'Array Index Out Of Bounds Exception'})
+  if(index > captainLogArray.length-1) response.status(404).send({error: 'Array Index Out Of Bounds'})
 
   if (captainLogArray[Number(index)].captainName) {
     let html = "",
