@@ -96,33 +96,33 @@ logs.get("/:id", (request, response) => {
     : // : response.status(404).json({ error: "Index not found" });
       response.redirect("/logs");
 });
-
+// Moved function outside of POST for update
+function logValidater(obj) {
+  if (typeof obj.captainName !== "string") {
+    return false;
+  }
+  if (typeof obj.title != "string") {
+    console.log("title");
+    return false;
+  }
+  if (typeof obj.post != "string") {
+    console.log("post");
+    return false;
+  }
+  if (typeof obj.mistakesWereMadeToday != "boolean") {
+    console.log("mistakes");
+    return false;
+  }
+  if (typeof obj.daysSinceLastCrisis != "number") {
+    console.log("days");
+    return false;
+  }
+  console.log("valid entry");
+  return true;
+}
 // Create new log, POST
 logs.post("/", (request, response) => {
   console.log("Creating new log");
-  function logValidater(obj) {
-    if (typeof obj.captainName !== "string") {
-      return false;
-    }
-    if (typeof obj.title != "string") {
-      console.log("title");
-      return false;
-    }
-    if (typeof obj.post != "string") {
-      console.log("post");
-      return false;
-    }
-    if (typeof obj.mistakesWereMadeToday != "boolean") {
-      console.log("mistakes");
-      return false;
-    }
-    if (typeof obj.daysSinceLastCrisis != "number") {
-      console.log("days");
-      return false;
-    }
-    console.log("valid entry");
-    return true;
-  }
   if (logValidater(request.body)) {
     logsArray.push(request.body);
     response.status(201).json(logsArray);
@@ -144,11 +144,15 @@ logs.delete("/:id", (request, response) => {
 logs.put("/:id", (request, response) => {
   const { id } = request.params;
   console.log(`Updating log ${id}`);
-  if (logsArray[id]) {
-    logsArray[id] = request.body;
-    response.status(200).json(logsArray);
+  if (logValidater(request.body)) {
+    if (logsArray[id]) {
+      logsArray[id] = request.body;
+      response.status(200).json(logsArray);
+    } else {
+      response.status(404).json({ error: "index not found" });
+    }
   } else {
-    response.status(404).json({ error: "index not found" });
+    response.status(400).json({ error: "Invalid data type entered" });
   }
 });
 
