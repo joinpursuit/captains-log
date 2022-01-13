@@ -71,7 +71,7 @@ logs.post("/", (req, res) => {
     console.log("/POST to /logs");
     logArray.push(req.body);
     res.json(logArray);
-    res.statusCode(201)
+    res.status(201);
   });
 // DELETES ENTIRE OBJECT AT INDEX POSITION
   logs.delete("/:index", (req, res) => {
@@ -84,9 +84,9 @@ logs.post("/", (req, res) => {
     }
   });
 // UPDATES OBJECT AT INDEX POSITION BY REPLACING THAT ENTIRE OBJECT
-  logs.put("/:index", (request, response) => {
-      logs[request.params.index] = request.body
-      response.status(200).json(logArray[request.params.index])
+  logs.put("/:index", (req, res) => {
+      logs[req.params.index] = req.body
+      res.status(200).json(logArray[req.params.index])
   })
 
 module.exports = logs;
