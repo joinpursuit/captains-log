@@ -1,19 +1,20 @@
 const express = require("express");
 const app = express()
 
-const logs = require("./controllers/logsController.js")
+const logsController = require("./controllers/logsController.js")
+
+app.use(express.json())
 
 app.get("/", (req,res)=>{
     res.send("Welcome to the Captains Log")
 })
 
-app.use("/logs", logs);
+app.use("/logs", logsController);
 
 
-app.get("*", (req,res)=>{
-    res.status(404).json({message: "not a valid path"})
+app.get("*", (req, res)=>{
+    res.status(404).json({message: "Not valid"})
 })
-
 
 
 
