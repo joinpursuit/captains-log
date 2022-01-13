@@ -4,7 +4,7 @@ const routeLogs = express.Router()
 
 //FILES
 const logs = require("../models/log")
-const { sortAsc, sortDesc } = require("../helpers/functions");
+const { sortAsc, sortDesc, isValid } = require("../helpers/functions");
 
 //ROUTES
 
@@ -45,8 +45,12 @@ routeLogs.get("/:index", (request, response) => {
 //POST 
 routeLogs.post("/", (request, response) => {
     console.log("POST to /logs")
-    logs.push(request.body);
-    response.status(303).json(logs)
+    if (isValid(request.body)) {
+        logs.push(request.body);
+        response.status(303).json(logs)
+    } else {
+        response.status(303).json({error: "Object contains invalid types of values"})
+    }
 })
 
 // DELETE

@@ -16,7 +16,16 @@ const sortDesc = (logs) => {
     })
 }
 
+const isValid = (log) => {
+    let test = false
+    if (typeof log.captainName === "string" && typeof log.title === "string" && typeof log.post === "string" && typeof log.mistakesWereMadeToday === "boolean" && typeof log.daysSinceLastCrisis === "number") {
+        test = true
+    }
+    return test
+}
+
 module.exports = {
     sortAsc,
     sortDesc,
+    isValid
 }
