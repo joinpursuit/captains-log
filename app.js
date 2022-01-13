@@ -4,6 +4,9 @@ const logsController = require("./controllers/logsController");
 
 // Configuration
 const app = express();
+
+// Middleware
+app.use(cors());
 app.use(express.json());
 
 app.use("/logs", logsController);

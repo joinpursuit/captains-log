@@ -66,15 +66,15 @@ logs.get("/", (req, res) => {
     switch (order) {
       case "asc":
         filteredArray.sort((a, b) => {
-          let keyA = a.title;
-          let keyB = b.title;
+          let keyA = a.captainName;
+          let keyB = b.captainName;
           return keyA > keyB ? 1 : keyA < keyB ? -1 : 0;
         });
         break;
       case "desc":
         filteredArray.sort((a, b) => {
-          let keyA = a.title;
-          let keyB = b.title;
+          let keyA = a.captainName;
+          let keyB = b.captainName;
           return keyA > keyB ? -1 : keyA < keyB ? 1 : 0;
         });
         break;
@@ -101,19 +101,19 @@ function logValidater(obj) {
   if (typeof obj.captainName !== "string") {
     return false;
   }
-  if (typeof obj.title != "string") {
+  if (typeof obj.title !== "string") {
     console.log("title");
     return false;
   }
-  if (typeof obj.post != "string") {
+  if (typeof obj.post !== "string") {
     console.log("post");
     return false;
   }
-  if (typeof obj.mistakesWereMadeToday != "boolean") {
+  if (typeof obj.mistakesWereMadeToday !== "boolean") {
     console.log("mistakes");
     return false;
   }
-  if (typeof obj.daysSinceLastCrisis != "number") {
+  if (typeof obj.daysSinceLastCrisis !== "number") {
     console.log("days");
     return false;
   }
