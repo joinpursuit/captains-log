@@ -1,4 +1,5 @@
 const express = require("express");
+
 const { append } = require("express/lib/response");
 
 const logsArray = require("../models/log");
@@ -10,12 +11,19 @@ logs.get("/", (req, res) => {
   res.send(logsArray);
 });
 
-logs.post("/", (req, res) => {});
+logs.post("/", (req, res) => {
+  logsArray.push(req.body);
+  res.json(logsArray);
+});
 
 logs.get("/:arrayIndex", (req, res) => {
   console.log("GET request received to route: /logs/:arrayIndex");
   const arrayIndex = req.params.arrayIndex;
-  res.json(logsArray[arrayIndex]);
+  if (logsArray[arrayIndex]) {
+    res.json(logsArray[arrayIndex]);
+  } else {
+    res.redirect("/");
+  }
 });
 
 //req.params.id === :id
