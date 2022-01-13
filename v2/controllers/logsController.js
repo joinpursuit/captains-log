@@ -21,21 +21,18 @@ v2.get("/:index", (request, response) => {
       button = "";
     captainLogArray.map((el) => {
       if (el.captainName === captainLogArray[Number(index)].captainName) {
-        response.format({
-          "text/html": () => {
             anchor = "<a>";
             html = "<ul style='border-collapse: separate; border:2px solid #ff9900;'>";
             button = "<button>";
-            html += `<h4> Captain Name: ${el.captainName} </h4>`;
-            html += `<h1> Title: ${el.title} </h1>`;
-            html += `<p> Post: ${el.post} </p>`;
-            html += `<p> mistakesWereMadeToday: ${el.mistakesWereMadeToday}</p>`;
+            html += `<h4> Captain Name: ${el.captainName} </h4><hr>`;
+            html += `<h1> Title: ${el.title} </h1><hr>`;
+            html += `<p> Post: ${el.post} </p><hr>`;
+            html += `<p> mistakesWereMadeToday: ${el.mistakesWereMadeToday}</p><hr>`;
             html += `<p> daysSinceLastCrisis: ${el.daysSinceLastCrisis}</p>`;
             html += "</ul>";
             anchor = `<a href=${"/logs"} onmouseover="this.style.backgroundColor='#ffdd00';this.style.color='#aaaaaa'">Visit captain log API</a>`;
             button = `<p><button style='border-collapse: separate;'><a href=${"/v2/logs"}>Back</a> </button><p>`;
-          },
-        });
+        
       }
     });
     response.send(html + anchor + button);
