@@ -29,6 +29,39 @@ app.get("/logs/:arrayIndex", (req,res)=>{
 app.get("*", (req,res)=>{
     res.status(404).json({error: "Page not found"});
 })
+app.post("/logs", (req,res)=>{
+    const newLog = {
+        captainName: "Picard",
+        title: "Stars",
+        post: "Today I contemplated that there sure are a lot of stars in the sky",
+        mistakesWereMadeToday: true,
+        daysSinceLastCrisis: "10",
+      };
+    console.log(newLog)
+    logsArr.push(newLog);
+    res.json(logsArr[logsArr.length-1])
+});
+app.put("/logs/:arrayIndex", (req,res)=>{
+    let {arrayIndex} = req.params;
+    if(!logsArr[arrayIndex]){
+        res.redirect("*")
+    } 
+    let {captainName, title, post, mistakesWereMadeToday, daysSinceLastCrisis} = req.body;
+    if(captainName && title && post && mistakesWereMadeToday !== undefined && daysSinceLastCrisis){
+        logsArr[arrayIndex] = {
+            captainName, title, post, mistakesWereMadeToday, daysSinceLastCrisis
+        };
+        res.json(logsArr)
+    } else {
+        res.status(422).json({
+            error: "Please provide all fields"
+        })
+    }
+});
+
+app.delete("/logs/:arrayIndex", (req,res)=>{
+    const{}
+})
 
 app.listen(PORT, ()=>{
  console.log(`listening on port ${PORT}`)
