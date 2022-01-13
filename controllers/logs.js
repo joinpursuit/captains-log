@@ -56,7 +56,7 @@ logs.get("/", (req, res) => {
           }
 }
 });
-// HOME ROUTE W/PARAMETER POINTING TO INDEX POSITION
+// HOME ROUTE W/PARAMETER POINTING TO INDEX POSITION, IF NO POSITION REDIRECT TO ERROR ROUTE
 logs.get("/:arrayIndex", (req, res) => {
   console.log("Get request to /arrayIndex");
   const { arrayIndex } = req.params;
@@ -67,20 +67,20 @@ logs.get("/:arrayIndex", (req, res) => {
   }
 });
 // POST/CREATE NEW LOG AND PUSH INTO ARRAY, NEW ARRAY WILL BE IN JSON FORMAT
-logs.post("/", (request, response) => {
+logs.post("/", (req, res) => {
     console.log("/POST to /logs");
-    logArray.push(request.body);
-    response.json(logArray);
-    response.statusCode(201)
+    logArray.push(req.body);
+    res.json(logArray);
+    res.statusCode(201)
   });
 // DELETES ENTIRE OBJECT AT INDEX POSITION
-  logs.delete("/:index", (request, response) => {
-    const { index } = request.params;
+  logs.delete("/:index", (req, res) => {
+    const { index } = req.params;
     if (logArray[index]) {
       const deletedLog = logArray.splice(index, 1);
-      response.status(200).json(deletedLog);
+      res.status(200).json(deletedLog);
     } else {
-        response.status(404).json({error: "Log not found"})
+        res.status(404).json({error: "Log not found"})
     }
   });
 // UPDATES OBJECT AT INDEX POSITION BY REPLACING THAT ENTIRE OBJECT
