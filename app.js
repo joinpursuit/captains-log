@@ -3,7 +3,6 @@ const app = express();
 const router = require("./controllers/logsController.js");
 
 //middleware
-
 app.use(express.json());
 
 app.get("/", (req, res) => {

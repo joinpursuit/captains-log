@@ -74,4 +74,14 @@ router.get("/:ind", (req, res) => {
   else res.json(logs[ind]);
 });
 
+router.delete("/:ind", (req, res) => {
+  const { ind } = req.params;
+  //if undefined or index is more than the length
+  if (!ind || !logs[ind]) res.redirect("/*");
+  else {
+    logs.splice(ind, 1);
+    res.json(logs);
+  }
+});
+
 module.exports = router;
