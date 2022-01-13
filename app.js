@@ -2,10 +2,14 @@
 const express = require("express");
 const logsController = require("./controllers/logsController.js")
 // const logsControllerV2 = require("./v2/controllers/logsController.js")
+const cors = require("cors")
 
+//MIDDLEWARE
 //CONFIGURATION 
 const app = express();
 app.use(express.json())
+//connect to frontend
+app.use(cors())
 
 //Controller
 app.use("/logs", logsController)
