@@ -26,5 +26,14 @@ logs.get('/:arrayIndex', (request, response) => {
     }
 });
 
+// UPDATE 
+// Replaces the index in the logs array:
+logs.put('/:arrayIndex', (request, response) => {
+    const arrayIndex = request.params;
+    logsArray[arrayIndex] = request.body;
+    response.status(200).json(logsArray[arrayIndex]);
+});
+
+
 
 module.exports = logs;
