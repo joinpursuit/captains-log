@@ -1,6 +1,7 @@
 //DEPENDENCIES 
 const express = require("express");
 const logsController = require("./controllers/logsController.js")
+// const logsControllerV2 = require("./v2/controllers/logsController.js")
 
 //CONFIGURATION 
 const app = express();

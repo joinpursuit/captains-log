@@ -1,65 +1,65 @@
 //DEPENDENCIES
 const express = require("express");
-const routeLogs = express.Router()
+const logsRouter = express.Router();
 
-//FILES
-const logs = require("../models/log")
-const { sortAsc, sortDesc, isValid } = require("../helpers/functions");
+//FILES 
+const logs = require("../../models/log");
+const { sortAsc, sortDesc, isValid, formatLog, formatLinks } = require("../../helpers/functions");
 
 //ROUTES
 
 //GET LIST OF ALL LOGS, including queries
-routeLogs.get("/", (request, response) => {
+logsRouter.get("/", (request, response) => {
     console.log("GET request received to route: /logs")
     const { order, mistakes, lastCrisis } = request.query        
     if (order?.toLowerCase() === "asc") {
-        response.json(sortAsc(logs))
+        response.send(formatLinks(sortAsc(logs)))
     } else if (order?.toLowerCase() === "desc") {
-        response.json(sortDesc(logs))
+        response.send(formatLinks(sortDesc(logs)))
     } else if (mistakes?.toLowerCase() === "true") {
-        response.json(logs.filter((log) => log.mistakesWereMadeToday === true))
+        response.send(formatLinks(logs.filter((log) => log.mistakesWereMadeToday === true)))
     } else if (mistakes?.toLowerCase() === "false") {
-        response.json(logs.filter((log) => log.mistakesWereMadeToday === false))
+        response.send(formatLinks(logs.filter((log) => log.mistakesWereMadeToday === false)))
     } else if (lastCrisis?.toLowerCase() === "gt10") {
-        response.json(logs.filter((log) => log.daysSinceLastCrisis > 10))
+        response.send(formatLinks(logs.filter((log) => log.daysSinceLastCrisis > 10)))
     } else if (lastCrisis?.toLowerCase() === "gte20") {
-        response.json(logs.filter((log) => log.daysSinceLastCrisis >= 20))
+        response.send(formatLinks(logs.filter((log) => log.daysSinceLastCrisis >= 20)))
     } else if (lastCrisis?.toLowerCase() === "lte5") {
-        response.json(logs.filter((log) => log.daysSinceLastCrisis <= 5))
+        response.send(formatLinks(logs.filter((log) => log.daysSinceLastCrisis <= 5)))
     } else {
-        response.json(logs)
+        response.send(formatLinks(logs))
     }
 });
 
 //GET individual view, show one log or redirect if not found
-routeLogs.get("/:index", (request, response) => {
+logsRouter.get("/:index", (request, response) => {
     console.log("GET request received to route: /logs/:index")
     const { index } = request.params
     if (logs[index]) {
-        response.json(logs[index])
+        response.send(formatLog(logs[index]))
     } else {
         response.redirect("/redirect")
     }
 })
 
 //POST 
-routeLogs.post("/", (request, response) => {
+logsRouter.post("/", (request, response) => {
     console.log("POST to /logs")
     if (isValid(request.body)) {
         logs.push(request.body);
-        response.status(303).json(logs)
+        response.status(303).send(formatLinks(logs))
     } else {
         response.status(303).json({error: "Object contains invalid types of values"})
     }
 })
 
 // DELETE
-routeLogs.delete("/:index", (request, response) => {
+logsRouter.delete("/:index", (request, response) => {
     console.log("DELETE to /:index")
     const { index } = request.params
     if(logs[index]) {
         const [ deletedLog ] = logs.splice(index, 1)
-        response.status(200).json(logs)
+        response.status(200).send(formatLinks(logs))
         // response.status(200).json(deletedBookmark)
     } else {
         response.redirect("/redirect")
@@ -67,14 +67,14 @@ routeLogs.delete("/:index", (request, response) => {
 })
 
 //UPDATE
-routeLogs.put("/:index", (request, response) => {
+logsRouter.put("/:index", (request, response) => {
     const { index } = request.params;
     //First check if the object to update exists
     if (logs[index]) {
         //Then update it
         if (isValid(request.body)) {
             logs[index] = request.body
-            response.status(200).json(logs)
+            response.status(200).send(formatLinks(logs))
         } else {
             response.status(303).json({error: "Object contains invalid types of values"})
         }
@@ -83,4 +83,5 @@ routeLogs.put("/:index", (request, response) => {
     }
 })
 
-module.exports = routeLogs;
+
+module.exports = logsRouter;
