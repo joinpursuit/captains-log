@@ -96,15 +96,8 @@ logsRoute.delete("/:index", (req, res) => {
 
 logsRoute.put("/:index", (req, res) => {
   let { index } = req.params;
-  console.log(index);
+
   let { captainName, title, post, mistakesWereMadeToday, daysSinceLastCrisis } = req.body;
-  console.log("req.body",req.body);
-  console.log("req.params",req.params);
-  console.log("title", req.body.title);
-  console.log("post", post);
-  console.log("mistakesWereMadeToday", mistakesWereMadeToday);
-  console.log("daysSinceLastCrisis", daysSinceLastCrisis);
-  console.log("captainName", captainName);
 
   if( !logsArray[index] ){
     res.status(404).json({
@@ -117,7 +110,6 @@ logsRoute.put("/:index", (req, res) => {
     logsArray[index] = { 
       captainName, title, post, mistakesWereMadeToday, daysSinceLastCrisis
     };
-    console.log("logsArray[index]={ captainName, title, post, mistakesWereMadeToday, daysSinceLastCrisis};", logsArray[index]);
     res.json(logsArray[index]);
   } else {
     res.status(404).json({
@@ -125,6 +117,5 @@ logsRoute.put("/:index", (req, res) => {
     });
   }
 });
-
 
 module.exports = logsRoute;
