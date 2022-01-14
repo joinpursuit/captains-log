@@ -4,6 +4,10 @@ const express = require("express");
 // Configuration
 const app = express();
 
+// Inject cors middleware into our application (for connecting to frontend)
+const cors = require("cors");
+app.use(cors());
+
 // Middleware (new way of writing body-parser)
 app.use(express.json());
 
