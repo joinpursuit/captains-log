@@ -95,23 +95,25 @@ logsRoute.delete("/:index", (req, res) => {
 });
 
 logsRoute.put("/:index", (req, res) => {
-  const { index } = req.params;
+  let { index } = req.params;
   console.log(index);
-  const { captainName, title, post, mistakesWereMadeToday, daysSinceLastCrisis } = req.body;
-  console.log("title", title);
+  let { captainName, title, post, mistakesWereMadeToday, daysSinceLastCrisis } = req.body;
+  console.log("req.body",req.body);
+  console.log("req.params",req.params);
+  console.log("title", req.body.title);
   console.log("post", post);
   console.log("mistakesWereMadeToday", mistakesWereMadeToday);
   console.log("daysSinceLastCrisis", daysSinceLastCrisis);
   console.log("captainName", captainName);
 
-  if(!logsArray[index]){
+  if( !logsArray[index] ){
     res.status(404).json({
-      error:"Not Found1"
+      error:"Bookmark log DNE"
     });
     return;
   } 
   
-  if ( captainName && title && post && daysSinceLastCrisis && mistakesWereMadeToday.typeof() !== "undefined" ){
+  if ( captainName && title && post && daysSinceLastCrisis && mistakesWereMadeToday !== undefined ){
     logsArray[index] = { 
       captainName, title, post, mistakesWereMadeToday, daysSinceLastCrisis
     };
