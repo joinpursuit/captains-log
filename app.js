@@ -4,7 +4,8 @@ const logsController = require("./controllers/logsController.js");
 
 // config
 const app = express();
-
+// middleware which parses data into js
+app.use(express.json());
 
 // used to listen to request to route route
 app.use("/logs", logsController);
