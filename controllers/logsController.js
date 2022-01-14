@@ -9,8 +9,27 @@ log.get("/", (_, respond) => {
   respond.json(logsArray);
 });
 
-log.post("/", (request, respond) => {
-  respond.send(request.body);
+log.get("/:id", (request, response) => {
+  const { id } = request.params;
+  if (!logsArray[id]) {
+    response.redirect("/logs");
+  }
+  response.status(201).json(logsArray[id]);
 });
 
-module.exports = logs;
+log.post("/", (request, response) => {
+  const newLog = request.body;
+  logsArray.push(newLog);
+  // console.log(newLog)
+  response.status(201).json(logsArray);
+});
+
+log.delete("/:id", (request, response) => {
+  const { id } = request.params;
+  if (logsArray[id]) {
+    logsArray.splice(id, 1);
+    response.json(logsArray);
+  }
+});
+
+module.exports = log;
