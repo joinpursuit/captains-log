@@ -12,10 +12,16 @@ app.get("/logs", (req,res)=>{
     res.send(logsArr)
 })
 
-// app.get("/logs", (req,res)=>{
-//     const {asc} = req.query;
-//     res.send(`It is logging alphabeticall`)
-// })
+app.get("/logs", (req,res)=>{
+    const {order} = req.query;
+    if(order === "asc"){
+        let sorted = logsArr.sort((a,b)=>{
+            return b.captainName - a.captainName
+        })
+        console.log(sorted)
+        res.send(sorted)
+    }
+})
 
 app.get("/logs/:arrayIndex", (req,res)=>{
     const {arrayIndex} = req.params;
