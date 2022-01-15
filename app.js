@@ -31,15 +31,7 @@ app.post("/logs", validateURL, (req, res) => {
 
 app.get("/logs/:arrayIndex", validateURL, (req, res) => {
     const { arrayIndex } = req.params;
-    const { captainName, title, post, mistakesWereMadeToday, daysSinceLastCrisis} = req.body;
-    
-    if(captainName && title && post && mistakesWereMadeToday && daysSinceLastCrisis){
-        logsArray[arrayIndex] = {
-            captainName, title, post, mistakesWereMadeToday, daysSinceLastCrisis
-        };
-    } else {
         res.json(logsArray[arrayIndex]);
-    }
     });
 
 module.exports = app;
