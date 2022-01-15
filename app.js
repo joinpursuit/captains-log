@@ -2,9 +2,6 @@ const express = require("express");
 const app = express();
 const logsArray = require("./models/log");
 
-// const cors = require("cors");
-
-// app.use(cors);
 app.use(express.json());
 
 app.use((req, res, next) => {
@@ -12,7 +9,6 @@ app.use((req, res, next) => {
 });
 
 const validateURL = (req, res, next) => {
-    // console.log("Checking Validity.....");
     next();
   };
 
@@ -31,21 +27,21 @@ app.post("/logs", validateURL, (req, res) => {
 
 app.get("/logs/:arrayIndex", validateURL, (req, res) => {
     const { arrayIndex } = req.params;
-       if(arrayIndex <= arrayIndex.length){
-        res.json(logsArray[arrayIndex]);     
-    } else {
-        res.send("error");
-    }         
+       if(arrayIndex >= logsArray.length){
+           res.redirect("/logs");
+        } else {
+            res.json(logsArray[arrayIndex]);     
+        }         
 });
 
 app.delete("/logs/:arrayIndex", validateURL, (req, res) => {
     const { arrayIndex } = req.params;
-    if(logsArray[arrayIndex]){
-        let removed = logsArray.splice(arrayIndex, 1);
-        res.json(removed[0]);
-    } else {
-        res.status(404).json({error: "not found"})
-    }
+        if(logsArray[arrayIndex]){
+            let removed = logsArray.splice(arrayIndex, 1);
+            res.json(removed[0]);
+        } else {
+            res.status(404).json({error: "not found"})
+        }
 });
 
 
