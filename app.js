@@ -12,12 +12,12 @@ app.use((req, res, next) => {
 });
 
 const validateURL = (req, res, next) => {
-    console.log("This function checks the validity");
+    console.log("Checking Validity.....");
     next();
   };
 
 app.get("/", (req, res) => {
-    res.send("root");
+    res.send("welcome to the captain's log");
 });
 
 app.get("/logs", (req, res) => {
@@ -28,5 +28,18 @@ app.post("/logs", validateURL, (req, res) => {
     logsArray.push(req.body);
     res.json(logsArray[logsArray.length-1]);
 });
+
+app.get("/logs/:arrayIndex", validateURL, (req, res) => {
+    const { arrayIndex } = req.params;
+    const { captainName, title, post, mistakesWereMadeToday, daysSinceLastCrisis} = req.body;
+    
+    if(captainName && title && post && mistakesWereMadeToday && daysSinceLastCrisis){
+        logsArray[arrayIndex] = {
+            captainName, title, post, mistakesWereMadeToday, daysSinceLastCrisis
+        };
+    } else {
+        res.json(logsArray[arrayIndex]);
+    }
+    });
 
 module.exports = app;
