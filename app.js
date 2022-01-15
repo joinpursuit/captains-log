@@ -3,10 +3,11 @@ const express = require("express");
 const app = express();
 // const log = require("./models/log");
 const logsController = require("./controllers/logsController");
-const { json } = require("express/lib/response");
+const cors = require("cors");
 
 app.use("/logs", logsController);
 app.use(express.json());
+app.use(cors());
 
 app.get("/", (request, response) => {
   response.send("welcome to the captain's log");
