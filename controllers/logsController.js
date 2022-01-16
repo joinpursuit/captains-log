@@ -20,4 +20,24 @@ logs.post("/", (req, res) => {
   res.json(logsArray[logsArray.length - 1]);
 });
 
+logs.delete("/:index", (req, res) => {
+  const {index} = req.params
+  if(logsArray[index]) {
+    const deletedLog = logsArray.splice(index, 1)
+    res.status(200).json(deletedLog)
+  } else {
+    res.status(404).json({error: "Not Found"})
+  }
+})
+
+logs.put("/:index", (req, res) => {
+  const {index} = req.params
+  if(logsArray[index]) {
+    logsArray[index] = req.body
+    res.status(200).json(logsArray(index))
+  } else {
+    res.status(404).json({error: "Not Found"})
+  }
+})
+
 module.exports = logs;
