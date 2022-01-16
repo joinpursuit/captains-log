@@ -65,7 +65,7 @@ logs.get("/", (request, response) => {
  
 logs.get("/:arrayIndex", (request, response) => {
   const { arrayIndex } = request.params;
-  console.log("GET request to /:arrayIndex");
+  console.log("GET request to /:index");
   {
     captainLogArray[arrayIndex]
       ? response.json(captainLogArray[Number(arrayIndex)])
@@ -97,7 +97,7 @@ logs.post(
     check("daysSinceLastCrisis", "daysSinceLastCrisis ").isInt(),
   ],
   (request, response) => {
-    console.log("GET request to /:post");
+    console.log("GET request to /:posted");
     console.log(request.body);
    
     const errors = validationResult(request);
@@ -113,6 +113,7 @@ logs.post(
 
 //delete object using the id
 logs.delete("/:id", (request, response) => {
+  console.log("GET request to /:deleted");
   const { id } = request.params;
   if (captainLogArray[id]) {
     captainLogArray.splice(id, 1);
@@ -124,6 +125,7 @@ logs.delete("/:id", (request, response) => {
 
 // updating
 logs.put("/:arrayIdx", (request, response) => {
+  console.log("GET request to /:edited");
   const { arrayIdx } = request.params
   if( captainLogArray[arrayIdx]){
  captainLogArray[arrayIdx] = request.body;

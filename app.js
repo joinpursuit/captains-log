@@ -6,7 +6,10 @@ const captainControllers = require('./controllers/logsControllers')
 const version2Controllers = require('./v2/controllers/logsController')
 
 //creates the Express app
+const cors = require("cors")
 const app = express();
+app.use(cors())
+
 
 app.use(express.json())
 

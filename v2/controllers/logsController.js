@@ -32,7 +32,6 @@ v2.get("/:index", (request, response) => {
             html += "</ul>";
             anchor = `<a href=${"/logs"} onmouseover="this.style.backgroundColor='#ffdd00';this.style.color='#aaaaaa'">Visit captain log API</a>`;
             button = `<p><button style='border-collapse: separate;'><a href=${"/v2/logs"}>Back</a> </button><p>`;
-        
       }
     });
     response.send(html + anchor + button);
