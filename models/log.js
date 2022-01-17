@@ -3,7 +3,7 @@ module.exports = [
       captainName: "Picard",
       title: "Courage",
       post: "Courage can be an emotion too.",
-      mistakesWereMadeToday: true,
+      mistakesWereMadeToday: false,
       daysSinceLastCrisis: 100,
     },
     {
@@ -31,7 +31,7 @@ module.exports = [
       captainName: "Sarah Lance",
       title: "Ava",
       post: "Ava's the kind of girl that you take home to your parents, and I am the kind you take to an exorcism",
-      mistakesWereMadeToday: true,
+      mistakesWereMadeToday: false,
       daysSinceLastCrisis: 0,
     },
     {
@@ -45,7 +45,7 @@ module.exports = [
       captainName: "Sarah Lance",
       title: "Jonah Hex",
       post: "I know you don’t like taking orders from a woman, but you’re gonna like getting your ass kicked by one even less.",
-      mistakesWereMadeToday: true,
+      mistakesWereMadeToday: false,
       daysSinceLastCrisis: 0,
     },
   ];

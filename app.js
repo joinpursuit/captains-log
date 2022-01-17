@@ -1,33 +1,56 @@
 const express = require("express");
+const cors = require("cors");
 const app = express();
 const logsArr = require("./models/log.js");
 require("dotenv").config();
 const PORT = process.env.PORT;
+app.use(cors());
 
 app.get("/", (req,res)=>{
     res.send("Welcome to the captain's log")
 });
 
 app.get("/logs", (req,res)=>{
-    res.send(logsArr)
+    res.json(logsArr)
 })
 
-app.get("/logs", (req,res)=>{
-    const {order} = req.query;
-    if(order === "asc"){
-        let sorted = logsArr.sort((a,b)=>{
-            return b.captainName - a.captainName
-        })
-        console.log(sorted)
-        res.send(sorted)
-    }
-})
 
-app.get("/logs/:arrayIndex", (req,res)=>{
-    const {arrayIndex} = req.params;
+// app.get("/logs/verify", (req,res)=>{
+//     const {verify} = req.params
+//     const { mistakes} = req.query;
+//     // if(order === "asc"){
+//     //     let sorted = logsArr.sort((a,b)=>{
+//     //         return b.captainName - a.captainName
+//     //     })
+//     //     console.log(sorted)
+//     //     res.send(sorted) }
+//      if (verify && mistakes === true){
+//         let filteredTrue = logsArr.filter(log=>{
+//             return log.mistakesWereMadeToday === true
+//         });
+//         res.send(filteredTrue)
+//         console.log("verify log")
 
-    if(logsArr[arrayIndex]){
-        res.send(logsArr[arrayIndex])
+//     } 
+//if (mistakes === false){
+//         // let filteredFalse = logsArr.filter((log)=>{
+//         //     return log.mistakesWereMadeToday === false
+//         // })
+//         console.log("filteredFalse")
+//         res.send(logsArr[0])
+//     // } else {
+//     //     let filteredFalse = "No logs meet that criteria"
+//     //     console.log(filteredFalse)
+//     //     res.send(filteredFalse)
+//     }
+// });
+
+
+app.get("/logs/:index", (req,res)=>{
+    const {index} = req.params;
+
+    if(logsArr[index]){
+        res.send(logsArr[index])
     }else{
         res.redirect("*")
     }
@@ -47,14 +70,14 @@ app.post("/logs", (req,res)=>{
     logsArr.push(newLog);
     res.json(logsArr[logsArr.length-1])
 });
-app.put("/logs/:arrayIndex", (req,res)=>{
-    let {arrayIndex} = req.params;
-    if(!logsArr[arrayIndex]){
+app.put("/logs/:index", (req,res)=>{
+    let {index} = req.params;
+    if(!logsArr[index]){
         res.redirect("*")
     } 
     let {captainName, title, post, mistakesWereMadeToday, daysSinceLastCrisis} = req.body;
     if(captainName && title && post && mistakesWereMadeToday !== undefined && daysSinceLastCrisis){
-        logsArr[arrayIndex] = {
+        logsArr[index] = {
             captainName, title, post, mistakesWereMadeToday, daysSinceLastCrisis
         };
         res.json(logsArr)
@@ -65,10 +88,10 @@ app.put("/logs/:arrayIndex", (req,res)=>{
     }
 });
 
-app.delete("/logs/:arrayIndex", (req,res)=>{
-    const{arrayIndex} = req.params;
-    if(logsArr[arrayIndex]){
-        let removed = logsArr.splice(arrayIndex,1)
+app.delete("/logs/:index", (req,res)=>{
+    const{index} = req.params;
+    if(logsArr[index]){
+        let removed = logsArr.splice(index,1)
         res.json(removed)
     } else {
         res.redirect("*")
