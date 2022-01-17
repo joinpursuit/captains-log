@@ -35,7 +35,7 @@ logs.post('/',(request,response)=> {
 logs.get('/:id', (request,response)=>{
     const {id} = request.params;
     logsArray[id] ? response.json(logsArray[id]) :
-    response.redirect('http://localhost:3003/logs/3',302)
+    response.redirect('/',302)
 })
 
 //Delete Method
@@ -43,6 +43,13 @@ logs.delete('/:id', (request, response) => {
     const {id} = request.params;
     logsArray.splice(id,1)
     response.json(logsArray)
+})
+
+//update method
+logs.put('/:id', (request,response) => {
+    const {id} = request.params;
+    const {body} = request.params;
+    logsArray[request.params.id] = request.body
 })
 
 

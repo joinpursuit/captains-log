@@ -1,12 +1,15 @@
+//Files
+const logsControllers = require('./controllers/logsController')
+
+//Dependencies/Libraries
 const express = require("express");
 const app = express();
 const cors = require('cors')
-const logsControllers = require('./controllers/logsController')
 
-
+//MiddleWare
+app.use((cors())) //allows app to connect different servers
 app.use(express.json()) 
 app.use('/logs', logsControllers)
-app.use((cors()))
 
 
 
