@@ -1,35 +1,49 @@
-const { request } = require("express");
 const express = require("express");
-const app = require("../app");
-const logsArray = require("../models/log");
+const req = require("express/lib/request");
+const log = express.Router();
+const logArray = require("../models/log.js");
 
-const logs = express.Router();
-
-logs.get("/", (request, response) => {
-  response.json(logsArray);
+log.get("/", (req, res) => {
+  res.json(logArray);
 });
-
-logs.get("/:id", (request, response) => {
-  const { id } = request.params;
-  if (!logsArray[id]) {
-    response.redirect("/logs");
+//GET
+log.get("/:id", (request, response) => {
+  if(logArray[request.params.id]) {
+    response.send(logArray[request.params.id])
+  } else {
+    // response.status(404).json({ error: "Resource not found" });
+    response.redirect("/logs/:id")
   }
-  response.status(201).json(logsArray[id]);
-});
-
-logs.post("/", (request, response) => {
-    const newLog = request.body;
-    logsArray.push(newLog);
-    // console.log(newLog)
-    response.status(201).json(logsArray);
-});
-
-logs.delete("/:id", (request, response) => {
-    const { id } = request.params
-    if (logsArray[id]) {
-        logsArray.splice(id, 1) 
-        response.json(logsArray)
-    }
+})
+//POST
+log.post("/", (request, response) => {
+  console.log("POST to /logs")
+  logArray.push(request.body)
+  response.json(logArray[logArray.length - 1])
 })
 
-module.exports = logs;
+//PUT
+log.put("/:id", (request, response) => {
+  const { id } = request.params
+  if (logArray[id]) {
+    logArray[id] = request.body;
+    response.status(200).json(logArray[id])
+  } else {
+    response.status(404).json({error: "Not found"})
+  }
+ })
+
+// DELETE
+log.delete("/:id", (request, response) => {
+  if (logArray[request.params.id]) {
+    const deletedLog = logArray.splice(request.params.id, 1);
+    response.status(200).json(deletedLog);
+  } else {
+    response.status(404).json({ error: "Not found" });
+  }
+});
+
+module.exports = log;
+
+
+
