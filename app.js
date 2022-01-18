@@ -1,4 +1,5 @@
 const express = require("express");
+var cors = require('cors')
 const app = express();
 const logsArray = require("./models/log");
 
@@ -11,6 +12,8 @@ app.use((req, res, next) => {
 const validateURL = (req, res, next) => {
     next();
   };
+
+  app.use(cors())
 
 app.get("/", (req, res) => {
     res.send("welcome to the captain's log");
