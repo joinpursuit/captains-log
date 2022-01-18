@@ -1,8 +1,8 @@
 const express = require("express");
-const router = express.Router();
+const router1 = express.Router();
 const logs = require("../models/log.js");
 const keysValid = require("../helpers/keysValidity.js");
-router.get("/", (req, res) => {
+router1.get("/", (req, res) => {
   const { order, mistakes, lastCrisis } = req.query;
   //organize the logs alphabetically
   if (order == "asc") {
@@ -46,7 +46,7 @@ router.get("/", (req, res) => {
     res.json(logs.filter((log) => log.daysSinceLastCrisis > 10));
   } else res.json(logs);
 });
-router.post("/", (req, res) => {
+router1.post("/", (req, res) => {
   const {
     captainName,
     title,
@@ -67,14 +67,37 @@ router.post("/", (req, res) => {
     res.json(logs);
   } else res.status(404).json({ error: "need all fields!" });
 });
-router.get("/:ind", (req, res) => {
+router1.get("/:ind", (req, res) => {
   const { ind } = req.params;
   //if undefined or index is more than the length
   if (!ind || !logs[ind]) res.redirect("/*");
   else res.json(logs[ind]);
 });
 
-router.delete("/:ind", (req, res) => {
+router1.put("/:ind", (req, res) => {
+  const { ind } = req.params;
+  const {
+    captainName,
+    title,
+    post,
+    mistakesWereMadeToday,
+    daysSinceLastCrisis,
+  } = req.body;
+  if (
+    keysValid(
+      captainName,
+      title,
+      post,
+      mistakesWereMadeToday,
+      daysSinceLastCrisis
+    )
+  ) {
+    logs[ind] = req.body;
+    res.json(logs[ind]);
+  } else res.status(404).json({ error: "need all fields!" });
+});
+
+router1.delete("/:ind", (req, res) => {
   const { ind } = req.params;
   //if undefined or index is more than the length
   if (!ind || !logs[ind]) res.redirect("/*");
@@ -84,4 +107,4 @@ router.delete("/:ind", (req, res) => {
   }
 });
 
-module.exports = router;
+module.exports = router1;
