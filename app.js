@@ -18,7 +18,7 @@ app.get("/", (req, res) => {
 
 app.get("/logs", (req, res) => {
     res.json(logsArray)
-})
+});
 
 app.post("/logs", validateURL, (req, res) => {
     logsArray.push(req.body);
