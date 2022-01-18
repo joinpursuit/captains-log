@@ -17,11 +17,10 @@ const sortDesc = (logs) => {
 }
 
 const isValid = (log) => {
-    let test = false
-    if (typeof log.captainName === "string" && typeof log.title === "string" && typeof log.post === "string" && typeof log.mistakesWereMadeToday === "boolean" && typeof log.daysSinceLastCrisis === "number") {
-        test = true
+    if (typeof log.captainName === "string" && typeof log.title === "string" && typeof log.post === "string" && typeof log.mistakesWereMadeToday === "boolean" && Number(log.daysSinceLastCrisis) >= 0) {
+        return true
     }
-    return test
+    return false
 }
 
 const formatLog = (log) => {
