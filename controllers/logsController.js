@@ -4,85 +4,87 @@ const routeLogs = express.Router();
 
 //FILES
 const logs = require("../models/log");
-const { sortAsc, sortDesc, isValid } = require("../helpers/functions");
+const { filteredLogs, sort, isValid } = require("../helpers/functions");
 
 //ROUTES
 
 //GET LIST OF ALL LOGS, including queries
 routeLogs.get("/", (request, response) => {
-    console.log("GET request received to route: /logs");
-    const { order, mistakes, lastCrisis } = request.query;        
-    if (order?.toLowerCase() === "asc") {
-        response.json(sortAsc(logs));
-    } else if (order?.toLowerCase() === "desc") {
-        response.json(sortDesc(logs));
-    } else if (mistakes?.toLowerCase() === "true") {
-        response.json(logs.filter((log) => log.mistakesWereMadeToday === true));
-    } else if (mistakes?.toLowerCase() === "false") {
-        response.json(logs.filter((log) => log.mistakesWereMadeToday === false));
-    } else if (lastCrisis?.toLowerCase() === "gt10") {
-        response.json(logs.filter((log) => log.daysSinceLastCrisis > 10));
-    } else if (lastCrisis?.toLowerCase() === "gte20") {
-        response.json(logs.filter((log) => log.daysSinceLastCrisis >= 20));
-    } else if (lastCrisis?.toLowerCase() === "lte5") {
-        response.json(logs.filter((log) => log.daysSinceLastCrisis <= 5));
-    } else {
-        response.json(logs);
+  console.log("GET request received to route: /logs");
+  //List out the queries with values
+  const requestQuery = {};
+  for (let key in request.query) {
+    //No need to filter the order key and keys with empty values
+    if (request.query[key] !== "" && key !== "order") {
+      requestQuery[key] = request.query[key];
     }
+  }
+
+  logsFound = logs.filter((log) => {
+    return filteredLogs(requestQuery, log);
+  });
+
+  Object.keys(requestQuery).length
+    ? response.json(sort(logsFound, request.query.order))
+    : response.json(sort(logs, request.query.order));
 });
 
 //GET individual view, show one log or redirect if not found
 routeLogs.get("/:index", (request, response) => {
-    console.log("GET request received to route: /logs/:index")
-    const { index } = request.params;
-    if (logs[index]) {
-        response.json(logs[index]);
-    } else {
-        response.redirect("/redirect");
-    }
+  console.log("GET request received to route: /logs/:index");
+  const { index } = request.params;
+  if (logs[index]) {
+    response.json(logs[index]);
+  } else {
+    response.redirect("/redirect");
+  }
 });
 
-//POST 
+//POST
 routeLogs.post("/", (request, response) => {
-    console.log("POST to /logs");
-    if (isValid(request.body)) {
-        logs.push(request.body);
-        response.status(201).json(logs);
-    } else {
-        response.status(303).json({error: "Object contains invalid types of values"});
-    }
+  console.log("POST to /logs");
+  if (isValid(request.body)) {
+    logs.push(request.body);
+    response.status(201).json(logs);
+  } else {
+    response
+      .status(303)
+      .json({ error: "Object contains invalid types of values" });
+  }
 });
 
 // DELETE
 routeLogs.delete("/:index", (request, response) => {
-    console.log("DELETE to /:index");
-    const { index } = request.params;
-    if(logs[index]) {
-        // const [ deletedLog ] = logs.splice(index, 1)
-        logs.splice(index, 1);
-        response.json(logs);
-        // response.status(200).json(deletedBookmark)
-    } else {
-        response.redirect("/redirect");
-    }  
+  console.log("DELETE to /:index");
+  const { index } = request.params;
+  if (logs[index]) {
+    // const [ deletedLog ] = logs.splice(index, 1)
+    logs.splice(index, 1);
+    response.json(logs);
+    // response.status(200).json(deletedBookmark)
+  } else {
+    response.redirect("/redirect");
+  }
 });
 
 //UPDATE
 routeLogs.put("/:index", (request, response) => {
-    console.log("PUT to /:index");
-    const { index } = request.params;
-    //First check if the object to update exists
-    if (logs[index]) {
-        //Then update it
-        if (isValid(request.body)) {
-            logs[index] = request.body;
-            response.status(200).json(logs);
-        } else {
-            response.status(303).json({error: "Object contains invalid types of values"});
-        }
+  console.log("PUT to /:index");
+  const { index } = request.params;
+  //First check if the object to update exists
+  if (logs[index]) {
+    //Then update it
+    if (isValid(request.body)) {
+      logs[index] = request.body;
+      response.status(200).json(logs);
     } else {
-        response.redirect("/redirect");
+      response
+        .status(303)
+        .json({ error: "Object contains invalid types of values" });
     }
+  } else {
+    response.redirect("/redirect");
+  }
 });
 
 module.exports = routeLogs;
