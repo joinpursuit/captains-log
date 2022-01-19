@@ -25,4 +25,16 @@ logRoutes.delete("/:index", (req, res)=> {
     else res.redirect("*");
 })
 
+logRoutes.put("/:index", (req, res)=> {
+    const {index} = req.params;
+    if(logArr[index]) {
+        logArr[index] = req.body
+        res.json(logArr[index]);
+    } else {
+        res.status(404).json({error: "Can not find page"});
+    }
+    
+    
+})
+
 module.exports = logRoutes;
