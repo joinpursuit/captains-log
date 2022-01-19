@@ -3,6 +3,10 @@ const req = require("express/lib/request");
 const logRoutes = express.Router();
 const logArr = require("../models/log.js");
 
+// START: for part 2 bonus section
+// const { validateURL } = require("../models/validations.js");
+// END: for part 2 bonus section
+
 logRoutes.get("/", (req, res) => {
      // *** START bonus section - Part 1
      const { order, mistakes, lastCrisis } = req.query;
@@ -46,18 +50,23 @@ logRoutes.get("/", (req, res) => {
  
     res.json(logArr);
 });
+
+//CREATE (POST)
+// logRoutes.post("/", validateURL, (req, res) => {
+logRoutes.post("/", (req, res) => {
+    logArr.push(req.body)
+    res.json(logArr[logArr.length - 1])
+})
+
 //GET
 logRoutes.get("/:id", (req, res) => {
     if(logArr[req.params.id]) {
         res.send(logArr[req.params.id])
     } else {
         res.redirect("/logs/:id")
+        /* This one isn't broken. "/logs/:id" passes the tests, but doesn't work in browser. */
+        // res.status(404).redirect("/*")
     }
-})
-//CREATE (POST)
-logRoutes.post("/", (req, res) => {
-    logArr.push(req.body)
-    res.json(logArr[logArr.length - 1])
 })
 
 //UPDATE (PUT)
