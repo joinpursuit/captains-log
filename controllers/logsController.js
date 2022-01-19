@@ -40,4 +40,36 @@ logs.delete("/:index", (req, res) => {
   }
 });
 
+// UPDATE
+// PUT
+
+logs.put("/:index", (res, req) => {
+  const { index } = req.params;
+
+  if (!logsArr[index]) {
+    res.status(422).json({
+      error: "Not found.",
+    });
+    return;
+  }
+
+  let { captainName, title, post, mistakesWereMadeToday, daysSinceLastCrisis } =
+    req.body;
+  if (
+    (captainName && title && post,
+    mistakesWereMadeToday !== undefined && daysSinceLastCrisis)
+  ) {
+    logsArr[index] = {
+      captainName,
+      title,
+      post,
+      mistakesWereMadeToday,
+      daysSinceLastCrisis,
+    };
+    res.json(logsArr[index]);
+  } else {
+    res.status(422).json({ error: "Provice all fields!!" });
+  }
+});
+
 module.exports = logs;

@@ -2,10 +2,13 @@
 const express = require("express");
 const logsController = require("./controllers/logsController.js");
 
+const cors = require("cors")
+
 // config
 const app = express();
 // middleware which parses data into js
 app.use(express.json());
+app.use(cors())
 
 // used to listen to request to route route
 app.use("/logs", logsController);
