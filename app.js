@@ -15,5 +15,5 @@ app.get("/", (request, response) => {
 app.get("*", (request, response) => {
   response.status(404).json({ error: "Page not found" });
 });
-console.log("hello world");
+
 module.exports = app;
