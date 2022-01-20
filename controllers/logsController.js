@@ -43,7 +43,7 @@ logs.delete("/:index", (req, res) => {
 // UPDATE
 // PUT
 
-logs.put("/:index", (res, req) => {
+logs.put("/:index", (req, res) => {
   const { index } = req.params;
 
   if (!logsArr[index]) {
@@ -55,10 +55,7 @@ logs.put("/:index", (res, req) => {
 
   let { captainName, title, post, mistakesWereMadeToday, daysSinceLastCrisis } =
     req.body;
-  if (
-    (captainName && title && post,
-    mistakesWereMadeToday !== undefined && daysSinceLastCrisis)
-  ) {
+  if (captainName && title && post && mistakesWereMadeToday !== undefined && daysSinceLastCrisis) {
     logsArr[index] = {
       captainName,
       title,
@@ -68,7 +65,7 @@ logs.put("/:index", (res, req) => {
     };
     res.json(logsArr[index]);
   } else {
-    res.status(422).json({ error: "Provice all fields!!" });
+    res.status(422).json({ error: "Provide all fields!!" });
   }
 });
 
