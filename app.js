@@ -1,17 +1,19 @@
 const express = require("express");
 const app = express();
 const logsController = require("./controllers/logsController.js");
+const cors = require("cors");
 
+app.use(cors());
 app.use(express.json());
 
 app.use("/logs", logsController);
 
-app.get("/", (req, res) => {
-  res.send(`welcome to the captain's log`);
+app.get("/", (request, response) => {
+  response.send(`Welcome to the Captain's Log App!`);
 });
 
-app.get("*", (req, res) => {
-  res.status(404).json({ error: "Page not found" });
+app.get("*", (request, response) => {
+  response.status(404).json({ error: "Page not found" });
 });
 
 module.exports = app;

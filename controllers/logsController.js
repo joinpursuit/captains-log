@@ -1,10 +1,10 @@
 const express = require("express");
-const req = require("express/lib/request");
+//const req = require("express/lib/request");
 const log = express.Router();
 const logArray = require("../models/log.js");
 
-log.get("/", (req, res) => {
-  res.json(logArray);
+log.get("/", (request, response) => {
+  response.json(logArray);
 });
 
 log.get("/:id", (request, response) => {
