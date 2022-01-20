@@ -1,5 +1,4 @@
 const express = require('express');
-const { redirect } = require('express/lib/response');
 const logRouter = express.Router();
 const logArray = require('../models/log');
 
@@ -17,7 +16,20 @@ logRouter.get('/:index', (req, res) => {
     if(logArray[index]){
         res.send(logArray[index]);
     }
-    res.status(404).redirect('/');
+    res.status(404).redirect('*');
+})
+
+logRouter.put("/:index", (req, res) => {
+    let { index } = req.params;
+  let { captainName, title, post, mistakesWereMadeToday, daysSinceLastCrisis } = req.body;
+  if(captainName && title && mistakesWereMadeToday && daysSinceLastCrisis && post){
+    logArray[index] =  { captainName, title, mistakesWereMadeToday, post, daysSinceLastCrisis }
+    res.status(200).json(logArray[index]);
+  }else{
+    res.status(404).json({
+      error: "Please provide info for all fields."
+    })
+  }
 })
 
 logRouter.delete('/:index', (req, res) => {
@@ -26,7 +38,7 @@ logRouter.delete('/:index', (req, res) => {
         let deleted = logArray.splice(index, 1);
         res.json(deleted)
       } else {
-        res.status(404).redirect('/');
+        res.status(404).redirect('*');
       }
 })
 
