@@ -5,7 +5,7 @@ const cors = require("cors");
 
 app.use(cors());
 app.use(express.json());
-
+//using this for a test
 app.use("/logs", logsController);
 
 app.get("/", (request, response) => {
