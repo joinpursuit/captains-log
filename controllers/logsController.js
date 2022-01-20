@@ -25,6 +25,13 @@ logsRoutes.post("/",(req,res)=>{
     res.json(logsArray[logsArray.length-1]);
 })
 
+logsRoutes.put('/:arrayIndex',(req,res)=>{
+    const { arrayIndex } = req.params;
+    logsArray [arrayIndex] = req.body;
+    res.json(logsArray);
+})
+
+
 logsRoutes.delete("/:index",(req,res)=>{
     const { index } = req.params;
     res.json(logsArray.splice(index,1 ));
