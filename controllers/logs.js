@@ -1,7 +1,7 @@
 const express = require("express")
 const logsArray = require("../models/log")
 const bodyParser = require("body-parser")
-const {sortByCaptainName, filterMistakes, filterLastCrisis} = require("../helper/sort")
+const {sortByCaptainName, findMistakes, findLastCrisis} = require("../helper/sort")
 
 const logs = express.Router()
 
@@ -16,7 +16,7 @@ logs.get("/", (request, response) => {
         arr = sortByCaptainName(arr, order)
     }
     if(mistakes !== undefined){
-        arr = filterMistakes(arr, mistakes)
+        arr = findMistakes(arr, mistakes)
     }
     if(lastCrisis){
         arr = filterLastCrisis(arr, lastCrisis)
@@ -40,7 +40,7 @@ logs.post("/", (request, response)=> {
         captainName: "string",
         title: "string",
         post: "string",
-        mistakesWereMadeToday: true,
+        mistakesMade: true,
         daysSinceLastCrisis: 1,
     }
         let validType = true
