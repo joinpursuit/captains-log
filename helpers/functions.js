@@ -14,9 +14,9 @@ const filteredLogs = (requestQuery, log, test) => {
     }
     if (query === "daysSinceLastCrisis") {
       if (
-        (input === "lte5" && log[query] <= 5) ||
-        (input === "gt10" && log[query] > 10) ||
-        (input === "gte20" && log[query] >= 20)
+        (input === "lte5" && Number(log[query]) <= 5) ||
+        (input === "gt10" && Number(log[query]) > 10) ||
+        (input === "gte20" && Number(log[query]) >= 20)
       ) {
         test = true;
       } else {
