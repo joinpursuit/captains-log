@@ -5,6 +5,7 @@ const logsArr = require("./models/log.js");
 require("dotenv").config();
 const PORT = process.env.PORT;
 app.use(cors());
+app.use(express.json())
 
 app.get("/", (req,res)=>{
     res.send("Welcome to the captain's log")
@@ -59,15 +60,15 @@ app.get("*", (req,res)=>{
     res.status(404).json({error: "Page not found"});
 })
 app.post("/logs", (req,res)=>{
-    const newLog = {
-        captainName: "Picard",
-        title: "Stars",
-        post: "Today I contemplated that there sure are a lot of stars in the sky",
-        mistakesWereMadeToday: true,
-        daysSinceLastCrisis: "10",
-      };
-    console.log(newLog)
-    logsArr.push(newLog);
+    // const newLog = {
+    //     captainName: "Picard",
+    //     title: "Stars",
+    //     post: "Today I contemplated that there sure are a lot of stars in the sky",
+    //     mistakesWereMadeToday: true,
+    //     daysSinceLastCrisis: "10",
+    //   };
+    console.log(req.body)
+    logsArr.push(req.body);
     res.json(logsArr[logsArr.length-1])
 });
 app.put("/logs/:index", (req,res)=>{
@@ -75,12 +76,14 @@ app.put("/logs/:index", (req,res)=>{
     if(!logsArr[index]){
         res.redirect("*")
     } 
+    
     let {captainName, title, post, mistakesWereMadeToday, daysSinceLastCrisis} = req.body;
-    if(captainName && title && post && mistakesWereMadeToday !== undefined && daysSinceLastCrisis){
+    if(captainName && title && post && (mistakesWereMadeToday !== undefined) && daysSinceLastCrisis){
+
         logsArr[index] = {
             captainName, title, post, mistakesWereMadeToday, daysSinceLastCrisis
         };
-        res.json(logsArr)
+        res.json(logsArr[index])
     } else {
         res.status(422).json({
             error: "Please provide all fields"

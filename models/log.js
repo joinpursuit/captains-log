@@ -1,7 +1,7 @@
 module.exports = [
     {
       captainName: "Picard",
-      title: "Courage",
+      title: "Courage - By Picard",
       post: "Courage can be an emotion too.",
       mistakesWereMadeToday: false,
       daysSinceLastCrisis: 100,
