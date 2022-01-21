@@ -4,9 +4,11 @@ const res = require("express/lib/response");
 const app = express();
 const logsControllers = require("./controllers/logsControllers");
 const v2Logs = require("./v2/controllers/logControllers");
+const cors = require("cors");
 
 // MIDDLEWARE
 app.use(express.json()); // Parse incoming JSON
+app.use(cors());
 
 // ROUTES
 app.use("/logs", logsControllers);
