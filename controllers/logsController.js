@@ -10,6 +10,8 @@ logRoutes.get("/", (req, res) => {
   res.json(logsArr);
 });
 
+
+
 // /logs/1
 logRoutes.get("/:index", (req, res)=>{
   const { index } = req.params
@@ -20,7 +22,12 @@ logRoutes.get("/:index", (req, res)=>{
   }
 });
 
-
+// Updates
+logRoutes.put("/:index", (req, res) => {
+  const { index } = req.params
+  logsArr[index] = req.body
+  res.json(logsArr[index])
+})
 
 // /logs
 logRoutes.post("/", (req, res)=>{
