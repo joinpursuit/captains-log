@@ -1,8 +1,8 @@
-const express = require("express");
+const express=require("express");
 //when you create routes on a separate page, you need to import Router method
-const logsRoutes = express.Router();
+const logsRoutes=express.Router();
 //import our bookmark array
-const logsArray = require("../models/log.js");
+const logsArray=require("../models/log.js");
 
 
 logsRoutes.get("/",(req,res)=>{
