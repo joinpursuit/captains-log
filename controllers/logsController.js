@@ -33,8 +33,10 @@ routeLogs.get("/", (request, response) => {
 routeLogs.get("/:index", (request, response) => {
   console.log("GET request received to route: /logs/:index");
   const { index } = request.params;
-  if (logs[index]) {
-    response.json(logs[index]);
+  const logFound = logs.find((log) => log.id == index)
+  //undefined if not found
+  if (logFound) {
+    response.json(logFound);
   } else {
     response.redirect("/redirect");
   }
@@ -57,9 +59,11 @@ routeLogs.post("/", (request, response) => {
 routeLogs.delete("/:index", (request, response) => {
   console.log("DELETE to /:index");
   const { index } = request.params;
-  if (logs[index]) {
+  const indexFound = logs.findIndex((log) => log.id == index)
+  //-1 if not found
+  if (indexFound) {
     // const [ deletedLog ] = logs.splice(index, 1)
-    logs.splice(index, 1);
+    logs.splice(indexFound, 1);
     response.json(logs);
     // response.status(200).json(deletedBookmark)
   } else {
@@ -71,11 +75,12 @@ routeLogs.delete("/:index", (request, response) => {
 routeLogs.put("/:index", (request, response) => {
   console.log("PUT to /:index");
   const { index } = request.params;
+  const indexFound = logs.findIndex((log) => log.id == index)
   //First check if the object to update exists
-  if (logs[index]) {
+  if (indexFound) {
     //Then update it
     if (isValid(request.body)) {
-      logs[index] = request.body;
+      logs[indexFound] = request.body;
       response.status(200).json(logs);
     } else {
       response

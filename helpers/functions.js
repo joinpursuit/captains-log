@@ -47,6 +47,7 @@ const sort = (logs, selection) => {
 
 const isValid = (log) => {
   if (
+    typeof log.id === "string" &&
     typeof log.captainName === "string" &&
     typeof log.title === "string" &&
     typeof log.post === "string" &&
@@ -72,8 +73,8 @@ const formatLog = (log) => {
 };
 
 const formatLinks = (logs) => {
-  return (`<ul>${logs.map((log, i) => {
-      return (`<li><a href="/logs/${i}">${log.title}</a></li>`);
+  return (`<ul>${logs.map((log) => {
+      return (`<li><a href="/logs/${log.id}">${log.title}</a></li>`);
     }).join("")}</ul>`);
 };
 
