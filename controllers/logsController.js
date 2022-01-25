@@ -11,7 +11,7 @@ logs.get('/:index', (req, res) => {
    if(logsArray[index]) {
     res.json(logsArray[index]); 
    } else {
-    res.status(404).json({message: "Page not found"});   
+    res.redirect({message: "Page not found"});   
    }
 });
 
