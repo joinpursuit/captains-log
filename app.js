@@ -11,40 +11,57 @@ app.get("/", (req,res)=>{
     res.send("Welcome to the captain's log")
 });
 
+
 app.get("/logs", (req,res)=>{
-    res.json(logsArr)
-})
+    const { order, mistakes, lastCrisis } = req.query;
 
-
-// app.get("/logs/verify", (req,res)=>{
-//     const {verify} = req.params
-//     const { mistakes} = req.query;
-//     // if(order === "asc"){
-//     //     let sorted = logsArr.sort((a,b)=>{
-//     //         return b.captainName - a.captainName
-//     //     })
-//     //     console.log(sorted)
-//     //     res.send(sorted) }
-//      if (verify && mistakes === true){
-//         let filteredTrue = logsArr.filter(log=>{
-//             return log.mistakesWereMadeToday === true
-//         });
-//         res.send(filteredTrue)
-//         console.log("verify log")
-
-//     } 
-//if (mistakes === false){
-//         // let filteredFalse = logsArr.filter((log)=>{
-//         //     return log.mistakesWereMadeToday === false
-//         // })
-//         console.log("filteredFalse")
-//         res.send(logsArr[0])
-//     // } else {
-//     //     let filteredFalse = "No logs meet that criteria"
-//     //     console.log(filteredFalse)
-//     //     res.send(filteredFalse)
-//     }
-// });
+        if(!order && !mistakes && !lastCrisis){
+            res.send(logsArr)
+        }
+        if(order === "asc"){
+               logsArr.sort((a,b)=>{ 
+                  return a.captainName > b.captainName ? 1 : -1;
+            });
+             console.log(logsArr)
+             res.send(logsArr) 
+        } else if(order === "desc"){
+                logsArr.sort((a,b)=>{
+                 return b.captainName > a.captainName ? 1 : -1;
+            });
+             console.log(logsArr)
+             res.send(logsArr) 
+        } if (mistakes === "true"){
+            let filteredTrue = logsArr.filter(log=>{
+            return log.mistakesWereMadeToday === true
+            });
+            res.send(filteredTrue)
+            console. log(filteredTrue)
+        } else if (mistakes === "false"){
+             let filteredFalse = logsArr.filter((log)=>{
+             return log.mistakesWereMadeToday === false
+            });
+            console.log(filteredFalse)
+            res.send(filteredFalse)
+        } if (lastCrisis === "gte10"){
+             let lastCrisis10 = logsArr.filter((log)=>{
+             return log.daysSinceLastCrisis > 10;
+            });
+            console.log(lastCrisis10);
+            res.send(lastCrisis10)
+        }if (lastCrisis === "gte20"){
+            let lastCrisis20 = logsArr.filter((log)=>{
+            return log.daysSinceLastCrisis >= 20;
+           });
+           console.log(lastCrisis20);
+           res.send(lastCrisis20)
+        } if (lastCrisis === "lte5"){
+            let lastCrisis5 = logsArr.filter((log)=>{
+            return log.daysSinceLastCrisis <= 5;
+            });
+            console.log(lastCrisis5);
+            res.send(lastCrisis5)
+        } 
+});
 
 
 app.get("/logs/:index", (req,res)=>{
