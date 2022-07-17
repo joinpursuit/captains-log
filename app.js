@@ -4,6 +4,8 @@ const PORT = 3003;
 
 const logController = require('./controllers/logsController');
 
+app.use(express.json());
+
 app.get('/', (req, res) => {
   res.send('welcome to the captains log');
 });
@@ -19,6 +21,5 @@ app.listen(PORT, () => {
 });
 
 module.exports = app;
-
 
 // npx browserslist@latest --update-db

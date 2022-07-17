@@ -9,10 +9,17 @@ logs.get('/', (req, res) => {
 logs.get('/:arrayIndex', (req, res) => {
   const arrayIndex = parseInt(req.params.arrayIndex);
   if (arrayIndex < 0 || arrayIndex >= logsArray.length) {
-    res.status(404).send('Oops! No log with that id exists');
-    return;
+    res.status(404).redirect('/anything');
   }
   res.json(logsArray[arrayIndex]);
 });
 
+logs.post('/', (req, res) => {
+  logsArray.push(req.body);
+  res.send(logsArray[logsArray.length - 1]);
+});
+
 module.exports = logs;
+
+//.redirect
+// https://stackoverflow.com/questions/19035373/how-do-i-redirect-in-expressjs-while-passing-some-context
