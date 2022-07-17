@@ -3,6 +3,8 @@ const app = express();
 
 const logsController = require("./controllers/logs.controller.js");
 
+//TODO: Change json to send for bad path
+
 app.use(express.json());
 
 app.get("/", (req, res) => {

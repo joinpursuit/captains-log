@@ -4,6 +4,7 @@ const logsArray = require("../models/log.js");
 
 logs.post("/", (req, res) => {
   logsArray.push(req.body);
+  res.json(logsArray[logsArray.length - 1]);
 });
 
 logs.get("/", (req, res) => {
