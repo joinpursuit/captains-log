@@ -4,6 +4,9 @@ const app = express();
 //import controller
 const logsController = require("./controllers/logsController");
 
+//parse the json
+app.use(express.json());
+
 app.get("/", (req, res) => {
   res.send("Welcome to the captain's log");
 });

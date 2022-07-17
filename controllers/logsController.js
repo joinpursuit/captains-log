@@ -6,4 +6,18 @@ logsController.get("/", (req, res) => {
   res.json(logs);
 });
 
+logsController.get("/:id", (req, res) => {
+  const { id } = req.params;
+  if (logs[id]) {
+    res.json(logs[id]);
+  } else {
+    res.send(`<a href="">Error</a>`);
+  }
+});
+
+logsController.post("/", (req, res) => {
+  logs.push(req.body);
+  res.send(logs[logs.length - 1]);
+});
+
 module.exports = logsController;
