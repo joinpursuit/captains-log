@@ -1,24 +1,23 @@
-express = require('express'); 
+express = require("express");
 const logs = express.Router();
-const logsData = require('../models/log')
+const logsData = require("../models/log");
 
-logs.get('/', (req, res) => {
-  res.json(logsData)
-})
+logs.get("/", (req, res) => {
+  res.json(logsData);
+});
 
-logs.get('/:arrayIndex', (req, res) => {
-  const { arrayIndex } = req.params; 
-  if(logsData[arrayIndex]) {
-    res.json(logsData[arrayIndex])
+logs.get("/:arrayIndex", (req, res) => {
+  const { arrayIndex } = req.params;
+  if (logsData[arrayIndex]) {
+    res.json(logsData[arrayIndex]);
   } else {
-    res.status(404).redirect('/Error')
+    res.status(404).redirect("/Error");
   }
-})
+});
 
-logs.post('/', (req, res) => {
-  logsData.push(req.body); 
-  res.json(logsData[logsData.length-1])
-})
+logs.post("/", (req, res) => {
+  logsData.push(req.body);
+  res.json(logsData[logsData.length - 1]);
+});
 
-
-module.exports = logs
+module.exports = logs;
