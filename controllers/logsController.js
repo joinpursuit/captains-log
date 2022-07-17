@@ -11,7 +11,7 @@ logsController.get("/:id", (req, res) => {
   if (logs[id]) {
     res.json(logs[id]);
   } else {
-    res.send(`<a href="">Error</a>`);
+    res.redirect("/error");
   }
 });
 
