@@ -20,6 +20,13 @@ logs.post('/', (req, res) => {
   res.send(logsArray[logsArray.length - 1]);
 });
 
+logs.put('/:arrayIndex', (req, res) => {
+  const arrayIndex = parseInt(req.params.arrayIndex);
+  const newData = req.body;
+  logsArray[arrayIndex] = newData;
+  res.send(logsArray[arrayIndex]);
+});
+
 logs.delete('/:arrayIndex', (req, res) => {
   const arrayIndex = parseInt(req.params.arrayIndex);
   logsArray.splice(arrayIndex, 1);
