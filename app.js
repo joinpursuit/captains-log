@@ -6,7 +6,7 @@ app.use(express.json());
 const logsController = require("./controllers/logsController");
 
 app.get("/", (req, res) => {
-  res.send("welcome to the captain's log");
+  res.send("Welcome to the captain's log");
 });
 
 app.use("/logs", logsController);
