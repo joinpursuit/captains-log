@@ -20,6 +20,12 @@ logs.post('/', (req, res) => {
   res.send(logsArray[logsArray.length - 1]);
 });
 
+logs.delete('/:arrayIndex', (req, res) => {
+  const arrayIndex = parseInt(req.params.arrayIndex);
+  logsArray.splice(arrayIndex, 1);
+  res.send(logsArray);
+});
+
 module.exports = logs;
 
 //.redirect
