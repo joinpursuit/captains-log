@@ -21,14 +21,26 @@ logs.get("/:id", (req, res) => {
   res.json(logArray[id]);
 });
 
+// logs.put("/:id", (req, res) => {
+//   logArray[req.params.id] = req.body;
+//   res.status(200).json(logArray[req.params.id]);
+// });
+
+// logs.delete("/:id", (req, res) => {
+//   const deletedLog = logArray.splice(req.params.id, 1);
+//   res.status(200).json(deletedLog);
+// });
 logs.put("/:id", (req, res) => {
-  logArray[req.params.id] = req.body;
-  res.status(200).json(logArray[req.params.id]);
+  const { id } = req.params;
+  const newData = req.body;
+  logs[id] = newData;
+  res.send(logs[id]);
 });
 
 logs.delete("/:id", (req, res) => {
-  const deletedLog = logArray.splice(req.params.id, 1);
-  res.status(200).json(deletedLog);
+  const { id } = req.params;
+  let itemsDelete = logArray.splice(id, 1);
+  res.send(itemsDelete);
 });
 
 module.exports = logs;
