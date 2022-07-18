@@ -8,7 +8,8 @@ logs.get('/', (req, res) => {
 
 logs.get('/:arrayIndex', (req, res) => {
   const arrayIndex = parseInt(req.params.arrayIndex);
-  if (arrayIndex < 0 || arrayIndex >= logsArray.length) {
+
+  if (!logsArray[arrayIndex]) {
     res.status(404).redirect('/anything');
   }
   res.json(logsArray[arrayIndex]);
