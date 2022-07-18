@@ -2,6 +2,8 @@ const express = require("express");
 const app = express();
 const logsController = require("./controllers/logs.controller.js");
 
+app.use(express.json());
+
 app.get("/", (request, response) => {
 	response.send("AHOY THERE MATEYS");
 });
