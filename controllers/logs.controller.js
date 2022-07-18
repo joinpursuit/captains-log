@@ -2,36 +2,14 @@ const express = require("express");
 const logs = express.Router();
 const logsArray = require("../models/log.js");
 
+const part1Bonus = require("./logs.controller.part1Bonus.js");
+
 logs.get("/", (req, res) => {
-  const { order } = req.query;
+  const { order, mistakes, lastCrisis } = req.query;
   const logsArrayCopy = [...logsArray];
 
-  if (order) {
-    if (order === "asc") {
-      res.send(
-        logsArrayCopy.sort((a, b) => {
-          if (a.captainName < b.captainName) {
-            return -1;
-          }
-          if (a.captainName > b.captainName) {
-            return 1;
-          }
-          return 0;
-        })
-      );
-    } else if (order === "desc") {
-      res.send(
-        logsArrayCopy.sort((a, b) => {
-          if (a.captainName < b.captainName) {
-            return 1;
-          }
-          if (a.captainName > b.captainName) {
-            return -1;
-          }
-          return 0;
-        })
-      );
-    }
+  if (order || mistakes || lastCrisis) {
+    part1Bonus(res, logsArrayCopy, order, mistakes, lastCrisis);
   } else {
     res.send(logsArray);
   }
