@@ -4,11 +4,19 @@ const logs = express.Router();
 const { validateURL } = require('../models/validations.js');
 const {
   sortByName,
-  filterMistakes
-
-} = require('../helper/bonus.js');
+  filterMistakes,
+  filterLastCrisis,
+} = require('../helper/sorted.js');
 
 logs.use(express.json());
+
+// logs.use('/:id', (req, res, next) => {
+//   if (!logs[req.params.id]) {
+//     res.status(404).send('Not Found');
+//   } else {
+//     next();
+//   }
+// });
 
 logs.get('/', (req, res) => {
   const { order, mistakes, lastCrisis } = req.query;
@@ -19,48 +27,103 @@ logs.get('/', (req, res) => {
     logArrayCopy = sortByName(logArrayCopy, order);
   }
 
-  if (mistakes !== undefined || mistakes !== null) {
+  if (mistakes !== undefined) {
     logArrayCopy = filterMistakes(logArrayCopy, mistakes);
   }
 
+  if (lastCrisis) {
+    logArrayCopy = filterLastCrisis(logArrayCopy, lastCrisis);
+  }
   res.send(logArrayCopy);
 });
 
 logs.get('/:id', (req, res) => {
-  const id = parseInt(req.params.id);
-  if (id < 0 || id >= logsArray.length) {
-    res.redirect(404);
-    return;
+  if (logsArray[req.params.id]) {
+    res.json(logsArray[req.params.id]);
   } else {
-    res.json(logsArray[id]);
+    res.redirect('/error');
   }
 });
 
 // CREATE
 logs.post('/', (req, res) => {
-  logsArray.push(req.body);
-  res.send(logsArray[logsArray.length - 1]);
+
+  const userLog = {
+    captainName: req.body.captainName,
+    title: req.body.title,
+    post: req.body.post,
+    mistakesWereMadeToday: req.body.mistakesWereMadeToday,
+    daysSinceLastCrisis: req.body.daysSinceLastCrisis,
+  };
+  if (
+    typeof userLog.captainName === 'string' &&
+    typeof userLog.title === 'string' &&
+    typeof userLog.post === 'string' &&
+    typeof userLog.mistakesWereMadeToday === 'boolean' &&
+    typeof Number(userLog.daysSinceLastCrisis) === 'number'
+  ) {
+    logsArray.push(userLog);
+    res.json(userLog);
+  } else {
+    res.send('Not Valid Datatype');
+  }
+// const checkType = {
+//         captainName: "string",
+//         title: "string",
+//         post: "string",
+//         mistakesWereMadeToday: true,
+//         daysSinceLastCrisis: 1
+//     }
+  // let isValid = true;
+
+  // for (const key in req.body) {
+  //   if (typeof checktype[key] !== typeof req.body[key]) {
+  //        console.log(typeof checktype[key] ,typeof req.body[key] )
+  //     isValid = false;
+  //     break;
+  //   }
+  // }
+  // if (isValid) {
+  //}
 });
 
 // UPDATE
-logs.put('/:arrayIndex', validateURL, async (req, res) => {
-  if (logsArray[req.params.arrayIndex]) {
-    logsArray[req.params.arrayIndex] = req.body;
-    res.status(200).json(logsArray[req.params.arrayIndex]);
+logs.put('/:id', (req, res) => {
+  const userLog = {
+    captainName: req.body.captainName,
+    title: req.body.title,
+    post: req.body.post,
+    mistakesWereMadeToday: req.body.mistakesWereMadeToday,
+    daysSinceLastCrisis: req.body.daysSinceLastCrisis,
+  };
+  const id = req.params.id;
+  if (
+    typeof userLog.captainName === 'string' &&
+    typeof userLog.title === 'string' &&
+    typeof userLog.post === 'string' &&
+    typeof userLog.mistakesWereMadeToday === 'boolean' &&
+    typeof Number(userLog.daysSinceLastCrisis) === 'number'
+  ) {
+      if (logsArray[id]) {
+    
+        logsArray[id] = newLog;
+         res.json(newLog);
+      } else {
+      res.send({ error: 'Not found' });
+    }
   } else {
-    res.status(404).json({ error: 'Not found' });
+    res.redirect('/error');
   }
 });
 
 //DELETE
 
-logs.delete('/:arrayIndex', (req, res) => {
-  if (logsArray[req.params.arrayIndex]) {
-    const deletedlog = logsArray.splice(req.params.indexArray, 1);
-    console.log(deletedlog);
-    res.status(200).json(deletedlog - 1);
+logs.delete('/:id', (req, res) => {
+  if (logsArray[req.params.id]) {
+    const deletedLog = logsArray.splice(req.params.id, 1);
+    res.json(deletedLog);
   } else {
-    res.status(404).json({ error: 'Not found' });
+    res.redirect('/error');
   }
 });
 
