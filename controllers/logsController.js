@@ -20,4 +20,24 @@ logsController.post("/", (req, res) => {
   res.send(logs[logs.length - 1]);
 });
 
+logsController.put("/:id", (req, res) => {
+  const { id } = req.params;
+  if (logs[id]) {
+    logs[id] = req.body;
+    res.send("updated bookmark");
+  } else {
+    res.redirect("/error");
+  }
+});
+
+logsController.delete("/:id", (req, res) => {
+  const { id } = req.params;
+  if (logs[id]) {
+    const removedBookmark = logs.splice(id, 1);
+    res.json(removedBookmark);
+  } else {
+    res.redirect("/error");
+  }
+});
+
 module.exports = logsController;
