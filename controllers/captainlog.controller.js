@@ -22,21 +22,13 @@ logs.get("/:id", (req, res) => {
 });
 
 logs.put("/:id", (req, res) => {
-  if (logArray[req.params.id]) {
-    logArray[req.params.id] = req.body;
-    res.status(200).json(logArray[req.params.id]);
-  } else {
-    res.status(404).redirect("http://localhost:3333/logs");
-  }
+  logArray[req.params.id] = req.body;
+  res.status(200).json(logArray[req.params.id]);
 });
 
 logs.delete("/:id", (req, res) => {
-  if (logArray[req.params.id]) {
-    const deletedLog = logArray.splice(req.params.id, 1);
-    res.status(200).json(deletedLog);
-  } else {
-    res.status(404).redirect("http://localhost:3333/logs");
-  }
+  const deletedLog = logArray.splice(req.params.id, 1);
+  res.status(200).json(deletedLog);
 });
 
 module.exports = logs;
