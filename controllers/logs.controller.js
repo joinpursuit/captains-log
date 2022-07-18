@@ -50,4 +50,13 @@ logs.post("/", (req, res) => {
   res.send(logsArray[logsArray.length - 1]);
 });
 
+logs.delete("/:id", (req, res) => {
+  if (logsArray[req.params.id]) {
+    logsArray.splice(req.params.id, 1);
+    res.send("log deleted");
+  } else {
+    res.status(404).redirect("/error");
+  }
+});
+
 module.exports = logs;
