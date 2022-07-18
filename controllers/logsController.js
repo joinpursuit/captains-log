@@ -7,7 +7,8 @@ const logsData = require("../models/log.js");
 
 // ROUTES
 logs.get("/", (req, res) => {
-  res.json(logsData);
+
+  res.send('');
 });
 
 

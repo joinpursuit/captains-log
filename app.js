@@ -1,6 +1,6 @@
 // DEPENDENCIES
 const express = require("express");
-//const logsController = require("./controllers/logsController.test.js")
+const logsController = require("./controllers/logsController.test.js")
 
 // CONFIGURATION
 const app = express();
@@ -13,7 +13,7 @@ app.get("/", (req, res) => {
 });
 
 // CONTROLLER-ROUTES
-//app.use("/logs", logsController);
+app.use("/logs", logsController);
 
 app.get("*", (req, res) => {
   res.send("Sorry, no page found!");
