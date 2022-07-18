@@ -20,4 +20,17 @@ logs.post('/', (req, res) => {
   res.json(logsArray[logsArray.length - 1])
 })
 
+logs.put('/:id', (req, res) => {
+  const { id } = req.params
+  const newData = req.body
+  logs[id] = newData
+  res.send(logs[id])
+})
+
+logs.delete('/:id', (req, res) => {
+  const { id } = req.params
+  let itemsDelete = logsArray.splice(id, 1)
+  res.send(itemsDelete)
+})
+
 module.exports = logs

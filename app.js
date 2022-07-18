@@ -8,10 +8,10 @@ app.get('/', (req, res) => {
   res.send("welcome to the captain's log")
 })
 
-// app.use((req, res, next) => {
-//   console.log('This code runs for every request', req.method, req.url)
-//   next()
-// })
+app.use((req, res, next) => {
+  console.log('This code runs for every request', req.method, req.url)
+  next()
+})
 
 app.use('/logs', logsController)
 
