@@ -2,12 +2,10 @@ const express = require("express")
 const logsArray = require("../models/log")
 const bodyParser = require("body-parser")
 const {sortByCaptainName, findMistakes, findLastCrisis} = require("../helper/sort")
-
 const logs = express.Router()
 
 logs.use(bodyParser.urlencoded({ extended: false}));
 logs.use(bodyParser.json());
-
 logs.get("/", (request, response) => {
     console.log("Get /logs")
     const {order, mistakes, lastCrisis} = request.query

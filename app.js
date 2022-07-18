@@ -1,8 +1,8 @@
 const express = require("express")
 const logsController = require("./controllers/logs")
 const logsArray = require(".models/log")
-
 const app = express()
+
 app.use("/logs", logsController)
 
 app.get("/", (request, response)=> {
