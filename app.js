@@ -1,19 +1,25 @@
-const express = require("express")
+const express = require("express");
 
-const app = express()
+const app = express();
 
-const controlledLogs = require("./controllers/logsController.test")
+const PORT = 3003;
 
-app.get('/', (req, res) => {
-    res.send("Welcome to the Captain's Log!")
-})
+const controlledLogs = require("./controllers/logs.controller");
 
-app.use("./logs", controlledLogs)
+app.use(express.json());
 
-app.get("*" , (req, res) => {
-    res.status(404).send("Oops, no page found!")
-})
+app.get("/", (req, res) => {
+  res.send("Welcome to the Captain's Log!");
+});
 
+app.use("/logs", controlledLogs);
 
+app.use("*", (req, res) => {
+  res.status(404).send("Oops, no page found!");
+});
 
-module.exports = app
+app.listen(PORT, () => {
+  console.log(`Listening on port ${PORT}`);
+});
+
+module.exports = app;
