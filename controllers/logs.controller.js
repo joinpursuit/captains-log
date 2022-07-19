@@ -2,10 +2,16 @@ const express = require('express');
 const logs = express.Router();
 const logsArray = require('../models/log.js');
 
-// route for show
+// sends the logs array
+logs.get('/', (req, res) => {
+	res.send(logsArray);
+});
+
+// route for show and redirect
 logs.get('/:id', (req, res) => {
-	if (logsArray[req.params.id]) {
-		res.send(logsArray.req.params.id);
+	const id = req.params.id;
+	if (logsArray[id]) {
+		res.send(logsArray[req.params.id]);
 	} else {
 		res.status(404).redirect('Error!');
 	}
@@ -19,23 +25,23 @@ logs.post('/', (req, res) => {
 
 // update route
 logs.put('/:id', (req, res) => {
-	const id = req.params.id
+	const id = req.params.id;
 	if (logs[id]) {
-		logs[id] = req.body
-		res.send('logs updated!')
+		logs[id] = req.body;
+		res.send('logs updated!');
 	} else {
-		res.status(404).redirect('Error!')
+		res.status(404).redirect('Error!');
 	}
-})
+});
 
 // deleting
-logs.delete('/:id', (req, res) =>{
-	const id = req.params.id
-	if (logs[id]) {
-		const deleteId = logs.splice(id,1)
-		res.send(deleteId)
+logs.delete('/:id', (req, res) => {
+	const id = req.params.id;
+	if (logsArray[id]) {
+		const deleteId = logsArray.splice(id, 1);
+		res.send(deleteId);
 	} else {
-		res.status(404).redirect('Error!')
+		res.status(404).redirect('Error!');
 	}
-})
+});
 module.exports = logs;
