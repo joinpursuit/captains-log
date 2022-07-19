@@ -13,16 +13,22 @@ logs.get("/", (req, res) => {
   res.send(logsData);
 });
 // GET => Show
-// logs.get("/:id", (req, res) => {
-//   const { id } = req.params;
-//   res.json(logsData[id]);
-// });
+logs.get("/:id", (req, res) => {
+  const { id } = req.params;
+  //
+  (logsData[id])
+  ?
+    res.json(logsData[id])
+  :
+    res.status(404).redirect('/')
+});
 
 // // POST => Create
-// logs.post("/", (req, res) => {
-//   logsData.push(req.json);
-//   res.json(logsData[logsData.length - 1]);
-// });
+logs.post("/", (req, res) => {
+  console.log(req)
+  logsData.push(req.body);
+  res.json(logsData[logsData.length - 1]);
+});
 
 // // DELETE => Destroy
 // logs.delete("/:indexArray", (req, res) => {
