@@ -7,7 +7,12 @@ logs.get("/", (req, res) => {
 });
 
 logs.get("/:id", (req, res) => {
-  res.json(logArray[req.params.id]);
+  const { id } = req.params;
+  if (logArray[id]) {
+    res.json(logArray[req.params.id]);
+  } else {
+    res.status(404).redirect("/Error");
+  }
 });
 
 logs.delete("/:id", (req, res) => {
