@@ -1,6 +1,6 @@
 // DEPENDENCIES
 const express = require("express");
-const logsController = require("./controllers/logsController.test.js")
+const logsController = require("./controllers/logsController.js")
 
 // CONFIGURATION
 const app = express();
