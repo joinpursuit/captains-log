@@ -1,7 +1,7 @@
 const express = require("express")
 const logs = express.Router();
 
-const logsArray = require("../models/logs.js")
+const logsArray = require("../models/log.js")
 const {validateURL} =require("../models/validations")
 
 // logs.get("/", (req, res) => {
@@ -31,7 +31,7 @@ logs.get("/:arrayIndex", (req, res) => {
     if(logsArray[arrayIndex]) {
         res.json(logsArray[arrayIndex])
     } else {
-        res.status(404).send("no log found - sorry")
+        res.redirect(404).send("no log found - sorry")
     }
 })
     
@@ -40,5 +40,16 @@ logs.post("/", (req, res) => {
     res.json(logsArray[logsArray.length-1])
 })
 
+logs.delete("/:arrayIndex", (req, res) => {
+    const {arrayIndex } =  req.params;
+    const deletedlogs = logsArray.splice(arrayIndex, 1)
+    res.status(200).json(deletedlogs)
+  });
+  
+  logs.put("/:arrayIndex", (req, res) => {
+    const {arrayIndex } =  req.params;
+    logsArray[arrayIndex] = req.body
+    res.status(200).json(logsArray[arrayIndex])
+  })
 
 module.exports = logs

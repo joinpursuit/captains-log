@@ -15,7 +15,8 @@ app.get("/", (req, res) => {
 app.use("/logs", logsController)
 
 app.get("*", (req, res) => {
-    res.status(404).json({error: "page not found"})
+    res.redirect(404).json({error: "page not found"})
 })
+
 
 module.exports = app
