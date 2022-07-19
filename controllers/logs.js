@@ -17,7 +17,7 @@ logs.get("/:arrayIndex", (req, res) => {
   if (logsData[arrayIndex]) {
     res.json(logsData[arrayIndex]);
   } else {
-    res.status(404).json({ error: "Not found!" });
+    res.status(302).send("Not found. Please return to home page.");
   }
 });
 
