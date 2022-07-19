@@ -1,8 +1,9 @@
 express = require("express");
 const logs = express.Router();
 const logsData = require("../models/log");
+const { validateValues, sortQuery } = require('../models/validations')
 
-logs.get("/", (req, res) => {
+logs.get("/", sortQuery, (req, res) => {
   res.json(logsData);
 });
 
@@ -16,7 +17,7 @@ logs.get("/:arrayIndex", (req, res) => {
   }
 });
 
-logs.post("/", (req, res) => {
+logs.post("/", validateValues, (req, res) => {
   logsData.push(req.body);
   res.json(logsData[logsData.length - 1]);
 });

@@ -10,7 +10,7 @@ module.exports = [
     captainName: "Ahab",
     title: "Whale",
     post: "By heavens man, we are turned round and round in this world, like yonder windlass, and fate is the handspike.",
-    mistakesWereMadeToday: true,
+    mistakesWereMadeToday: false,
     daysSinceLastCrisis: 20,
   },
   {
