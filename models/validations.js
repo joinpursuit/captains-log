@@ -48,31 +48,31 @@ const sortQuery = (req, res, next) => {
         return 0;
       })
     );
-  } else if (mistakes === 'true') {
+  } else if (mistakes === "true") {
     res.send(
       logsDataCopy.filter((log) => {
         return log.mistakesWereMadeToday;
       })
     );
-  } else if (mistakes === 'false') {
+  } else if (mistakes === "false") {
     res.send(
       logsDataCopy.filter((log) => {
         return !log.mistakesWereMadeToday;
       })
     );
-  } else if (lastCrisis === 'gt10') {
+  } else if (lastCrisis === "gt10") {
     res.send(
       logsDataCopy.filter((log) => {
         return log.daysSinceLastCrisis > 10;
       })
     );
-  } else if (lastCrisis === 'gt20') {
+  } else if (lastCrisis === "gt20") {
     res.send(
       logsDataCopy.filter((log) => {
         return log.daysSinceLastCrisis >= 20;
       })
     );
-  } else if (lastCrisis === 'gt5') {
+  } else if (lastCrisis === "gt5") {
     res.send(
       logsDataCopy.filter((log) => {
         return log.daysSinceLastCrisis <= 5;
