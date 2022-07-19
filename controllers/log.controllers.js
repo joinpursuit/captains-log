@@ -1,0 +1,23 @@
+const express = require("express");
+const logs = express.Router();
+const logArray = require("../models/log");
+
+logs.get("/", (req, res) => {
+  res.json(logArray);
+});
+
+logs.get("/:id", (req, res) => {
+  res.json(logArray[req.params.id]);
+});
+
+logs.delete("/:id", (req, res) => {
+  const deleted = logArray.splice(req.params.id, 1);
+  res.status(200).json(deleted);
+});
+
+logs.post("/", (req, res) => {
+  logArray.push(req.body);
+  res.json(logArray[logArray.length - 1]);
+});
+
+module.exports = logs;
