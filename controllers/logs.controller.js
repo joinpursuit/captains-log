@@ -19,4 +19,12 @@ logs.post("/", (req, res) => {
   res.send(logsArray[logsArray.length - 1]);
 });
 
+logs.put()
+
+logs.delete("/:id", (req, res) => {
+  const { id } = req.params;
+  logsArray.splice(id, 1);
+  res.send(logsArray[id])
+});
+
 module.exports = logs;

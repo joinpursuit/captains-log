@@ -5,6 +5,7 @@ const app = express();
 const PORT = 3003;
 
 const controlledLogs = require("./controllers/logs.controller");
+const logs = require("./models/logs");
 
 app.use(express.json());
 
