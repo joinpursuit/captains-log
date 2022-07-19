@@ -15,7 +15,6 @@ app.get("/", (req, res) => {
 // CONTROLLER-ROUTES
 app.use("/logs", logsController);
 
-
 app.get("*", (req, res) => {
   res.send("Sorry, no page found!");
 });

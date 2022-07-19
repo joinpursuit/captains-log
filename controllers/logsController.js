@@ -23,7 +23,16 @@ logs.get("/:id", (req, res) => {
 
 // POST => Create
 logs.post("/", (req, res) => {
-  logsData.push(req.body);
+  console.log(res.json)
+  const newLog = {
+    captainName: "Picard",
+    title: "Stars",
+    post: "Today I contemplated that there sure are a lot of stars in the sky",
+    mistakesWereMadeToday: true,
+    daysSinceLastCrisis: "10",
+  };
+
+  logsData.push(newLog);
   res.send(logsData[logsData.length - 1]);
 });
 
