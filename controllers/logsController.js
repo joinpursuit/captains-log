@@ -9,18 +9,15 @@ const logsData = require("../models/log.js");
 
 // GET => index
 logs.get("/", (req, res) => {
-
+  //
   res.send(logsData);
 });
+
 // GET => Show
 logs.get("/:id", (req, res) => {
   const { id } = req.params;
   //
-  (logsData[id])
-  ?
-    res.json(logsData[id])
-  :
-    res.status(404).redirect('/')
+  (logsData[id]) ? res.json(logsData[id]) : res.status(404).redirect('/')
 });
 
 // // POST => Create
@@ -31,10 +28,10 @@ logs.post("/", (req, res) => {
 });
 
 // // DELETE => Destroy
-// logs.delete("/:indexArray", (req, res) => {
-//   const deletedLog = logsData.splice(req.params.indexArray, 1);
-//   res.status(200).json(deletedLog);
-// });
+logs.delete("/:indexArray", (req, res) => {
+  const deletedLog = logsData.splice(req.params.indexArray, 1);
+  res.status(200).json(deletedLog);
+});
 
 
 // EXPORT
