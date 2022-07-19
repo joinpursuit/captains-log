@@ -1,99 +1,101 @@
-const request = require("supertest");
+/** @format */
 
-const logs = require("../app.js");
-let logsArray = require("../models/log.js");
+const request = require('supertest');
 
-describe("logs", () => {
-  let originalLogsArray = logsArray;
+const logs = require('../app.js');
+let logsArray = require('../models/logs.js');
 
-  beforeEach(() => {
-    logsArray = originalLogsArray;
-  });
+describe('logs', () => {
+	let originalLogsArray = logsArray;
 
-  describe("/logs", () => {
-    describe("GET", () => {
-      it("sends the logs array", async () => {
-        const response = await request(logs).get("/logs");
+	beforeEach(() => {
+		logsArray = originalLogsArray;
+	});
 
-        expect(JSON.parse(response.text)).toEqual(logsArray);
-      });
-    });
+	describe('/logs', () => {
+		describe('GET', () => {
+			it('sends the logs array', async () => {
+				const response = await request(logs).get('/logs');
 
-    describe("POST", () => {
-      it("adds new log to end of logs array", async () => {
-        const newLastArrayPosition = logsArray.length;
-        const newLog = {
-          captainName: "Picard",
-          title: "Stars",
-          post: "Today I contemplated that there sure are a lot of stars in the sky",
-          mistakesWereMadeToday: true,
-          daysSinceLastCrisis: "10",
-        };
+				expect(JSON.parse(response.text)).toEqual(logsArray);
+			});
+		});
 
-        await new Promise((resolve) => {
-          request(logs)
-            .post(`/logs`)
-            .send(newLog)
-            .set("Accept", "application/json")
-            .expect("headers.location", "/logs")
-            .expect("statusCode", 303)
-            .end(resolve);
-        });
+		describe('POST', () => {
+			it('adds new log to end of logs array', async () => {
+				const newLastArrayPosition = logsArray.length;
+				const newLog = {
+					captainName: 'Picard',
+					title: 'Stars',
+					post: 'Today I contemplated that there sure are a lot of stars in the sky',
+					mistakesWereMadeToday: true,
+					daysSinceLastCrisis: '10',
+				};
 
-        expect(logsArray[newLastArrayPosition]).toEqual(newLog);
-      });
-    });
-  });
+				await new Promise((resolve) => {
+					request(logs)
+						.post(`/logs`)
+						.send(newLog)
+						.set('Accept', 'application/json')
+						.expect('headers.location', '/logs')
+						.expect('statusCode', 303)
+						.end(resolve);
+				});
 
-  describe("/logs/:arrayIndex", () => {
-    describe("GET", () => {
-      it("sends the corresponding log when a valid index is given", async () => {
-        const response = await request(logs).get("/logs/1");
+				expect(logsArray[newLastArrayPosition]).toEqual(newLog);
+			});
+		});
+	});
 
-        expect(JSON.parse(response.text)).toEqual(logsArray[1]);
-      });
+	describe('/logs/:arrayIndex', () => {
+		describe('GET', () => {
+			it('sends the corresponding log when a valid index is given', async () => {
+				const response = await request(logs).get('/logs/1');
 
-      it("sends a redirect when an invalid index is given", async () => {
-        const response = await request(logs).get("/logs/9001");
+				expect(JSON.parse(response.text)).toEqual(logsArray[1]);
+			});
 
-        expect(response.redirect).toBe(true);
-      });
-    });
+			it('sends a redirect when an invalid index is given', async () => {
+				const response = await request(logs).get('/logs/9001');
 
-    describe("PUT", () => {
-      it("replaces the index in the logs array", async () => {
-        const updatedLog = logsArray[0];
+				expect(response.redirect).toBe(true);
+			});
+		});
 
-        await new Promise((resolve) => {
-          request(logs)
-            .put("/logs/0")
-            .send(updatedLog)
-            .set("Accept", "application/json")
-            .expect("headers.location", "/logs/")
-            .expect("statusCode", 303)
-            .end(resolve);
-        });
+		describe('PUT', () => {
+			it('replaces the index in the logs array', async () => {
+				const updatedLog = logsArray[0];
 
-        expect(logsArray[0]).toEqual(updatedLog);
-      });
-    });
+				await new Promise((resolve) => {
+					request(logs)
+						.put('/logs/0')
+						.send(updatedLog)
+						.set('Accept', 'application/json')
+						.expect('headers.location', '/logs/')
+						.expect('statusCode', 303)
+						.end(resolve);
+				});
 
-    describe("DELETE", () => {
-      it("deletes at the index in the logs array", async () => {
-        const logToDelete = logsArray[2];
-        const originalLength = logsArray.length;
-        await new Promise((resolve) => {
-          request(logs)
-            .delete("/logs/2")
-            .set("Accept", "application/json")
-            .expect("headers.location", "/logs")
-            .expect("statusCode", 303)
-            .end(resolve);
-        });
+				expect(logsArray[0]).toEqual(updatedLog);
+			});
+		});
 
-        expect(logsArray[2]).toEqual(originalLogsArray[2]);
-        expect(logsArray).toHaveLength(originalLength - 1);
-      });
-    });
-  });
+		describe('DELETE', () => {
+			it('deletes at the index in the logs array', async () => {
+				const logToDelete = logsArray[2];
+				const originalLength = logsArray.length;
+				await new Promise((resolve) => {
+					request(logs)
+						.delete('/logs/2')
+						.set('Accept', 'application/json')
+						.expect('headers.location', '/logs')
+						.expect('statusCode', 303)
+						.end(resolve);
+				});
+
+				expect(logsArray[2]).toEqual(originalLogsArray[2]);
+				expect(logsArray).toHaveLength(originalLength - 1);
+			});
+		});
+	});
 });
