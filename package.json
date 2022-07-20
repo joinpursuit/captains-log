@@ -1,18 +1,30 @@
 {
   "name": "captains-log",
   "version": "1.0.0",
-  "description": "",
+  "description": "![](https://cdn.shopify.com/s/files/1/2256/1635/products/4520_c-01.jpg?v=1510506828)",
   "main": "server.js",
   "scripts": {
     "test": "jest",
     "start": "node server.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Jamal Ruiz",
   "license": "ISC",
   "devDependencies": {
     "@types/jest": "^26.0.23",
     "jest": "^27.0.4",
     "supertest": "^6.1.3"
-  }
+  },
+  "dependencies": {
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jamalRuiz/captains-log-api.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jamalRuiz/captains-log-api/issues"
+  },
+  "homepage": "https://github.com/jamalRuiz/captains-log-api#readme"
 }
