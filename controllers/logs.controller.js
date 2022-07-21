@@ -41,7 +41,7 @@ logs.get('/:id', (req, res) => {
   if (logsArray[req.params.id]) {
     res.json(logsArray[req.params.id]);
   } else {
-    res.status(404).redirect('/error');
+    res.status(403).redirect('/error');
   }
 });
 
