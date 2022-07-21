@@ -23,8 +23,8 @@ logs.post('/', (req, res) => {
 logs.put('/:id', (req, res) => {
   const { id } = req.params
   const newData = req.body
-  logs[id] = newData
-  res.send(logs[id])
+  logsArray[id] = newData
+  res.send(logsArray[id])
 })
 
 logs.delete('/:id', (req, res) => {
