@@ -27,6 +27,11 @@ router.post('/logs', (req, res) => {
   res.json(logs);
 });
 
+router.put('/logs/:id', (req, res) => {
+  logs[req.params.id] = req.body;
+  res.json(logs[req.params.id]);
+});
+
 router.delete('/logs/:id', (req, res) => {
   logs.splice(req.params.id, 1);
   res.send(logs);
