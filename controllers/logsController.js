@@ -10,7 +10,7 @@ logs.post('/', (req, res) => {
 		logsArray.push(req.body);
 		res.json(logsArray[logsArray.length - 1]);
 	} else {
-		res.status(404).redirect('*');
+		res.redirect('/*');
 	}
 });
 
@@ -28,7 +28,6 @@ logs.get('/:arrayIndex', (req, res) => {
 logs.delete('/:arrayIndex', (req, res) => {
 	const { arrayIndex } = req.params;
 	if (logsArray[arrayIndex]) {
-		const { arrayIndex } = req.params;
 		const deletedLog = logsArray.splice(arrayIndex, 1);
 		res.status(200).json(deletedLog);
 	} else {
@@ -40,7 +39,6 @@ logs.delete('/:arrayIndex', (req, res) => {
 logs.put('/:arrayIndex', (req, res) => {
 	const { arrayIndex } = req.params;
 	if (logsArray[arrayIndex]) {
-		const { arrayIndex } = req.params;
 		logsArray[arrayIndex] = req.body;
 		res.status(200).json(logsArray[arrayIndex]);
 	} else {

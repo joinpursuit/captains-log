@@ -4,7 +4,10 @@
 const express = require('express');
 // CONFIGURATION
 const app = express();
-// MIDDLEWARE that turns our JSON into usable JAVASCRIPT. Parse incoming JSON
+// MIDDLEWARE that turns our JSON into usable JAVASCRIPT. Parse incoming JSON.
+const cors = require('cors');
+
+app.use(cors());
 app.use(express.json());
 
 const logs = require('./models/logs.js');
