@@ -4,7 +4,7 @@ let logsData = require("../models/log.js");
 
 logs.use("/:id", (request, response, next) => {
 	if (!logsData[request.params.id]) {
-		response.redirect("*");
+		response.redirect("/*");
 	}
 	next();
 });
