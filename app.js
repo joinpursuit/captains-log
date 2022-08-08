@@ -1,8 +1,12 @@
 const express = require("express");
 const app = express();
 const logController = require("./controllers/log.controller");
+const cors = require("cors");
 
 app.use(express.json());
+
+app.use(cors());
+
 app.use("/logs", logController);
 
 app.get("/", (req, res) => {
