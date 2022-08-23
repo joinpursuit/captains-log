@@ -1,7 +1,10 @@
 {
-  "name": "captains-log",
+  "name": "captains-log-api",
   "version": "1.0.0",
-  "description": "",
+	"engines": {
+    "node": "17.4.0"
+  },
+  "description": "captain's log backend",
   "main": "server.js",
   "scripts": {
     "test": "jest",
